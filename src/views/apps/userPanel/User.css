@@ -1,0 +1,201 @@
+.user__header {
+    background-image: url('./assets/map.jpg');
+    background-size: cover;
+    height: 600px;
+    width: 100%;
+    /* filter: blur(2px);
+    -webkit-filter: blur(2px); */
+}
+.user__header > h2 {
+    opacity: 1;
+    z-index: 999;
+}
+.city__options {
+    padding: 3px;
+    cursor: pointer;
+    padding-left: 5px;
+}
+.city__options:hover {
+    background-color: rgb(211, 211, 211);
+}
+.dropdown__cities__wrapper {
+    display: flex;
+}
+.dropdown__cities {
+    display: flex;
+    padding: 3px;
+    background-color: #e6e6e6;
+    margin: 2px;
+    align-items: center;
+    border-radius: 2px;
+}
+.close__icon__wrapper:hover {
+    background-color: rgba(255, 0, 0, 0.2);;
+    cursor: pointer;
+}
+
+/* Section Divider */ 
+.section__divider {
+    background-image: url('./assets/map.jpg');
+    background-size: cover;
+    height: 150px;
+    width: 100%;
+    /* filter: blur(2px);
+    -webkit-filter: blur(2px); */
+}
+
+/* Body */ 
+.user__body {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.body__section__title {
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.body__section__buttons {
+    padding: 4px;
+}
+.body__section__buttons > Button {
+    margin: 4px;
+}
+.body__homes__counter {
+    margin-top: 10px;
+    background-color: #d3d3d3;
+    padding: 8px;
+    margin-bottom: 3px;
+    border-radius: 6px;
+}
+.body__count__homes {
+    font-weight: 600;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+}
+.body__house__card {
+    margin: 10px;
+    border: 1px solid#808080;
+    border-radius: 7px;
+    padding: 4px;
+}
+.body__count__homesss {
+    margin-left: 10px;
+    color: #0000ff;
+}
+.scroller__image {
+    height: 170px;
+    width: 250px;
+    border-radius: 6px;
+}
+.houses__type {
+    color: #0000ff;
+    font-weight: 500;
+}
+.scroller {
+    margin-top: 20px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.my-scroller {
+    scrollbar-color: red;
+}
+.scroller__bottom {
+    padding: 3px;
+    border-radius: 5px;
+}
+.scroller__bottom:hover {
+    cursor: pointer;
+    background-color: #0000ff80;
+    color: #fff;
+}
+/* Rent Details */
+.details__header__text {
+    color: #0000ff80;
+}
+
+/* Rent Details Page */
+.rent__det__body {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.rent__det__header {
+    /* background-image: url('./assets/new/8.jpg'); */
+    height: 200px;
+    width: 100%;
+    background-size: cover;
+    border-radius: 4px;
+}
+.rent__det__price {
+    color: #0000ff80;
+    font-weight: 700;
+    margin-top: 5px;
+}
+.rent__house__location {
+    width: 30%;
+    background-color: rgb(0,0,0, 0.5);
+    margin: 6px ;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.rent__svg__image {
+    height: 30px;
+    width: 30px;
+}
+/* Rent DetailsFilter */
+.rent__details__filter {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.rent__details__title {
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    color: #101010;
+}
+.rent__inner__details__body {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.rent__inner__details__body__title {
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    color: #101010;
+}
+.rent__inner__details__body__price__title {
+    color: #0000ff80;   
+    font-weight: 600;
+}
+.inner__side__image {
+    height: 400px;
+    width: 100%;
+}
+.inner__middle__image {
+    height: 200px;
+    width: 100%;
+    
+}
+.inner__rent__details__about__title {
+    margin-top: 20px;
+    font-size: 24px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    color: #101010;
+}
+.inner__rent__details__about__key {
+    font-weight: 700;
+    color: #101010;
+}
+.inner__rent__details__quality__features {
+    width: 50%;
+    padding: 10px;
+}

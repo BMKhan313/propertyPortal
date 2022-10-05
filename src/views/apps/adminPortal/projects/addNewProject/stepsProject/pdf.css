@@ -1,0 +1,35 @@
+.main__title {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    color: rgb(0,0,255);
+    margin-bottom: 10px;
+}
+.project__title {
+    font-size: 18px;
+    color: #000;
+    font-weight: 700;
+}
+.sub__heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.inner__sub__heading {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.my__text {
+    font-size: 8px;
+}
+.my__table {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
