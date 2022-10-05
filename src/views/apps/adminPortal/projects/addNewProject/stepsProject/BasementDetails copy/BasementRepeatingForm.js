@@ -82,20 +82,20 @@ const RepeatingForm = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues })
-// bmk*
-  // useEffect(() => {
-  //   Axios.get(`${baseURL}/getProjectType`)
-  //     .then(response => {
-  //       const rec = response.data.type.map(({ id, type }) => ({
-  //         id,
-  //         value: id,
-  //         label: type
-  //       }))
-  //       setFloorType(rec)
-  //       //   setLoading(false)
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
+
+  useEffect(() => {
+    Axios.get(`${baseURL}/getProjectType`)
+      .then(response => {
+        const rec = response.data.type.map(({ id, type }) => ({
+          id,
+          value: id,
+          label: type
+        }))
+        setFloorType(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+  }, [])
   return (
     <Card>
       <CardHeader>
@@ -356,7 +356,7 @@ const RepeatingForm = () => {
                           value={store.projectData.basements[i].noParkings}
                           downHandler={<Minus />}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       </div>
                     </Col>

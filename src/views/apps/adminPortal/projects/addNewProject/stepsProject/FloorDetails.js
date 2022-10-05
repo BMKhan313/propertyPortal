@@ -139,14 +139,14 @@ const FloorDetails = ({ stepper }) => {
   }
 
   const submitData = () => {
-    // axios.post('http://thesfb.live/PropertyPortalBackend/api/postProject', JSON.stringify(store.projectData))
-    // .then(function (response) {
-    //   console.log("api response", response)
-    // })
-    // .catch(function (error) {
-    //   console.log("api error", error)
-    // })
-    // console.log("New DATA: ", JSON.stringify(store.projectData))
+    axios.post('http://thesfb.live/PropertyPortalBackend/api/postProject', JSON.stringify(store.projectData))
+    .then(function (response) {
+      console.log("api response", response)
+    })
+    .catch(function (error) {
+      console.log("api error", error)
+    })
+    console.log("New DATA: ", JSON.stringify(store.projectData))
     
   }
 

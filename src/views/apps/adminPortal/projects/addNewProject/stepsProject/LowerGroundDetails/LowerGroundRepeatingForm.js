@@ -98,20 +98,20 @@ const RepeatingForm = ({ii}) => {
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues })
-// bmk*
-  // useEffect(() => {
-  //   Axios.get(`${baseURL}/getProjectType`)
-  //     .then(response => {
-  //       const rec = response.data.type.map(({ id, type }) => ({
-  //         id,
-  //         value: id,
-  //         label: type
-  //       }))
-  //       setFloorType(rec)
-  //       //   setLoading(false)
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
+
+  useEffect(() => {
+    Axios.get(`${baseURL}/getProjectType`)
+      .then(response => {
+        const rec = response.data.type.map(({ id, type }) => ({
+          id,
+          value: id,
+          label: type
+        }))
+        setFloorType(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+  }, [])
   return (
     <Card>
       <CardHeader>
@@ -138,7 +138,34 @@ const RepeatingForm = ({ii}) => {
                 </AccordionHeader>
                 <AccordionBody accordionId={`${i}`}>
                   <Row className='justify-content-between align-items-center'>
-                   
+                    {/* <Col md={4} className='mb-md-0 mb-1'>
+                      <Label className='form-label' for={`animation-cost-${i}`}>
+                        Basement No
+                      </Label>
+                      <InputGroup className='mt-2'>
+                        <InputGroupText>Basement-</InputGroupText>
+                        <Input
+                          type='text'
+                          id={`animation-cost-${i}`}
+                          placeholder='32'
+                          value={store.projectData.lowerGrounds[i].label.replace(
+                            'Basement-',
+                            ''
+                          )}
+                          onChange={e => {
+                            dispatch(
+                              updateFloorProperties([
+                                `Basement-${e.target.value}`,
+                                'lowerGrounds',
+                                i,
+                                'label',
+                                'Parking'
+                              ])
+                            )
+                          }}
+                        />
+                      </InputGroup>
+                    </Col> */}
                     <Col md='3' className='mb-1' style={{ zIndex: 3 }}>
                       <Label className='form-label' for='floorType'>
                         Floor Type
@@ -423,7 +450,7 @@ const RepeatingForm = ({ii}) => {
                           value={store.projectData.lowerGrounds[i].noParkings}
                           downHandler={<Minus />}
                           id='min-max-number-input'
-                         readOnly
+                          readonly='true'
                         />
                     </Col>
 
@@ -461,7 +488,7 @@ const RepeatingForm = ({ii}) => {
                           }}
                           value={store.projectData.lowerGrounds[i].noShops}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       
                       </div>

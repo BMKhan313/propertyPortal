@@ -115,20 +115,20 @@ const RepeatingForm = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues })
-// bmk*
-  // useEffect(() => {
-  //   Axios.get(`${baseURL}/getProjectType`)
-  //     .then(response => {
-  //       const rec = response.data.type.map(({ id, type }) => ({
-  //         id,
-  //         value: id,
-  //         label: type
-  //       }))
-  //       setFloorType(rec)
-  //       //   setLoading(false)
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
+
+  useEffect(() => {
+    Axios.get(`${baseURL}/getProjectType`)
+      .then(response => {
+        const rec = response.data.type.map(({ id, type }) => ({
+          id,
+          value: id,
+          label: type
+        }))
+        setFloorType(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+  }, [])
   return (
     <Card>
       <CardHeader>
@@ -623,7 +623,7 @@ const RepeatingForm = () => {
                           value={store.projectData.floors[i].noParkings}
                           downHandler={<Minus />}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       </div>
                     </Col>
@@ -715,7 +715,7 @@ const RepeatingForm = () => {
                           }}
                           value={store.projectData.floors[i].noShops}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                         
                       </div>
@@ -749,7 +749,7 @@ const RepeatingForm = () => {
                           value={store.projectData.floors[i].noFoodCourts}
                           downHandler={<Minus />}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       </div>
                     </Col>
@@ -782,7 +782,7 @@ const RepeatingForm = () => {
                           }}
                           value={store.projectData.floors[i].noCorporateOffices}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       </div>
                     </Col>
@@ -815,7 +815,7 @@ const RepeatingForm = () => {
                           }}
                           value={store.projectData.floors[i].noApartments}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       </div>
                     </Col>
@@ -850,7 +850,7 @@ const RepeatingForm = () => {
                             store.projectData.floors[i].noServiceApartments
                           }
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       </div>
                     </Col>
@@ -883,7 +883,7 @@ const RepeatingForm = () => {
                           }}
                           value={store.projectData.floors[i].noHotelSuites}
                           id='min-max-number-input'
-                          readOnly
+                          readonly='true'
                         />
                       </div>
                     </Col>

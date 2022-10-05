@@ -322,7 +322,7 @@ const noParkings = props => {
                             <InputGroup>
                               <InputGroupText>Sq.Ft</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={
                                   store.projectData.floors[props.i].parkings[ii]
@@ -345,7 +345,7 @@ const noParkings = props => {
                               <InputGroupText>PKR</InputGroupText>
                               <Input
                                 // readOnly='true'
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={
                                   store.projectData.floors[props.i].priceShops *

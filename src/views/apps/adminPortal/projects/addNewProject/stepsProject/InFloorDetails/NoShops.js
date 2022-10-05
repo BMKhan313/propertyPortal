@@ -438,7 +438,7 @@ const noShops = props => {
                             <InputGroup>
                               <InputGroupText>Sq.Ft</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={
                                   store.projectData.floors[props.i].shops[ii]
@@ -461,7 +461,7 @@ const noShops = props => {
                               <InputGroupText>PKR</InputGroupText>
                               <Input
                                 // readOnly='true'
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={[
                                   store.projectData.floors[props.i].priceShops *
@@ -515,7 +515,7 @@ const noShops = props => {
                             <InputGroup>
                               <InputGroupText>Down Payment</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={[
                                   store.projectData.floors[props.i].priceShops *
@@ -611,7 +611,7 @@ const noShops = props => {
                             <InputGroup className='mt-2'>
                               <InputGroupText>Installment</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={[
                                   [
@@ -720,7 +720,7 @@ const noShops = props => {
                             <InputGroup className='mt-2'>
                               <InputGroupText>Installment</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={[
                                   [
@@ -848,7 +848,7 @@ const noShops = props => {
                             <InputGroup className='mt-2'>
                               <InputGroupText>Installment</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={[
                                   [
@@ -938,7 +938,7 @@ const noShops = props => {
                             <InputGroup className='mt-2'>
                               <InputGroupText>Installment</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={[
                                   [
@@ -1066,7 +1066,7 @@ const noShops = props => {
                             <InputGroup className='mt-2'>
                               <InputGroupText>Installment</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 value={[
                                   [
@@ -1155,7 +1155,7 @@ const noShops = props => {
                             <InputGroup className='mt-2'>
                               <InputGroupText>Installment</InputGroupText>
                               <Input
-                                readOnly
+                                readonly
                                 className='form-control'
                                 defaultValue='0.00'
                                 value={[

@@ -248,97 +248,96 @@ const PersonalInfo = ({ stepper }) => {
   }
 
   useEffect(() => {
-    // bmk*
-    // Axios.get(`${baseURL}/getProvince`)
-    //   .then(response => {
-    //     const rec = response.data.AllProvince.map(({ id, name }) => ({
-    //       id,
-    //       value: id,
-    //       label: name
-    //     }))
-    //     setProvince(rec)
-    //     console.log("Province: ", rec)
-    //   })
-    //   .catch(err => console.log(err))
-    // Axios.get(`${baseURL}/getDeveloper`)
-    //   .then(response => {
-    //     const rec = response.data.alldevelopers.map(({ id, first_name }) => ({
-    //       id,
-    //       value: id,
-    //       label: first_name
-    //     }))
-    //     setDeveloperOptions(rec)
-    //     //   setLoading(false)
-    //   })
-    //   .catch(err => console.log(err))
-    // Axios.get(`${baseURL}/getProjectType`)
-    //   .then(response => {
-    //     const rec = response.data.type.map(({ id, type }) => ({
-    //       id,
-    //       value: id,
-    //       label: type
-    //     }))
-    //     setProjectType(rec)
-    //     //   setLoading(false)
-    //   })
-    //   .catch(err => console.log(err))
-    // Axios.get(`${baseURL}/getProjectCategory`)
-    //   .then(response => {
-    //     const rec = response.data.Category.map(({ id, category }) => ({
-    //       id,
-    //       value: id,
-    //       label: category
-    //     }))
-    //     setProjectCategory(rec)
-    //     //   setLoading(false)
-    //   })
-    //   .catch(err => console.log(err))
-    // Axios.get(`${baseURL}/getAmenitie`)
-    //   .then(response => {
-    //     const rec = response.data.Amenitie.map(({ id, name }) => ({
-    //       id,
-    //       value: id,
-    //       label: name
-    //     }))
-    //     setAmenitiesOptions(rec)
-    //     //   setLoading(false)
-    //   })
-    //   .catch(err => console.log(err))
-    // Axios.get(`${baseURL}/getSideopenOptionController`)
-    //   .then(response => {
-    //     const rec = response.data.Sides.map(({ id, opensides }) => ({
-    //       id,
-    //       value: id,
-    //       label: opensides
-    //     }))
-    //     setSideOpenOptions(rec)
-    //     //   setLoading(false)
-    //   })
-    //   .catch(err => console.log(err))
-    // Axios.get(`${baseURL}/getApprovingAuthoritie`)
-    //   .then(response => {
-    //     const rec = response.data.allauthorities.map(
-    //       ({ id, authority_name }) => ({
-    //         id,
-    //         value: id,
-    //         label: authority_name
-    //       })
-    //     )
-    //     setApprovingAutorities(rec)
-    //     //   setLoading(false)
-    //   })
-    //   .catch(err => console.log(err))
-    // Axios.get(`${baseURL}/getStage`)
-    //   .then(response => {
-    //     const rec = response.data.stages.map(({ id, name }) => ({
-    //       id,
-    //       value: id,
-    //       label: name
-    //     }))
-    //     setProjectStage(rec)
-    //     //   setLoading(false)
-    //   })
-    //   .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getProvince`)
+      .then(response => {
+        const rec = response.data.AllProvince.map(({ id, name }) => ({
+          id,
+          value: id,
+          label: name
+        }))
+        setProvince(rec)
+        console.log("Province: ", rec)
+      })
+      .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getDeveloper`)
+      .then(response => {
+        const rec = response.data.alldevelopers.map(({ id, first_name }) => ({
+          id,
+          value: id,
+          label: first_name
+        }))
+        setDeveloperOptions(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getProjectType`)
+      .then(response => {
+        const rec = response.data.type.map(({ id, type }) => ({
+          id,
+          value: id,
+          label: type
+        }))
+        setProjectType(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getProjectCategory`)
+      .then(response => {
+        const rec = response.data.Category.map(({ id, category }) => ({
+          id,
+          value: id,
+          label: category
+        }))
+        setProjectCategory(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getAmenitie`)
+      .then(response => {
+        const rec = response.data.Amenitie.map(({ id, name }) => ({
+          id,
+          value: id,
+          label: name
+        }))
+        setAmenitiesOptions(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getSideopenOptionController`)
+      .then(response => {
+        const rec = response.data.Sides.map(({ id, opensides }) => ({
+          id,
+          value: id,
+          label: opensides
+        }))
+        setSideOpenOptions(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getApprovingAuthoritie`)
+      .then(response => {
+        const rec = response.data.allauthorities.map(
+          ({ id, authority_name }) => ({
+            id,
+            value: id,
+            label: authority_name
+          })
+        )
+        setApprovingAutorities(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+    Axios.get(`${baseURL}/getStage`)
+      .then(response => {
+        const rec = response.data.stages.map(({ id, name }) => ({
+          id,
+          value: id,
+          label: name
+        }))
+        setProjectStage(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
 
     if (
       store.projectData.masterDetails.provinceId !== null &&
@@ -421,7 +420,7 @@ const PersonalInfo = ({ stepper }) => {
                 }}
                 value={store.projectData.masterDetails.countBasements}
                 id='min-max-number-input1'
-                
+                readonly='false'
                 upHandler={<Plus />}
               />
             </div>
@@ -453,8 +452,7 @@ const PersonalInfo = ({ stepper }) => {
                 }}
                 value={store.projectData.masterDetails.countLowerGrounds}
                 id='min-max-number-input2'
-                // readonly='true'
-                readOnly
+                readonly='true'
               />
             </div>
           </Col>
@@ -484,7 +482,7 @@ const PersonalInfo = ({ stepper }) => {
                 }}
                 value={store.projectData.masterDetails.countMezzanine}
                 id='min-max-number-input3'
-                readOnly
+                readonly='true'
               />
             </div>
           </Col>
@@ -514,7 +512,7 @@ const PersonalInfo = ({ stepper }) => {
                 }}
                 value={store.projectData.masterDetails.countGroundFloors}
                 id='min-max-number-input4'
-                readOnly
+                readonly='true'
               />
             </div>
           </Col>
@@ -544,7 +542,7 @@ const PersonalInfo = ({ stepper }) => {
                 }}
                 value={store.projectData.masterDetails.countFloors}
                 id='min-max-number-input5'
-                readOnly
+                readonly='true'
               />
             </div>
           </Col>                    

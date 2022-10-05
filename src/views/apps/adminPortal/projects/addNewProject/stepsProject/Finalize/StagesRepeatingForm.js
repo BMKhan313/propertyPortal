@@ -88,21 +88,20 @@ const StagesRepeatingForm = () => {
 
     return format
   }
-// bmk*
-  // useEffect(() => {
-  //   Axios.get(`${baseURL}/getProcessStage`)
-  //     .then(response => {
-  //       const rec = response.data.allstages.map(({ id, name }) => ({
-  //         id,
-  //         value: id,
-  //         label: name
-  //       }))
-  //       setProcessStages(rec)
-  //       //   setLoading(false)
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
 
+  useEffect(() => {
+    Axios.get(`${baseURL}/getProcessStage`)
+      .then(response => {
+        const rec = response.data.allstages.map(({ id, name }) => ({
+          id,
+          value: id,
+          label: name
+        }))
+        setProcessStages(rec)
+        //   setLoading(false)
+      })
+      .catch(err => console.log(err))
+  }, [])
   return (
     <Card>
       <CardHeader>

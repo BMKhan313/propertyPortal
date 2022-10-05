@@ -334,7 +334,7 @@ const noParkings = props => {
                               <InputGroup>
                               <InputGroupText>Sq.Ft</InputGroupText>
                               <Input
-                               readOnly
+                                readonly
                                 className='form-control'
                                 onChange={e => {
                                   dispatch(
@@ -373,8 +373,8 @@ const noParkings = props => {
                             <InputGroup>
                               <InputGroupText>PKR</InputGroupText>
                               <Input
-                                //readOnly='true'
-                               readOnly
+                                // readOnly='true'
+                                readonly
                                 className='form-control'
                                 onChange={e => {
                                     dispatch(
@@ -405,8 +405,8 @@ const noParkings = props => {
                             <InputGroup>
                               <InputGroupText>PKR</InputGroupText>
                               <Input
-                                //readOnly='true'
-                               readOnly
+                                // readOnly='true'
+                                readonly
                                 className='form-control'
                                 value={
                                     (store.projectData.lowerGrounds[props.i].parkings[ii].price) * 
