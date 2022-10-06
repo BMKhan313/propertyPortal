@@ -144,9 +144,9 @@ const PersonalInfo = ({ stepper }) => {
     
    }
   }
-   const check = () => {
-    console.log("my checkbox.....",checkBox)
-   }
+  //  const check = () => {
+  //   console.log("my checkbox.....",checkBox)
+  //  }
   const firstpageData = () => {
     // const myData = {
     //   projectTitle: store.projectData.project_details.project_title,
@@ -376,8 +376,9 @@ const PersonalInfo = ({ stepper }) => {
           Do You Have Detailed Information ? <Checkbox
          color="secondary" checked={checkBox} 
          onChange={e => {
-           setCheckBox(e.target.checked)
-           check()
+          // console.log(e.target.checked)
+          setCheckBox(e.target.checked)
+           
          }} /></div>
         </div>
       </div>
