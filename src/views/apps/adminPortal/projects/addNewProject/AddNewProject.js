@@ -67,6 +67,12 @@ const WizardHorizontal = () => {
       content: <FloorDetails stepper={stepper} />
     },
     {
+      id: 'floor-full-details',
+      title: 'Floor Full Details',
+      subtitle: 'Add Floor Full Details',
+      content: <FloorDetails stepper={stepper} />
+    },
+    {
       id: 'Inner-Floor-details',
       title: 'Inner Floor Details',
       subtitle: 'Add shops/Commercial etc Details',

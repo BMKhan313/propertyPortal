@@ -75,6 +75,12 @@ import ProjectMap2 from './ProjectInfo/Maps/simpleMap'
 import '@styles/react/libs/flatpickr/flatpickr.scss'
 import InputCbAndRadio from '../../../components/forms/RadioBox/InputGroupCbAndRadio'
 
+// Baaz Muhammad Khan
+// October, 05, 2022, 05:35 PM
+// MUI
+import Checkbox from '@mui/material/Checkbox';
+import { Typography } from '@mui/material'
+//
 // import
 // inputGroupBasic,
 // inputGroupSizes,
@@ -104,7 +110,7 @@ const PersonalInfo = ({ stepper }) => {
 
 
   // ** Hooks
-
+  const [checkBox, setCheckBox] = useState(false)
   const [province, setProvince] = useState([])
   const [cityOptions, setCityOptions] = useState([])
   const [areaOptions, setAreaOptions] = useState([])
@@ -138,7 +144,9 @@ const PersonalInfo = ({ stepper }) => {
     
    }
   }
-
+   const check = () => {
+    console.log("my checkbox.....",checkBox)
+   }
   const firstpageData = () => {
     // const myData = {
     //   projectTitle: store.projectData.project_details.project_title,
@@ -358,9 +366,20 @@ const PersonalInfo = ({ stepper }) => {
 
   return (
     <Fragment>
-      <div className='content-header'>
-        <h5 className='mb-0'>Project Details</h5>
+      <div className='content-header' style={{display: 'flex',justifyContent: 'space-between'}}>
+       <div>
+       <h5 className='mb-0'>Project Details</h5>
         <small>Enter Your Project Details.</small>
+       </div>
+        <div >
+        <div style={{fontSize: 18, fontStyle: 'italic'}}>
+          Do You Have Detailed Information ? <Checkbox
+         color="secondary" checked={checkBox} 
+         onChange={e => {
+           setCheckBox(e.target.checked)
+           check()
+         }} /></div>
+        </div>
       </div>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
