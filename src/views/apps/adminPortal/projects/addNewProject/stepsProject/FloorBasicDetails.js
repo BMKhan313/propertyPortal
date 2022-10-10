@@ -43,6 +43,13 @@ import MezzanineRepeatingForm from './MezzanineDetails/MezzanineRepeatingForm'
 import LowerGroundRepeatingForm from './LowerGroundDetails/LowerGroundRepeatingForm'
 import GroundFloorRepeatingForm from './GroundFloorDetails/GroundFloorRepeatingForm'
 
+
+
+//Baaz muhammad khan
+//06, oct, 20222
+//  import BasementBasicRepeatingForm from './FloorBasicDetails/BasementBasicDetails/BasementBasicRepeatingForm'
+// import BasicDetails from './FloorBasicDetails/BasicDetails'
+import BasicDetails from './FloorBasicDetails/BasicDetails'
 // ** Third Party Components
 
 import { SlideDown } from 'react-slidedown'
@@ -54,7 +61,7 @@ const defaultValues = {
   linkedin: ''
 }
 
-const FloorDetails = ({ stepper }) => {
+const FloorBasicDetails = ({ stepper }) => {
   // ** Hooks
 
   const [openBasement, setOpenBasement] = useState('')
@@ -64,6 +71,7 @@ const FloorDetails = ({ stepper }) => {
   const [openFloor, setOpenFloor] = useState('')
   const store = useSelector(state => state.addNewProject)
   const [showPdf, setShowPdf] = useState(false)
+  const [openPayment, setOpenPayment] = useState('')
 
   const togglePdf = () => {
     if (showPdf) {
@@ -84,7 +92,11 @@ const FloorDetails = ({ stepper }) => {
       fileName: `Report for ${new Date().getFullYear()}`
     })
   }  
-  
+
+  const togglePayment = id => {
+    openPayment === id ? setOpenPayment() : setOpenPayment(id) 
+  }
+
   const toggleBasement = id => {
     openBasement === id ? setOpenBasement() : setOpenBasement(id)
   }
@@ -153,65 +165,19 @@ const FloorDetails = ({ stepper }) => {
   return (
     <Fragment>
       <div className='content-header'>
-        <h5 className='mb-0'>Floor Details </h5>
-        <small>Enter Your Floor Details.</small>
+        <h5 className='mb-0'>Floor Basic Details </h5>
+        <small>Enter Your Floor Basic Details.</small>
       </div>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Row>
-          <Col md='6' className='mb-1'></Col>
-          <Col md='6' className='mb-1'></Col>
-        </Row>
-
-        {/* Basement Start ************************************************************************/}
-        <Accordion
-          className='accordion-border'
-          open={openBasement}
-          toggle={toggleBasement}
-        >
-          <BasementRepeatingForm />
-        </Accordion>
-        {/* Basement Ends ************************************************************************/}
-
-        {/* Lower Ground Start ************************************************************************/}
-        <Accordion 
-        className='accordion-border' 
-        open={openLowerGround} 
-        toggle={toggleLowerGround}
-        >
-          <LowerGroundRepeatingForm />
-        </Accordion>
-        {/* Lower Ground Ends ************************************************************************/}
-
-        {/* Mezzanine Start ************************************************************************/}
-        <Accordion
-          className='accordion-border'
-          open={openMezzanine}
-          toggle={toggleMezzanine}
-        >
-          <MezzanineRepeatingForm />
-        </Accordion>
-        {/* Mezzanine Ends ************************************************************************/}
-
-
-        {/* Ground Floor Start ************************************************************************/}
-        <Accordion 
-        className='accordion-border' 
-        open={openGroundFloor}
-        toggle={toggleGroundFloor}
-        >
-          <GroundFloorRepeatingForm />
-        </Accordion>
-        {/* Ground Floor Ends ************************************************************************/}
-
-        {/* Floors Start ************************************************************************/}
-        <Accordion 
-        className='accordion-border' 
-        open={openFloor} 
-        toggle={toggleFloor}
-        >
-          <FloorRepeatingForm />
-        </Accordion>
-        {/* Floors Ends ************************************************************************/}
+       {/* Basement Start *********************************************************************** */} 
+         <Accordion
+           className='accordion-border'
+           open={openBasement}
+           toggle={toggleBasement}
+         >
+          <BasicDetails />
+         </Accordion>
+         {/* Basement Ends *********************************************************************** */}
 
         <div className='d-flex justify-content-between'>
           <Button
@@ -236,25 +202,83 @@ const FloorDetails = ({ stepper }) => {
           </Button>
         </div>
       </Form>
-
-      {/* <div className='d-flex justify-content-end mt-2'>
-      <Button
-          onClick={exportPDFWithMethod}
-          type='button'
-            color='primary'
-            outline
-            style={{
-              width: 'max-content'
-            }}
-        >
-          Export PDF
-        </Button>
-      </div> */}
-      <div className='d-flex justify-content-end mt-1'>
-      </div>
-
     </Fragment>
   )
 }
 
-export default FloorDetails
+export default FloorBasicDetails
+
+// old form
+        // {/* Basement Start ************************************************************************/}
+        // <Accordion
+        //   className='accordion-border'
+        //   open={openBasement}
+        //   toggle={toggleBasement}
+        // >
+        //   <BasementRepeatingForm />
+        // </Accordion>
+        // {/* Basement Ends ************************************************************************/}
+
+        // {/* Lower Ground Start ************************************************************************/}
+        // <Accordion 
+        // className='accordion-border' 
+        // open={openLowerGround} 
+        // toggle={toggleLowerGround}
+        // >
+        //   <LowerGroundRepeatingForm />
+        // </Accordion>
+        // {/* Lower Ground Ends ************************************************************************/}
+
+        // {/* Mezzanine Start ************************************************************************/}
+        // <Accordion
+        //   className='accordion-border'
+        //   open={openMezzanine}
+        //   toggle={toggleMezzanine}
+        // >
+        //   <MezzanineRepeatingForm />
+        // </Accordion>
+        // {/* Mezzanine Ends ************************************************************************/}
+
+
+        // {/* Ground Floor Start ************************************************************************/}
+        // <Accordion 
+        // className='accordion-border' 
+        // open={openGroundFloor}
+        // toggle={toggleGroundFloor}
+        // >
+        //   <GroundFloorRepeatingForm />
+        // </Accordion>
+        // {/* Ground Floor Ends ************************************************************************/}
+
+        // {/* Floors Start ************************************************************************/}
+        // <Accordion 
+        // className='accordion-border' 
+        // open={openFloor} 
+        // toggle={toggleFloor}
+        // >
+        //   <FloorRepeatingForm />
+        // </Accordion>
+        // {/* Floors Ends ************************************************************************/}
+
+        // <div className='d-flex justify-content-between'>
+        //   <Button
+        //     color='primary'
+        //     className='btn-prev'
+        //     onClick={() => stepper.previous()}
+        //   >
+        //     <ArrowLeft
+        //       size={14}
+        //       className='align-middle me-sm-25 me-0'
+        //     ></ArrowLeft>
+        //     <span className='align-middle d-sm-inline-block d-none'>
+        //       Previous
+        //     </span>
+        //   </Button>
+        //   <Button onClick={submitData} color='primary' className='btn-next'>
+        //     <span className='align-middle d-sm-inline-block d-none'>Next</span>
+        //     <ArrowRight
+        //       size={14}
+        //       className='align-middle ms-sm-25 ms-0'
+        //     ></ArrowRight>
+        //   </Button>
+        // </div>

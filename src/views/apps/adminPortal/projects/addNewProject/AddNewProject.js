@@ -1,16 +1,19 @@
 // ** React Imports
 import { useRef, useState, useContext, useEffect } from 'react'
+import Checkbox from '@mui/material/Checkbox';
 
 // ** Custom Components
 import Wizard from '@components/wizard'
 
 // ** Steps
 import Finalize from './stepsProject/Finalize'
-import FloorDetails from './stepsProject/FloorDetails'
+import FloorDetails from './stepsProject/FloorDetails.js'
 import InFloorDetails from './stepsProject/InFloorDetails'
 import PersonalInfo from './stepsProject/PersonalInfo'
 import ProjectDetails from './stepsProject/ProjectDetails'
-
+//  ok
+import FloorBasicDetails from './stepsProject/FloorBasicDetails'
+// import BasicDetails from './stepsProject/FloorBasicDetails/BasicDetails'
 import { FileText } from 'react-feather'
 
 // ** Store & Actions
@@ -18,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateWholeObject } from '../../redux/addNewProject/store'
 
 const WizardHorizontal = () => {
+  const [checkBox, setCheckBox] = useState(false)
   const store = useSelector(state => state.addNewProject)
   const dispatch = useDispatch()
 
@@ -52,20 +56,15 @@ const WizardHorizontal = () => {
   // ** State
   const [stepper, setStepper] = useState(null)
 
-  const steps = [
+  const stepsForFullDetail = [
     {
       id: 'project-details',
       title: 'Project Details',
       subtitle: 'Enter Your Project Details.',
       icon: <FileText size={18} />,
-      content: <PersonalInfo stepper={stepper} />
+      content: <PersonalInfo stepper={stepper}  />
     },
-    {
-      id: 'floor-details',
-      title: 'Floor Details',
-      subtitle: 'Add Floor Details',
-      content: <FloorDetails stepper={stepper} />
-    },
+   
     {
       id: 'floor-full-details',
       title: 'Floor Full Details',
@@ -86,17 +85,87 @@ const WizardHorizontal = () => {
     }
   ]
 
+
+  // steps for basic detail
+  const stepsforBasicDetail = [
+    {
+      id: 'project-details',
+      title: 'Project Details',
+      subtitle: 'Enter Your Project Details.',
+      icon: <FileText size={18} />,
+      content: <PersonalInfo stepper={stepper}  />
+    },
+    {
+      id: 'floor-basic-details',
+      title: 'Floor Basic Details',
+      subtitle: 'Add Floor Basic Details',
+      content: <FloorBasicDetails stepper={stepper} />
+      // content: <BasicDetails  stepper={stepper} />
+      
+    },
+    
+    {
+      id: 'Inner-Floor-details',
+      title: 'Inner Floor Details',
+      subtitle: 'Add shops/Commercial etc Details',
+      content: <InFloorDetails stepper={stepper} />
+    },
+    {
+      id: 'social-links',
+      title: 'Finalize',
+      subtitle: 'Add Final Details',
+      content: <Finalize stepper={stepper} />
+    }
+  ]
+
   return (
+    <>
+   
     <div className='modern-horizontal'>
+    <div style={{marginLeft: 8}}>
+    Do You Have Detailed Information ? 
+     <Checkbox color="secondary" checked={checkBox} 
+         onChange={e => {
+          // console.log(e.target.checked)
+          setCheckBox(e.target.checked)
+         }}
+      />
+      </div>
       <Wizard
         instance={el => setStepper(el)}
         options={{
           linear: false
         }}
         ref={ref}
-        steps={steps}
+        steps={ stepsforBasicDetail }
+          // steps={ checkBox ? (stepsForFullDetail) :  (stepsforBasicDetail) }
+      
       />
+
+
+      {/* { checkBox ? 
+       ( <Wizard
+        instance={el => setStepper(el)}
+        options={{
+          linear: false
+        }}
+        ref={ref}
+        steps={ stepsForFullDetail }
+          // steps={ checkBox ? (stepsForFullDetail) :  (stepsforBasicDetail) }
+      
+      />) :
+      (<Wizard
+        instance={el => setStepper(el)}
+        options={{
+          linear: false
+        }}
+        ref={ref}
+        steps={ stepsforBasicDetail }
+          // steps={ checkBox ? (stepsForFullDetail) :  (stepsforBasicDetail) }
+      
+      />)} */}
     </div>
+    </>
   )
 }
 

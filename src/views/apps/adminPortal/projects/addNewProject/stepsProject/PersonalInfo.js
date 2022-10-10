@@ -12,7 +12,7 @@ import baseURL from '../../../../../../baseURL/baseURL'
 import Select from 'react-select'
 import { useForm, Controller } from 'react-hook-form'
 import { ArrowLeft, ArrowRight, Plus, Minus, Check, X } from 'react-feather'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import {toast} from 'react-toastify'
 import { PDFExport, savePDF } from "@progress/kendo-react-pdf"
 
@@ -80,6 +80,7 @@ import InputCbAndRadio from '../../../components/forms/RadioBox/InputGroupCbAndR
 // MUI
 import Checkbox from '@mui/material/Checkbox';
 import { Typography } from '@mui/material'
+import { useParams } from 'react-router-dom'
 //
 // import
 // inputGroupBasic,
@@ -107,10 +108,10 @@ const PersonalInfo = ({ stepper }) => {
   // ** Store Variables
   const dispatch = useDispatch()
   const store = useSelector(state => state.addNewProject)
-
+  const history = useHistory();
 
   // ** Hooks
-  const [checkBox, setCheckBox] = useState(false)
+  // const [checkBox, setCheckBox] = useState(false)
   const [province, setProvince] = useState([])
   const [cityOptions, setCityOptions] = useState([])
   const [areaOptions, setAreaOptions] = useState([])
@@ -148,45 +149,7 @@ const PersonalInfo = ({ stepper }) => {
   //   console.log("my checkbox.....",checkBox)
   //  }
   const firstpageData = () => {
-    // const myData = {
-    //   projectTitle: store.projectData.project_details.project_title,
-    //   numberOfBasements: store.projectData.masterDetails.countBasements,
-    //   numberOfLowerGrounds: store.projectData.masterDetails.countLowerGrounds,
-    //   numberOfMezzanine: store.projectData.masterDetails.countMezzanine,
-    //   numberOfGroundFloors: store.projectData.masterDetails.countGroundFloors,
-    //   numberOfFloors: store.projectData.masterDetails.countFloors,
-    //   province: store.projectData.masterDetails.provinceName,
-    //   city: store.projectData.masterDetails.cityName,
-    //   area: store.projectData.masterDetails.areaName,
-    //   text_location: store.projectData.project_details.text_loc,
-    //   landMark: store.projectData.project_details.land_mark,
-    //   developer: store.projectData.masterDetails.developerName,
-    //   currentDemandMarket: store.projectData.project_details.currentDemandMarket,
-    //   expectedReturn: store.projectData.project_details.projectExpectedReturns,
-    //   monthlyReturn: store.projectData.project_details.projectMonthlyReturns,
-    //   numberOfLifts: store.projectData.project_details.total_lifts,
-    //   numberOfEscalators: store.projectData.project_details.total_escalators,
-    //   emergencyExits: store.projectData.project_details.total_emergency_gates,
-    //   numberOfEntranceGates: store.projectData.project_details.total_entrances,
-    //   numberOfExitGates: store.projectData.project_details.total_exits,
-    //   projectType: store.projectData.masterDetails.projectTypeName,
-    //   projectCategory: store.projectData.masterDetails.projectCategoryName,
-    //   approvalStatus: store.projectData.masterDetails.approvalStatus,
-    //   legalStatus: store.projectData.masterDetails.legalStatus,
-    //   projectStage: store.projectData.masterDetails.projectStageName,
-    //   approvalAuthority: store.projectData.masterDetails.projectApprovingAuthorityName,
-    //   projectVision: store.projectData.project_details.vision,
-    //   projectFutureProspect: store.projectData.project_details.future_prospect,
-    //   projectKeyFeatures: store.projectData.project_details.key_features,
-    //   website: store.projectData.masterDetails.websiteLink,
-    //   facebook: store.projectData.masterDetails.facebookLink,
-    //   youtube: store.projectData.masterDetails.youtubeLink,
-    //   instagram: store.projectData.masterDetails.instagramLink,
-    //   projectAmenities: store.projectData.masterDetails.projectAmenities,
-    //   sideOpenOptions: store.projectData.masterDetails.sideOpenOptionsName,
-    //   ConnectingRoadWidth: store.projectData.project_details.con_road_width
-    // }
-
+    
     // console.log('Form Data: ', JSON.stringify(myData))
     console.log('Images', store.projectData.masterDetails.projectImages)
   }
@@ -373,13 +336,14 @@ const PersonalInfo = ({ stepper }) => {
        </div>
         <div >
         <div style={{fontSize: 18, fontStyle: 'italic'}}>
-          Do You Have Detailed Information ? <Checkbox
-         color="secondary" checked={checkBox} 
-         onChange={e => {
-          // console.log(e.target.checked)
-          setCheckBox(e.target.checked)
-           
-         }} /></div>
+          Do You Have Detailed Information ? 
+          {/* <Checkbox color="secondary" checked={checkBox} 
+        //  onChange={e => {
+        //   // console.log(e.target.checked)
+        //   setCheckBox(e.target.checked)
+        //  }} 
+         /> */}
+         </div>
         </div>
       </div>
       <Form onSubmit={handleSubmit(onSubmit)}>

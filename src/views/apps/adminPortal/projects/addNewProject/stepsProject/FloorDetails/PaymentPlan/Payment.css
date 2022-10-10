@@ -3,18 +3,18 @@
     font-weight: 700;
 }
 .payment__text {
-    font-size: 10px;
+    font-size: 14px;
 }
 .payment__input {
     width: 70%;
-    font-size: 10px;
+    font-size: 14px;
     height: 30px;
 }
 .payment__input::placeholder {
-    font-size: 7px;
+    font-size: 10px;
 }
 .payment__select {
-    width: 100%;
+    /* width: 90%; */
     height: 33px;
     font-size: 10px;
 }

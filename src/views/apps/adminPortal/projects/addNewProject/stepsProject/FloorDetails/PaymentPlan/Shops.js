@@ -248,33 +248,7 @@ const noShops = props => {
                         value={
                           store.projectData.floors[props.i].shops[ii]
                             .downPaymentRs
-                          // (((store.projectData.floors[props.i].priceShops) * 
-                          //     (((store.projectData.floors[props.i].shops[ii].length) * 
-                          //     (store.projectData.floors[props.i].shops[ii].width))
-                          //    *
-                          //     (store.projectData.floors[props.i].shops[ii].downPaymentPercentage)
-                          //     )) / 100)
                         }
-                        // onChange={(e) => {                        
-                        //   dispatch(
-                        //     updateFloorInnerProperties([
-                        //       (
-                        //       //   ((store.projectData.floors[props.i].priceShops) * 
-                        //       // (((store.projectData.floors[props.i].shops[ii].length) *
-                        //       //  (store.projectData.floors[props.i].shops[ii].width))
-                        //      (store.projectData.floors[props.i].shops[ii].downPaymentPercentage
-                        //        * 100)
-                        //       ),
-                        //       'floors',
-                        //       props.i,
-                        //       'shops',
-                        //       ii,
-                        //       'downPaymentRs'
-                        //     ])
-                        //   )
-                          
-                        //   }
-                        // }
                         />
                         </div>
                       </Col>
