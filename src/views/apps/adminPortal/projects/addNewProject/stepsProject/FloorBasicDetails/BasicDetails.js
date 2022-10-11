@@ -127,11 +127,11 @@ const BasicDetails = ({ stepper }) => {
 
               <AccordionItem className='justify-content-between align-items-center'>
                 <AccordionHeader targetId={`${i}`}>
-                  Floors
+                  All Floors
                 </AccordionHeader>
                 <AccordionBody accordionId={`${i}`}>
                   <Row >
-                    <Row >
+                    {/* <Row >
                       <Col md={1} className="payment__header">Name #</Col>
                       <Col md={2} className="payment__header">Floor Type</Col>
                       <Col md={1} className="payment__header">No. of Units</Col>
@@ -140,7 +140,7 @@ const BasicDetails = ({ stepper }) => {
                       <Col md={2} className="payment__header">Max. Area</Col>
                       <Col md={1} className="payment__header"> Min. Price</Col>
                       <Col md={1} className="payment__header">Max. Price</Col>
-                    </Row>
+                    </Row> */}
                     {/* Basements */}
                     <BasementBasicRepeatingForm />
 
