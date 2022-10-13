@@ -953,8 +953,8 @@ const BasementBasicRepeatingForm = (props) => {
 
                     <Row>
                     <Col md={3} className="payment__header"></Col>
-                  <Col md={3} className="payment__header">installment On Each Period</Col>
-                  <Col md={3} className="payment__header">Arrears after Each Period </Col>
+                  <Col md={3} className="payment__header">Installment Per Month</Col>
+                  <Col md={3} className="payment__header">Arrears Per quarter/annum </Col>
                   <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
                   </Row>
                     <Row className='mt-2 mb-2'>
@@ -973,10 +973,16 @@ const BasementBasicRepeatingForm = (props) => {
                         onChange={e => {
                           dispatch(
                             updateFloorProperties([
-                              e.target.value,
-                              'basements',
+                              // make a check on cashBasicPayment
+                           (store.projectData.basements[j].basicPlan === 'Quarter' ?  
+                           (e.target.value > store.projectData.basements[j].installmentPerDuration/3 ? store.projectData.basements[j].installmentPerDuration/3 : e.target.value)
+                            : 
+                           (e.target.value > store.projectData.basements[j].installmentPerDuration ? store.projectData.basements[j].installmentPerDuration : e.target.value) ),
+                            // e.target.value,  
+                            'basements',
                               j,
                               'cashBasicPayment'
+
                             ])
                           )
                           dispatch(
@@ -1179,6 +1185,7 @@ const BasementBasicRepeatingForm = (props) => {
                       <div className='payment__text'>
                       <select
                       className='form-control payment__select'
+                      
                       style={{
                         padding: 5,
                         borderRadius: 4,
@@ -1198,6 +1205,22 @@ const BasementBasicRepeatingForm = (props) => {
                                       'basements',
                                       j,
                                       'basicPlanForMin'
+                                    ])
+                                  )
+                                  dispatch(
+                                    updateFloorProperties([
+                                       0,
+                                      'basements',
+                                      j,
+                                      'cashBasicPaymentForMin'
+                                    ])
+                                  )
+                                  dispatch(
+                                    updateFloorProperties([
+                                       0,
+                                      'basements',
+                                      j,
+                                      'arrearsBasicIntallmentOnEachPeriodForMin'
                                     ])
                                   )
                                 
@@ -1261,9 +1284,9 @@ const BasementBasicRepeatingForm = (props) => {
                     </Row>
                     <Row className="mt-2 mb-2">
                     <Col md={3} className="payment__header"></Col>
-                  <Col md={3} className="payment__header">installment On Each Period</Col>
-                  <Col md={3} className="payment__header">Arrears after Each Period </Col>
-                  <Col md={3} className="payment__header">Lump Sum</Col> 
+                  <Col md={3} className="payment__header">installment Per Month</Col>
+                  <Col md={3} className="payment__header">Arrears Per quarter/annum</Col>
+                  <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
                   </Row>
                   <Row className='mt-2 mb-2'>
                       <Col md={3}></Col>
@@ -1281,10 +1304,16 @@ const BasementBasicRepeatingForm = (props) => {
                         onChange={e => {
                           dispatch(
                             updateFloorProperties([
-                              e.target.value,
-                              'basements',
+                              // make a check on cashBasicPaymentForMin
+                           (store.projectData.basements[j].basicPlanForMin === 'Quarter' ?  
+                           (e.target.value > store.projectData.basements[j].installmentPerDurationForMin/3 ? store.projectData.basements[j].installmentPerDurationForMin/3 : e.target.value)
+                            : 
+                           (e.target.value > store.projectData.basements[j].installmentPerDurationForMin ? store.projectData.basements[j].installmentPerDurationForMin : e.target.value) ),
+                            // e.target.value,  
+                            'basements',
                               j,
                               'cashBasicPaymentForMin'
+
                             ])
                           )
                           dispatch(
@@ -1337,29 +1366,46 @@ const BasementBasicRepeatingForm = (props) => {
                                       'basicPlanForDuesForMin'
                                     ])
                                   )
+                                  dispatch(
+                                    updateFloorProperties([
+                                      0,
+                                      'basements',
+                                      j,
+                                      'arrearsBasicIntallmentOnEachPeriodForMin'
+                                    ])
+                                  )
 
                                 
                                   if (e.target.value === 'annually') { 
-                                dispatch(
-                                  updateFloorProperties([
-                                 (store.projectData.basements[j].cashBasicPaymentForMin === 0 ? (0) : (store.projectData.basements[j].duesPerMonthForMin * 12 )),
-                                    'basements',
-                                    j,
-                                    'arrearsBasicIntallmentOnEachPeriodForMin'
-                                  ])
-                                )
-                            
-                               } else if (e.target.value === 'quarterly') {
-                                dispatch(
-                                  updateFloorProperties([
-                                    (store.projectData.basements[j].cashBasicPaymentForMin === 0 ? (0) :(store.projectData.basements[j].duesPerMonthForMin * 3)),
-                                    'basements',
-                                    j,
-                                    'arrearsBasicIntallmentOnEachPeriodForMin',
-                                  ])
-                                )
-                              
-                               } 
+
+                                    dispatch(
+                                      updateFloorProperties([
+                                        (store.projectData.basements[j].basicPlanForMin === 'Quarter' ? 
+                                        (store.projectData.basements[j].cashBasicPaymentForMin === 0 ? (0) : ( (4 * store.projectData.basements[j].installmentPerDurationForMin) - (store.projectData.basements[j].cashBasicPaymentForMin  * 12)) ) 
+                                              : 
+                                        (store.projectData.basements[j].cashBasicPaymentForMin === 0 ? 
+                                          (0) : ((12 * store.projectData.basements[j].installmentPerDurationForMin) - (store.projectData.basements[j].cashBasicPaymentForMin * 12) )) ),
+                                        'basements',
+                                        j,
+                                        'arrearsBasicIntallmentOnEachPeriodForMin'
+                                      ])
+                                    )
+                                
+                                   } else if (e.target.value === 'quarterly') { 
+                                    dispatch(
+                                      updateFloorProperties([
+                                        ( store.projectData.basements[j].basicPlanForMin === 'Monthly' ? 
+                                        (store.projectData.basements[j].cashBasicPaymentForMin === 0 ? (0) : (((12 * store.projectData.basements[j].installmentPerDurationForMin) - (store.projectData.basements[j].cashBasicPaymentForMin * 12) ) / 4  )) 
+                                           :
+                                        (store.projectData.basements[j].cashBasicPaymentForMin === 0 ? (0) : (((4 * store.projectData.basements[j].installmentPerDurationForMin) - (store.projectData.basements[j].cashBasicPaymentForMin * 12) ) / 4 ))
+                                        ),
+                                        'basements',
+                                        j,
+                                        'arrearsBasicIntallmentOnEachPeriodForMin',
+                                      ])
+                                    )
+                                  
+                                   }  
                                 }}
                       >
                         <option >quarterly</option>
@@ -2660,7 +2706,7 @@ export default BasementBasicRepeatingForm
 //                       id={`Shop-Plan-${j}`}
 //                                 name='icon-primary'
 //                                 value={
-//                                   store.projectData.basements[j].basicPlanForDuesForMin
+//                                   store.projectData.basements[j].basicPlanForMin
 //                                 }
 //                                 onChange={e => {
 //                                   dispatch(
@@ -2668,7 +2714,7 @@ export default BasementBasicRepeatingForm
 //                                       e.target.value,
 //                                       'basements',
 //                                       j,
-//                                       'basicPlanForDuesForMin'
+//                                       'basicPlanForMin'
 //                                     ])
 //                                   )
                                 
