@@ -138,6 +138,77 @@ const noShops = props => {
                               'totalCost'
                             ])
                           )
+
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
                         }}
                         />
                       </Col>
@@ -172,6 +243,76 @@ const noShops = props => {
                               'shops',
                               ii,
                               'totalCost'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
                             ])
                           )
                         }}

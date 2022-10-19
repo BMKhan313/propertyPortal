@@ -131,41 +131,12 @@ const RepeatingForm = ({ii}) => {
             <Form key={i}>
               <AccordionItem>
                 <AccordionHeader targetId={`${i}`}>
-                  {/* {i === 0 && <>Lower Ground {i}</>}
-                  {i === 1 && <> Ground Basement {i}</>}
-                  {i > 1 && <>Basement {i - 1}</>} */}
+                 
                   LowerGrounds {i + 1}
                 </AccordionHeader>
                 <AccordionBody accordionId={`${i}`}>
                   <Row className='justify-content-between align-items-center'>
-                    {/* <Col md={4} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
-                        Basement No
-                      </Label>
-                      <InputGroup className='mt-2'>
-                        <InputGroupText>Basement-</InputGroupText>
-                        <Input
-                          type='text'
-                          id={`animation-cost-${i}`}
-                          placeholder='32'
-                          value={store.projectData.lowerGrounds[i].label.replace(
-                            'Basement-',
-                            ''
-                          )}
-                          onChange={e => {
-                            dispatch(
-                              updateFloorProperties([
-                                `Basement-${e.target.value}`,
-                                'lowerGrounds',
-                                i,
-                                'label',
-                                'Parking'
-                              ])
-                            )
-                          }}
-                        />
-                      </InputGroup>
-                    </Col> */}
+                    
                     <Col md='3' className='mb-1' style={{ zIndex: 3 }}>
                       <Label className='form-label' for='floorType'>
                         Floor Type
@@ -210,7 +181,8 @@ const RepeatingForm = ({ii}) => {
                         Road width
                       </Label>
                       <Input
-                        type='number'
+                          className= 'form-control payment__input'
+                          type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
                         value={store.projectData.lowerGrounds[i].corridorWidth}
@@ -234,7 +206,8 @@ const RepeatingForm = ({ii}) => {
                         Return (ROI) %
                       </Label>
                       <Input
-                        type='number'
+                          className= 'form-control payment__input'
+                          type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
                         value={store.projectData.lowerGrounds[i].returnRoi}
@@ -260,7 +233,8 @@ const RepeatingForm = ({ii}) => {
                         Shop/Sq.Ft
                       </Label>
                       <Input
-                        type='number'
+                          className= 'form-control payment__input'
+                          type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
                         value={store.projectData.lowerGrounds[i].priceShops}
@@ -275,12 +249,8 @@ const RepeatingForm = ({ii}) => {
                           )
                           dispatch(
                             updateFloorInnerProperties([
-                              // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
-                              // ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].width)),
                             
-                              //store.projectData.lowerGrounds[i].priceShops  
-                              ((store.projectData.lowerGrounds[i].shops[i].length * store.projectData.lowerGrounds[i].shops[i].width) * (e.target.value)),
-                              // (store.projectData.lowerGrounds[props.i].priceShops * store.projectData.lowerGrounds[props.i].shops[ii].length * e.target.value),
+                              ((store.projectData.lowerGrounds[i]?.shops[i]?.length * store.projectData.lowerGrounds[i]?.shops[i]?.width) * (e.target.value)),
                               'lowerGrounds',
                               i,
                               'shops',
@@ -296,7 +266,8 @@ const RepeatingForm = ({ii}) => {
                         length
                       </Label>
                       <Input
-                        type='number'
+                          className= 'form-control payment__input'
+                          type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
                         value={store.projectData.lowerGrounds[i].length}
@@ -309,6 +280,7 @@ const RepeatingForm = ({ii}) => {
                               'length'
                             ])
                           )
+                          
                         }}
                       />
                     </Col>
@@ -321,7 +293,8 @@ const RepeatingForm = ({ii}) => {
                         width
                       </Label>
                       <Input
-                        type='number'
+                          className= 'form-control payment__input'
+                                                    type='number'
                         id={`animation-quantity-${i}`}
                         placeholder='1'
                         value={store.projectData.lowerGrounds[i].width}
@@ -348,10 +321,10 @@ const RepeatingForm = ({ii}) => {
                       {
                         (store.projectData.lowerGrounds[i].width === '0' || store.projectData.lowerGrounds[i].width === '') && (store.projectData.lowerGrounds[i].length === '0' || store.projectData.lowerGrounds[i].length === '') ? (
                           <Input
+                          className= 'form-control payment__input'
                           type='text'
                           placeholder='Enter Area'
                           id={`animation-price-${i}`}
-                          className='form-control'
                           onChange={e => {
                             dispatch(
                               updateFloorProperties([

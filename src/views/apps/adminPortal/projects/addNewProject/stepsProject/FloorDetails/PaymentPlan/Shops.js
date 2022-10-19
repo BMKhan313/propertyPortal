@@ -109,6 +109,10 @@ const noShops = props => {
                   <h4 className='card-title'>
                   Payment Plan
                   </h4>
+                
+                  <Repeater count={store.projectData.floors[props.i].noShops}>
+                  {ii => ( 
+                    <>
                   <Row>
                     <Col md={1} className="payment__header">Shop #</Col>
                     <Col md={2} className="payment__header">Total Cost</Col>
@@ -116,78 +120,18 @@ const noShops = props => {
                     <Col md={2} className="payment__header">Down Payment (Rs)</Col>
                     <Col md={2} className="payment__header">Remaining(Rs)</Col>
                     <Col md={1} className="payment__header">Years</Col>
-                    <Col md={1} className="payment__header"> Months / Quarters</Col>
+                    <Col md={1} className="payment__header">Plan (Months/Quarters)</Col>
+                    {/* <Col md={1} className="payment__header"> Months / Quarters</Col> */}
                     <Col md={1} className="payment__header">Installment</Col>
                   </Row>
-                  <Repeater count={store.projectData.floors[props.i].noShops}>
-                  {ii => ( 
                     <Row className='mt-2'>
-                      <Col md={1}><div className='payment__text'>Shop {ii + 1}  </div></Col>
+                      <Col md={1}><div className='payment__text' style={{fontFamily: 'cursive'}}>Shop-{ii + 1}  </div></Col>
                       <Col md={2}>
                         <div className='payment__text'>
                             {/* total cost */} 
-                            {/* {
-                              ((store.projectData.floors[props.i].priceShops) 
-                                * ((store.projectData.floors[props.i].shops[ii].length) * 
-                                 (store.projectData.floors[props.i].shops[ii].width)))
-                            
-                            } */}
-                             <Input
-                        className='form-control payment__input'
-                        type='number'
-                        id={`Shop-totalCost-${ii}`}
-                        placeholder='12'
-                        readOnly
-                        
-                        value={
-                          store.projectData.floors[props.i].shops[ii].totalCost
-                          // ((store.projectData.floors[props.i].priceShops) 
-                          //   * (store.projectData.floors[props.i].shops[ii].length * 
-                          //    store.projectData.floors[props.i].shops[ii].width))
-                        }
-                        onChange={(e) => {                        
-                          dispatch(
-                            updateFloorInnerProperties([
-                              ((store.projectData.floors[props.i].priceShops) 
-                                * (store.projectData.floors[props.i].shops[ii].length * 
-                                 store.projectData.floors[props.i].shops[ii].width)),
-                              'floors',
-                              props.i,
-                              'shops',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                            //    (((store.projectData.floors[props.i].shops[ii].totalCost)
-                            // - (e.target.value)) * 
-                            // (store.projectData.floors[props.i].shops[ii].totalCost / 100)),
-                           ( 
-                             ((e.target.value * store.projectData.floors[props.i].shops[ii].totalCost) / 100)),
-                              'floors',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentRs'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              ((store.projectData.floors[props.i].shops[ii].totalCost)
-                            - ((e.target.value) * 
-                            (store.projectData.floors[props.i].shops[ii].totalCost) / 100)),
-                              'floors',
-                              props.i,
-                              'shops',
-                              ii,
-                              'remainingRs'
-                            ])
-                          )
-                          
-                          }
-                        }
-                        />
+                           
+                          {(store.projectData.floors[props.i]?.shops[ii].totalCost)}
+                     
                         </div>
                       </Col>
                       <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
@@ -206,9 +150,6 @@ const noShops = props => {
                           handleChangeDownPaymentPercent(e, props.i, ii)                         
                           dispatch(
                             updateFloorInnerProperties([
-                            //    (((store.projectData.floors[props.i].shops[ii].totalCost)
-                            // - (e.target.value)) * 
-                            // (store.projectData.floors[props.i].shops[ii].totalCost / 100)),
                            ( 
                              ((e.target.value * store.projectData.floors[props.i].shops[ii].totalCost) / 100)),
                               'floors',
@@ -230,91 +171,91 @@ const noShops = props => {
                               'remainingRs'
                             ])
                           )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          ) 
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          ) 
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          ) 
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'paymentYears'
+                            ])
+                          ) 
+                      
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          ) 
                           
                           }
                         }
                         />
                         </div>
                       </Col>
-                      <Col md={2}>
+                      <Col md={2} >
                         <div className='payment__text'>
                            {/* payment in rs */}
-                            <Input
-                        className='form-control payment__input'
-                        type='number'
-                        id={`Shop-downPaymentRs-${ii}`}
-                        placeholder='12'
-                        readOnly
-                        value={
-                          store.projectData.floors[props.i].shops[ii]
-                            .downPaymentRs
-                        }
-                        />
+                            
+                        {(store.projectData.floors[props.i]?.shops[ii]
+                            .downPaymentRs)}
+                        
                         </div>
                       </Col>
                       <Col md={2}>
                         <div className='payment__text' >
                             {/* Remainings */}
-                            {/* {store.projectData.floors[props.i].shops[ii].totalCost - store.projectData.floors[props.i].shops[ii].downPaymentRs } */}
-                        
-                        {/* { (store.projectData.floors[props.i].priceShops * (store.projectData.floors[props.i].shops[ii].length * store.projectData.floors[props.i].shops[ii].width))
-                         - (((store.projectData.floors[props.i].priceShops) * 
-                             (((store.projectData.floors[props.i].shops[ii].length) 
-                             * (store.projectData.floors[props.i].shops[ii].width))
-                            *
-                             (store.projectData.floors[props.i].shops[ii].downPaymentPercentage)
-                             )) / 100)} */}
-                             <Input
-                        className='form-control payment__input'
-                        type='number'
-                        id={`Shop-remainingRs-${ii}`}
-                        placeholder='12'
-                        readOnly
-                        value={
-                          store.projectData.floors[props.i].shops[ii]
-                            .remainingRs
-                        //   (store.projectData.floors[props.i].priceShops * (store.projectData.floors[props.i].shops[ii].length * store.projectData.floors[props.i].shops[ii].width))
-                        //  - (((store.projectData.floors[props.i].priceShops) * 
-                        //      (((store.projectData.floors[props.i].shops[ii].length) 
-                        //      * (store.projectData.floors[props.i].shops[ii].width))
-                        //     *
-                        //      (store.projectData.floors[props.i].shops[ii].downPaymentPercentage)
-                        //      )) / 100)
-                        }
-                        onChange={(e) => {                        
-                          dispatch(
-                            updateFloorInnerProperties([
-                              (store.projectData.floors[props.i].priceShops * (store.projectData.floors[props.i].shops[ii].length * store.projectData.floors[props.i].shops[ii].width))
-                              - (((store.projectData.floors[props.i].priceShops) * 
-                                  (((store.projectData.floors[props.i].shops[ii].length) 
-                                  * (store.projectData.floors[props.i].shops[ii].width))
-                                 *
-                                  (store.projectData.floors[props.i].shops[ii].downPaymentPercentage)
-                                  )) / 100),
-                              'floors',
-                              props.i,
-                              'shops',
-                              ii,
-                              'remainingRs'
-                            ])
-                          )
-                          
-                          }
-                        }
-                        />
+                           
+                        {(store.projectData.floors[props.i].shops[ii].remainingRs)}
                         </div>
                         
                       </Col>
        {/* years */}
                   <Col md={1}>
-                        <div className='payment__years'
-                        style={{marginLeft: -20}}
+                        <div className='payment__text'
+                        style={{marginLeft: -24}}
                         >
                             <Input
-                              className='form-control payment_years__input'
+                              className='form-control payment__input'
                               type='number'
                               id={`Shop-PaymentYears-${ii}`}
                               placeholder='Years'
+                              onFocus={(e) => e.target.select()}
                               value={
                                 store.projectData.floors[props.i].shops[ii]
                                   .paymentYears
@@ -329,8 +270,38 @@ const noShops = props => {
                                     ii,
                                     'paymentYears'
                                   ])
-                                )
-                    
+                                ) 
+                                dispatch(
+                                  updateFloorInnerProperties([
+                                    0,
+                                    'floors',
+                                    props.i,
+                                    'shops',
+                                    ii,
+                                    'installmentPerDuration'
+                                  ])
+                                ) 
+                                dispatch(
+                                  updateFloorInnerProperties([
+                                    0,
+                                    'floors',
+                                    props.i,
+                                    'shops',
+                                    ii,
+                                    'cashDownPayment'
+                                  ])
+                                ) 
+                                dispatch(
+                                  updateFloorInnerProperties([
+                                    0,
+                                    'floors',
+                                    props.i,
+                                    'shops',
+                                    ii,
+                                    'arrearsInstallmentPerPeriod'
+                                  ])
+                                ) 
+                        
                               }}
                             />
                          
@@ -343,7 +314,7 @@ const noShops = props => {
                       <select
                       className='form-control payment__select'
                       style={{
-                        padding: 10,
+                        padding: 8,
                         borderRadius: 4,
                         color: '#001',
                         outline: 'none',
@@ -366,30 +337,52 @@ const noShops = props => {
                                       'plan'
                                     ])
                                   )
+                                 
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      0,
+                                      'floors',
+                                      props.i,
+                                      'shops',
+                                      ii,
+                                      'cashDownPayment'
+                                    ])
+                                  ) 
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      0,
+                                      'floors',
+                                      props.i,
+                                      'shops',
+                                      ii,
+                                      'arrearsInstallmentPerPeriod'
+                                    ])
+                                  ) 
                                    
                                   if (e.target.value === 'Monthly') { 
-                                dispatch(
-                                  updateFloorInnerProperties([
-                                    ((store.projectData.floors[props.i].shops[ii].paymentYears * (12 / 3))),
-                                    'floors',
-                                    props.i,
-                                    'shops',
-                                    ii,
-                                    'shopInstallmentDuration'
-                                  ])
-                                )
-                                dispatch(
-                                  updateFloorInnerProperties([
-                                    (store.projectData.floors[props.i].shops[ii].remainingRs / store.projectData.floors[props.i].shops[ii].shopInstallmentDuration),
-                                  
-                                    'floors',
-                                    props.i,
-                                    'shops',
-                                    ii,
-                                    'installmentPerDuration'
-                                  ])
-                                )
+                                    dispatch(
+                                      updateFloorInnerProperties([
+                                        ((store.projectData.floors[props.i].shops[ii].paymentYears * (12 / 3))),
+                                        'floors',
+                                        props.i,
+                                        'shops',
+                                        ii,
+                                        'shopInstallmentDuration'
+                                      ])
+                                    )
+                                    dispatch(
+                                      updateFloorInnerProperties([
+                                        (store.projectData.floors[props.i].shops[ii].remainingRs / store.projectData.floors[props.i].shops[ii].shopInstallmentDuration),
+                                      
+                                        'floors',
+                                        props.i,
+                                        'shops',
+                                        ii,
+                                        'installmentPerDuration'
+                                      ])
+                                    )
                                } else if (e.target.value === 'Quarter') {
+                                
                                 dispatch(
                                   updateFloorInnerProperties([
                                     (store.projectData.floors[props.i].shops[ii].paymentYears * 12),
@@ -421,113 +414,204 @@ const noShops = props => {
 
                       </select>
                       </div>
-
                        </Col>
 
-                      {/* <Col md={1}>
-                        <div className='payment__text'
-                        style={{marginLeft: -20}}
-                        >
-                        {
-                          store.projectData.floors[props.i].shops[ii]
-                          .monthlyPlan === 'Quarter' ? (
-                            <Input
-                              className='form-control payment__input'
-                              type='number'
-                              id={`Shop-QuarterPlanQuarterDuration-${ii}`}
-                              placeholder='Quarters'
-                              value={
-                                store.projectData.floors[props.i].shops[ii]
-                                  .quarterDuration
-                              }
-                              onChange={e => {
-                                dispatch(
-                                  updateFloorInnerProperties([
-                                    e.target.value,
-                                    'floors',
-                                    props.i,
-                                    'shops',
-                                    ii,
-                                    'quarterDuration'
-                                  ])
-                                )
-                                dispatch(
-                                  updateFloorInnerProperties([
-                                    // ((store.projectData.floors[props.i].shops[ii].totalCost)
-                                    // - ((store.projectData.floors[props.i].shops[ii].downPaymentPercentage) * 
-                                    // (store.projectData.floors[props.i].shops[ii].totalCost) / 100)) / (e.target.value),
-                                    (((12) / (store.projectData.floors[props.i].shops[ii].quarterDuration)) * (store.projectData.floors[props.i].shops[ii].paymentYears)),
-                                    'floors',
-                                    props.i,
-                                    'shops',
-                                    ii,
-                                    'shopInstallment'
-                                  ])
-                                )
-                              }}
-                            />
-                          ) : (
-                            <Input
-                            className='form-control payment__input'
-                            type='number'
-                              id={`Shop-MonthlyPlanMonthlyDuration-${ii}`}
-                              placeholder='Months'
-                              value={
-                                store.projectData.floors[props.i].shops[ii]
-                                  .monthlyDuration
-                              }
-                              onChange={e => {
-                                dispatch(
-                                  updateFloorInnerProperties([
-                                    e.target.value,
-                                    'floors',
-                                    props.i,
-                                    'shops',
-                                    ii,
-                                    'monthlyDuration'
-                                  ])
-                                )
-                                // dispatch(
-                                //   updateFloorInnerProperties([
-                                //     ((store.projectData.floors[props.i].shops[ii].totalCost)
-                                //     - ((store.projectData.floors[props.i].shops[ii].downPaymentPercentage) * 
-                                //     (store.projectData.floors[props.i].shops[ii].totalCost) / 100)) / (e.target.value),
-                                //     'floors',
-                                //     props.i,
-                                //     'shops',
-                                //     ii,
-                                //     'shopInstallment'
-                                //   ])
-                                // )
-                              }}
-                        />
-
-                          )
-                        }
-                        </div>
-                      </Col> */}
                       <Col md={1}> 
                       <div className='payment__text'
                       >
                         
-                     {store.projectData.floors[props.i].shops[ii].installmentPerDuration}
+                     {(store.projectData.floors[props.i].shops[ii].installmentPerDuration)}
                       {/* {store.projectData.floors[props.i].shops[ii].remainingRs / store.projectData.floors[props.i].shops[ii].shopInstallment} */}
-                     
-                      {/* <Input
-                              className='form-control installment__output'
-                              type='number'
-                              id={`Shop-installment-${ii}`}
-                              readOnly
-                              value={
-                                store.projectData.floors[props.i].shops[ii]
-                                  .installmentPerDuration
-                              }
-                             
-                            /> */}
+            
                       </div>
                        
                       </Col>
-                    </Row>  
+                    </Row> 
+                    <Row className="mt-2 mb-2">
+                    <Col md={3} className="payment__header"></Col>
+                  <Col md={3} className="payment__header">{store.projectData.floors[props.i].shops[ii].plan === 'Quarter' ?  'installment Per Quarter' : 'installment Per Month'}</Col>
+                  <Col md={3} className="payment__header">Arrears { store.projectData.floors[props.i].shops[ii].planForDues ==='quarterly' ? 'Per Quarter' : store.projectData.floors[props.i].shops[ii].planForDues === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.floors[props.i].shops[ii].planForDues === 'annually' ? 'Per Annum' : ''   }</Col>
+                  <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
+                  </Row>
+                  <Row className='mt-2 mb-4'>
+                      <Col md={3}></Col>
+                    <Col md={3}>
+                        <div className='payment__text' >
+                             <Input
+                        className='form-control payment__input'
+                        type='number'
+                        id={`Shop-cashBasicPayment-${ii}`}
+                        placeholder='12'
+                        onFocus={(e) => e.target.select()}
+                        value={
+                          (store.projectData.floors[props.i].shops[ii]
+                            .cashDownPayment)
+                        }
+                        onChange={e => {
+
+                        
+                            dispatch(
+                              updateFloorInnerProperties([
+                                // make a check on cashBasicPayment
+                             (e.target.value > store.projectData.floors[props.i].shops[ii].installmentPerDuration ? store.projectData.floors[props.i].shops[ii].installmentPerDuration : e.target.value) ,
+                              // e.target.value,  
+                              'floors',
+                              props.i,
+                              'shops',
+                                ii,
+                                'cashDownPayment'
+                              ])
+                            )
+
+                            dispatch(
+                                  updateFloorInnerProperties([
+                                    ( store.projectData.floors[props.i].shops[ii].installmentPerDuration === 0 ? (0) : (store.projectData.floors[props.i].shops[ii].installmentPerDuration - (e.target.value > store.projectData.floors[props.i].shops[ii].installmentPerDuration ? store.projectData.floors[props.i].shops[ii].installmentPerDuration : e.target.value) ) ),
+                                    //to update value directly (above nested condition)
+                                    'floors',
+                                    props.i,
+                                    'shops',
+                                    ii,
+                                    (store.projectData.floors[props.i].shops[ii].plan === 'Quarter' ? 'duesPerQuarter' : 'duesPerMonth' )
+                                  ])
+                                )
+
+
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                               props.i,
+                               'shops',
+                               ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
+                        }
+                      }
+
+                    />
+                        </div>
+                        
+                      </Col>
+                      {/* select Options */}
+                      <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div style={{width: '70%'}} className='payment__text'>
+                      <select
+                      className='form-control payment__select'
+                      style={{
+                        paddingLeft: 8,
+                        borderRadius: 4,
+                        color: '#001',
+                        outline: 'none',
+                        
+                        // marginLeft: -10
+                      }}
+                      id={`Shop-Plan-${ii}`}
+                                name='icon-primary'
+                                value={
+                                  store.projectData.floors[props.i].shops[ii].planForDues
+                                }
+                                // onFocus={(e) => e.target.select()}
+                                 //here plan do nothing, we just show the target value in the select field
+                                onChange={e => {
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      e.target.value,
+                                      'floors',
+                                      props.i,
+                                      'shops',
+                                      ii,
+                                      'planForDues'
+                                      ])
+                                  )
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      0,
+                                      'floors',
+                                      props.i,
+                                      'shops',
+                                      ii,
+                                      'arrearsInstallmentPerPeriod'
+                                    ])
+                                  )
+                              //  if-else on arrears installments
+                                  if (e.target.value === 'annually') { 
+
+                                    dispatch(
+                                      updateFloorInnerProperties([
+                                        
+                                          store.projectData.floors[props.i].shops[ii].plan === 'Quarter' ? 
+                                         (4 * store.projectData.floors[props.i].shops[ii].duesPerQuarter ) 
+                                         
+                                              : 
+                                        (
+                                        12 * store.projectData.floors[props.i].shops[ii].duesPerMonth 
+                                        ),
+                                      'floors',
+                                      props.i,
+                                      'shops',
+                                      ii,
+                                      'arrearsInstallmentPerPeriod'
+                                      ])
+                                    )
+                                
+                                   } else if (e.target.value === 'quarterly') {
+                                    dispatch(
+                                      updateFloorInnerProperties([
+                                        ( store.projectData.floors[props.i].shops[ii].plan === 'Monthly' ? 
+                                        (store.projectData.floors[props.i].shops[ii].cashDownPayment === 0 ? (0) :
+                                        (3 * store.projectData.floors[props.i].shops[ii].duesPerMonth)) 
+                                           :
+                                        (store.projectData.floors[props.i].shops[ii].cashDownPayment === 0 ? (0) : (
+                                          ((store.projectData.floors[props.i].shops[ii].duesPerQuarter))
+                                          ))
+                                        ),
+                                        'floors',
+                                      props.i,
+                                      'shops',
+                                      ii,
+                                        'arrearsInstallmentPerPeriod',
+                                      ])
+                                    )
+                                  
+                                   } else if(e.target.value === 'bi-annual'){
+                                    dispatch(
+                                      updateFloorInnerProperties([
+                                       (store.projectData.floors[props.i].shops[ii].plan === 'Monthly' ?
+                                        (6 * store.projectData.floors[props.i].shops[ii].duesPerMonth) 
+                                        : 
+                                        // as there are 2 quarters in a bi-annual
+                                        (2 * store.projectData.floors[props.i].shops[ii].duesPerQuarter)), 
+                                        'floors',
+                                      props.i,
+                                      'shops',
+                                      ii,
+                                        'arrearsInstallmentPerPeriod',
+                                      ])
+                                    )
+                                   }
+                                  //  
+                                }}
+                      >
+                        <option>quarterly</option>
+                        <option>bi-annual</option>
+                        <option>annually</option>
+                        
+                      </select>
+                      </div>
+
+                       </Col>
+
+                       <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div className='payment__text'>
+                         {(store.projectData.floors[props.i].shops[ii].arrearsInstallmentPerPeriod)}
+                        </div>
+                       </Col>
+                      
+                    </Row>
+                    <hr style={{ color: '#b3b3b3', backgroundColor: '#b3b3b3', height: 1, width: '99%',   }} />
+
+                    </>
                   )}
                   
                   </Repeater>

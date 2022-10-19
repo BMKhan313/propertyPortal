@@ -55,7 +55,7 @@ const WizardHorizontal = () => {
 
   // ** State
   const [stepper, setStepper] = useState(null)
-
+  // const [stepper2, setStepper2] = useState(null)
   const stepsForFullDetail = [
     {
       id: 'project-details',
@@ -69,8 +69,12 @@ const WizardHorizontal = () => {
       id: 'floor-full-details',
       title: 'Floor Full Details',
       subtitle: 'Add Floor Full Details',
-      content: <FloorDetails stepper={stepper} />
-    },
+      content: <FloorDetails stepper={stepper} />  ,
+      // content: <FloorBasicDetails stepper={stepper} /> 
+      
+     
+    }
+    ,
     {
       id: 'Inner-Floor-details',
       title: 'Inner Floor Details',
@@ -126,11 +130,52 @@ const WizardHorizontal = () => {
     Do You Have Detailed Information ? 
      <Checkbox color="secondary" checked={checkBox} 
          onChange={e => {
-          // console.log(e.target.checked)
           setCheckBox(e.target.checked)
+          console.log(e.target.checked)
+         
          }}
       />
       </div>
+
+    
+      <Wizard
+        instance={el => setStepper(el)}
+        options={{
+          linear: false
+        }}
+        ref={ref}
+        steps={ stepsForFullDetail }
+      // steps={stepsforBasicDetail }         
+ />
+
+
+{/* <Wizard
+        instance={el => setStepper(el)}
+        options={{
+          linear: false
+        }}
+        ref={ref}
+        steps={ stepsForFullDetail }
+       
+      // steps={stepsforBasicDetail }
+             
+/>  */}
+  
+
+      {/* { checkBox ? 
+       (
+        <Wizard
+        instance={el => setStepper(el)}
+        options={{
+          linear: false
+        }}
+        ref={ref}
+        steps={ stepsForFullDetail }
+          // steps={ checkBox ? (stepsForFullDetail) :  (stepsforBasicDetail) }
+      
+      />
+      ) :
+      (
       <Wizard
         instance={el => setStepper(el)}
         options={{
@@ -141,29 +186,7 @@ const WizardHorizontal = () => {
           // steps={ checkBox ? (stepsForFullDetail) :  (stepsforBasicDetail) }
       
       />
-
-
-      {/* { checkBox ? 
-       ( <Wizard
-        instance={el => setStepper(el)}
-        options={{
-          linear: false
-        }}
-        ref={ref}
-        steps={ stepsForFullDetail }
-          // steps={ checkBox ? (stepsForFullDetail) :  (stepsforBasicDetail) }
-      
-      />) :
-      (<Wizard
-        instance={el => setStepper(el)}
-        options={{
-          linear: false
-        }}
-        ref={ref}
-        steps={ stepsforBasicDetail }
-          // steps={ checkBox ? (stepsForFullDetail) :  (stepsforBasicDetail) }
-      
-      />)} */}
+      ) } */}
     </div>
     </>
   )

@@ -2,6 +2,7 @@
 import React from 'react'
 import '../../FloorDetails/PaymentPlan/Payment.css'
 import { useState, useContext, useEffect } from 'react'
+import { InputNumberCommas } from 'react-number-format-with-commas';
 // ** Reactstrap Imports
 import {
     Row,
@@ -109,7 +110,7 @@ const BasementBasicRepeatingForm = (props) => {
         >
                    {j => (
                       <>
-                      <div  >
+                      <div>
                         <Row> <h2 className='mt-1 mb-2' style={{fontFamily: 'cursive'}}>basement-{j+1}</h2></Row>
                       <Row >
                       <Col md={1} className="payment__header">Name #</Col>
@@ -197,12 +198,12 @@ const BasementBasicRepeatingForm = (props) => {
                       </Col>
                       <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                        <Input
+                        <InputNumberCommas
                         type='text'
                         className='form-control payment__input'
                         id={`animation-cost-${j}`}
                         placeholder='32'
-                        value={store.projectData.basements[j].pricePerSqFt}
+                        value={(store.projectData.basements[j].pricePerSqFt)}
                         onChange={e => {
                           dispatch(
                             updateFloorProperties([
@@ -239,7 +240,14 @@ const BasementBasicRepeatingForm = (props) => {
                               'downPaymentBasicPercentage'
                             ])
                           )
-                         
+                          dispatch(
+                            updateFloorProperties([
+                              0,
+                              'basements',
+                              j,
+                              'cashBasicPaymentForMin'
+                            ])
+                          )
                           // make downpaymentRs 0
                           dispatch(
                             updateFloorProperties([
@@ -345,8 +353,8 @@ const BasementBasicRepeatingForm = (props) => {
                       </Col>
                       <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                        <Input
-                        type='text'
+                        <InputNumberCommas
+                        // type='text'
                         className='form-control payment__input'
                         id={`animation-cost-${j}`}
                         placeholder='32'
@@ -486,7 +494,7 @@ const BasementBasicRepeatingForm = (props) => {
                      
                        <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                      <Input
+                      <InputNumberCommas
                         type='text'
                         className='form-control payment__input'
                         id={`animation-cost-${j}`}
@@ -636,7 +644,7 @@ const BasementBasicRepeatingForm = (props) => {
                       <Col md={1}> 
                       <div className='payment__text' >
                         
-                     {store.projectData.basements[j].minPrice}
+                     {(store.projectData.basements[j].minPrice)?.toLocaleString()}
                      
                       </div>
                        
@@ -645,7 +653,7 @@ const BasementBasicRepeatingForm = (props) => {
                       <div className='payment__text'
                       >
                         
-                     {(store.projectData.basements[j].maxPrice)}
+                     {(store.projectData.basements[j].maxPrice)?.toLocaleString()}
                      
                       </div>
                        
@@ -685,7 +693,7 @@ const BasementBasicRepeatingForm = (props) => {
                        
                       <div className='payment__text' style={{width:100}}>
                         
-                     {store.projectData.basements[j].maxPrice}
+                     {(store.projectData.basements[j].maxPrice)?.toLocaleString()}
                      
                       </div>
                       </Col> 
@@ -755,9 +763,9 @@ const BasementBasicRepeatingForm = (props) => {
                       <Col md={2}>
                         <div className='payment__text'>
                            {/* payment in rs */}
-                            <Input
+                            <InputNumberCommas
                         className='form-control payment__input'
-                        type='number'
+                        // type='number'
                         id={`Shop-downPaymentRs-${j}`}
                         placeholder='12'
                         readOnly
@@ -771,9 +779,9 @@ const BasementBasicRepeatingForm = (props) => {
                       <Col md={2}>
                         <div className='payment__text' >
                             {/* Remainings */}
-                             <Input
+                             <InputNumberCommas
                         className='form-control payment__input'
-                        type='number'
+                        // type='number'
                         id={`Shop-remainingBasicRs-${j}`}
                         placeholder='12'
                         readOnly
@@ -943,7 +951,7 @@ const BasementBasicRepeatingForm = (props) => {
                       <div className='payment__text'
                       >
                         
-                     {store.projectData.basements[j].installmentPerDuration}
+                     {(store.projectData.basements[j].installmentPerDuration)?.toLocaleString()}
                      
                       </div>
                        
@@ -954,7 +962,7 @@ const BasementBasicRepeatingForm = (props) => {
                     <Row>
                     <Col md={3} className="payment__header"></Col>
                   <Col md={3} className="payment__header">{store.projectData.basements[j].basicPlan === 'Quarter' ? 'installment per quarter' : 'Installment Per Month'}</Col>
-                  <Col md={3} className="payment__header">Arrears quarter/bi-annaul/annum </Col>
+                  <Col md={3} className="payment__header">Arrears { store.projectData.basements[j].basicPlanForDues ==='Quarterly' ? 'Per Quarter' : store.projectData.basements[j].basicPlanForDues === 'Bi-Annual'  ? 'Per Bi-Annum' : store.projectData.basements[j].basicPlanForDues === 'Annually' ? 'Per Annum' : ''   }</Col>
                   <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
                   </Row>
                     <Row className='mt-2 mb-2'>
@@ -963,7 +971,7 @@ const BasementBasicRepeatingForm = (props) => {
                         <div className='payment__text' >
                              <Input
                         className='form-control payment__input'
-                        type='text'
+                        type='number'
                         id={`Shop-cashBasicPayment-${j}`}
                         placeholder='12'
                         value={
@@ -1040,13 +1048,14 @@ const BasementBasicRepeatingForm = (props) => {
                                 dispatch(
                                   updateFloorProperties([
                                     
-                                      store.projectData.basements[j].basicPlan === 'Quarter' ? 
-                                     ( (4 * store.projectData.basements[j].installmentPerDuration) - (store.projectData.basements[j].cashBasicPayment  * 12) )
+                                    (  store.projectData.basements[j].basicPlan === 'Quarter' ? 
+                                    ( ( (4 * store.projectData.basements[j].installmentPerDuration) - (store.projectData.basements[j].cashBasicPayment  * 12) )
                                       (4 * (store.projectData.basements[j].duesPerQuarter )) 
                                      
-                                          : 
+                                      )  : 
                                     (
-                                      (12 * store.projectData.basements[j].duesPerMonth ))
+                                      (12 * store.projectData.basements[j].duesPerMonth ) )
+                                       )
                                     ,
                                     'basements',
                                     j,
@@ -1058,12 +1067,13 @@ const BasementBasicRepeatingForm = (props) => {
                                 dispatch(
                                   updateFloorProperties([
                                     ( store.projectData.basements[j].basicPlan === 'Monthly' ? 
-                                    (store.projectData.basements[j].cashBasicPayment === 0 ? (0) :
+                                   ( (store.projectData.basements[j].cashBasicPayment === 0 ? (0) :
                                    (3 * store.projectData.basements[j].duesPerMonth)) 
-                                       :
+                                      )   :
                                     (store.projectData.basements[j].cashBasicPayment === 0 ? (0) : (
                                        ((store.projectData.basements[j].duesPerQuarter))
-                                      ))
+                                      )
+                                      )
                                     ),
                                     'basements',
                                     j,
@@ -1097,7 +1107,7 @@ const BasementBasicRepeatingForm = (props) => {
 
                        <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
                       <div className='payment__text'>
-                         {store.projectData.basements[j].arrearsBasicIntallmentOnEachPeriod}
+                         {(store.projectData.basements[j].arrearsBasicIntallmentOnEachPeriod)?.toLocaleString()}
                         </div>
                        </Col>
                       
@@ -1122,7 +1132,7 @@ const BasementBasicRepeatingForm = (props) => {
                         
                       <Col md={1}> 
                        <div className='payment__text' style={{width:100}}>
-                      {store.projectData.basements[j].minPrice}
+                      {(store.projectData.basements[j].minPrice)?.toLocaleString()}
                        </div>
                        </Col> 
                        
@@ -1131,9 +1141,9 @@ const BasementBasicRepeatingForm = (props) => {
 
                       <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                        <Input
+                        <InputNumberCommas
                         className='form-control payment__input'
-                        type='number'
+                        // type='number'
                         readOnly
                         id={`Shop-downPaymentPercentage-${j}`}
                         placeholder='12'
@@ -1149,9 +1159,9 @@ const BasementBasicRepeatingForm = (props) => {
                       <Col md={2}>
                         <div className='payment__text'>
                            {/* payment in rs */}
-                            <Input
+                            <InputNumberCommas
                         className='form-control payment__input'
-                        type='number'
+                        // type='number'
                         id={`Shop-downPaymentRs-${j}`}
                         placeholder='12'
                         readOnly
@@ -1165,9 +1175,9 @@ const BasementBasicRepeatingForm = (props) => {
                       <Col md={2}>
                         <div className='payment__text' >
                             {/* Remainings */}
-                             <Input
+                             <InputNumberCommas
                         className='form-control payment__input'
-                        type='number'
+                        // type='number'
                         id={`Shop-remainingBasicRsForMin-${j}`}
                         placeholder='12'
                         readOnly
@@ -1296,7 +1306,7 @@ const BasementBasicRepeatingForm = (props) => {
                       <div className='payment__text'
                       >
                         
-                     {store.projectData.basements[j].installmentPerDurationForMin}
+                     {(store.projectData.basements[j].installmentPerDurationForMin)?.toLocaleString()}
                      
                       </div>
                        
@@ -1305,7 +1315,7 @@ const BasementBasicRepeatingForm = (props) => {
                     <Row className="mt-2 mb-2">
                     <Col md={3} className="payment__header"></Col>
                   <Col md={3} className="payment__header">{store.projectData.basements[j].basicPlanForMin === 'Quarter' ?  'installment Per Quarter' : 'installment Per Month'}</Col>
-                  <Col md={3} className="payment__header">Arrears Per quarter/annum</Col>
+                  <Col md={3} className="payment__header">Arrears { store.projectData.basements[j].basicPlanForDuesForMin ==='quarterly' ? 'Per Quarter' : store.projectData.basements[j].basicPlanForDuesForMin === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.basements[j].basicPlanForDuesForMin === 'annually' ? 'Per Annum' : ''   }</Col>
                   <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
                   </Row>
                   <Row className='mt-2 mb-2'>
@@ -1314,12 +1324,12 @@ const BasementBasicRepeatingForm = (props) => {
                         <div className='payment__text' >
                              <Input
                         className='form-control payment__input'
-                        type='text'
+                        type='Number'
                         id={`Shop-cashBasicPayment-${j}`}
                         placeholder='12'
                         value={
-                          store.projectData.basements[j]
-                            .cashBasicPaymentForMin
+                          (store.projectData.basements[j]
+                            .cashBasicPaymentForMin)?.toLocaleString()
                         }
                         onChange={e => {
                          
@@ -1461,7 +1471,7 @@ const BasementBasicRepeatingForm = (props) => {
 
                        <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
                       <div className='payment__text'>
-                         {store.projectData.basements[j].arrearsBasicIntallmentOnEachPeriodForMin}
+                         {(store.projectData.basements[j].arrearsBasicIntallmentOnEachPeriodForMin)?.toLocaleString()}
                         </div>
                        </Col>
                       

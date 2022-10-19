@@ -301,7 +301,7 @@ const noApartments = props => {
                                 placeholder='Apartment #'
                                 value={store.projectData.floors[
                                   props.i
-                                ].apartments[ii].label.replace(
+                                ].apartments[ii].label?.replace(
                                   'Apartment-',
                                   ''
                                 )}

@@ -352,7 +352,7 @@ const noShops = props => {
                                 type='text'
                                 id={`Shop-Label-${ii}`}
                                 placeholder='Shop #'
-                                value={store.projectData.floors[props.i].shops[ii].label.replace('Shop-', '')}
+                                value={store.projectData.floors[props.i].shops[ii].label?.replace('Shop-', '')}
                                 onChange={e => {
                                   dispatch(
                                     updateFloorInnerProperties([

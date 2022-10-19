@@ -51,6 +51,7 @@ import { ArrowLeft, ArrowRight, Plus, Minus, Check, X } from 'react-feather'
 
   import InputNumber from 'rc-input-number'
 import { keyframes } from '@emotion/react'
+import { InputNumberCommas } from 'react-number-format-with-commas'
 
 
 const FloorBasicRepeatingForm = () => {
@@ -197,8 +198,8 @@ const FloorBasicRepeatingForm = () => {
                       </Col>
                       <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                        <Input
-                        type='text'
+                        <InputNumberCommas
+                        // type='text'
                         className='form-control payment__input'
                         id={`animation-cost-${f}`}
                         placeholder='32'
@@ -309,8 +310,8 @@ const FloorBasicRepeatingForm = () => {
                       </Col>
                       <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                        <Input
-                        type='text'
+                        <InputNumberCommas
+                        // type='text'
                         className='form-control payment__input'
                         id={`animation-cost-${f}`}
                         placeholder='32'
@@ -405,8 +406,8 @@ const FloorBasicRepeatingForm = () => {
                      
                        <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                      <Input
-                        type='text'
+                      <InputNumberCommas
+                        // type='text'
                         className='form-control payment__input'
                         id={`animation-cost-${f}`}
                         placeholder='32'
@@ -502,7 +503,7 @@ const FloorBasicRepeatingForm = () => {
                       <div className='payment__text'
                       >
                         
-                     {store.projectData.floors[f].minPrice}
+                     {(store.projectData.floors[f].minPrice)?.toLocaleString()}
                      
                       </div>
                        
@@ -511,7 +512,7 @@ const FloorBasicRepeatingForm = () => {
                       <div className='payment__text'
                       >
                         
-                     {store.projectData.floors[f].maxPrice}
+                     {(store.projectData.floors[f].maxPrice)?.toLocaleString()}
                      
                       </div>
                        
@@ -550,7 +551,7 @@ const FloorBasicRepeatingForm = () => {
                        
                       <div className='payment__text' style={{width:100}}>
                         
-                     {store.projectData.floors[f].maxPrice}
+                     {(store.projectData.floors[f].maxPrice)?.toLocaleString()}
                      
                       </div>
                       </Col> 
@@ -706,6 +707,22 @@ const FloorBasicRepeatingForm = () => {
                                       'basicPlan'
                                     ])
                                   )
+                                  dispatch(
+                                    updateFloorProperties([
+                                      0,
+                                      'floors',
+                                      f,
+                                      'cashBasicPayment'
+                                    ])
+                                  )
+                                  dispatch(
+                                    updateFloorProperties([
+                                      0,
+                                      'floors',
+                                      f,
+                                      'arrearsBasicIntallmentOnEachPeriod'
+                                    ])
+                                  )
                                 
                                   if (e.target.value === 'Monthly') { 
                                 dispatch(
@@ -759,12 +776,165 @@ const FloorBasicRepeatingForm = () => {
                       <div className='payment__text'
                       >
                         
-                     {store.projectData.floors[f].installmentPerDuration}
+                     {(store.projectData.floors[f].installmentPerDuration)?.toLocaleString()}
                      
                       </div>
                        
                       </Col>
                     </Row>  
+                    <Row>
+                    <Col md={3} className="payment__header"></Col>
+                  <Col md={3} className="payment__header">{store.projectData.floors[f].basicPlan === 'Quarter' ? 'installment per quarter' : 'Installment Per Month'}</Col>
+                  <Col md={3} className="payment__header">Arrears { store.projectData.floors[f].basicPlanForDues ==='Quarterly' ? 'Per Quarter' : store.projectData.floors[f].basicPlanForDues === 'Bi-Annual'  ? 'Per Bi-Annum' : store.projectData.floors[f].basicPlanForDues === 'Annually' ? 'Per Annum' : ''   } </Col>
+                  <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
+                  </Row>
+                  <Row className='mt-2 mb-2'>
+                      <Col md={3}></Col>
+                    <Col md={3}>
+                        <div className='payment__text' >
+                             <Input
+                        className='form-control payment__input'
+                        type='number'
+                        id={`Shop-cashBasicPayment-${f}`}
+                        placeholder='12'
+                        value={
+                          store.projectData.floors[f]
+                            .cashBasicPayment
+                        }
+                        onChange={e => {
+                          dispatch(
+                            updateFloorProperties([
+                              // make a check on cashBasicPayment
+                          
+                           (e.target.value > store.projectData.floors[f].installmentPerDuration ? store.projectData.floors[f].installmentPerDuration : e.target.value) ,
+                            'floors',
+                              f,
+                              'cashBasicPayment'
+
+                            ])
+                          )
+
+                          dispatch(
+                                updateFloorProperties([
+                                  ( store.projectData.floors[f].installmentPerDuration === 0 ? (0) : (((store.projectData.floors[f].installmentPerDuration)  ) - (e.target.value)) ),
+                                      'floors',
+                                     f,
+                                  (store.projectData.floors[f].basicPlan === 'Quarter' ? 'duesPerQuarter' : 'duesPerMonth' )
+                                ])
+                              )
+
+                          dispatch(
+                            updateFloorProperties([
+                              0,
+                              'floors',
+                              f,
+                              'arrearsBasicIntallmentOnEachPeriod'
+                            ])
+                          )
+                        }
+                      }
+
+                    />
+                        </div>
+                        
+                      </Col>
+                      {/* select Options */}
+                      <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div style={{width: '70%'}} className='payment__text'>
+                      <select
+                      className='form-control payment__select'
+                      style={{
+                        paddingLeft: 8,
+                        borderRadius: 4,
+                        color: '#001',
+                        outline: 'none',
+                        
+                        // marginLeft: -10
+                      }}
+                      id={`Shop-Plan-${f}`}
+                                name='icon-primary'
+                                value={
+                                  store.projectData.floors[f].basicPlanForDues
+                                }
+                                onChange={e => {
+                                  dispatch(
+                                    updateFloorProperties([
+                                      e.target.value,
+                                      'floors',
+                                      f,
+                                      'basicPlanForDues'
+                                    ])
+                                  )
+                                
+                                  if (e.target.value === 'Annually') { 
+
+                                dispatch(
+                                  updateFloorProperties([
+                                      store.projectData.floors[f].basicPlan === 'Quarter' ? 
+                                  (   ( (4 * store.projectData.floors[f].installmentPerDuration) - (store.projectData.floors[f].cashBasicPayment  * 12) )
+                                      (4 * (store.projectData.floors[f].duesPerQuarter )) 
+                                     
+                                      )    : 
+                                    (
+                                      (12 * store.projectData.floors[f].duesPerMonth ) )
+                                    ,
+                                    'floors',
+                                    f,
+                                    'arrearsBasicIntallmentOnEachPeriod'
+                                  ])
+                                )
+                            
+                               } else if (e.target.value === 'Quarterly') {
+                                dispatch(
+                                  updateFloorProperties([
+                                    ( store.projectData.floors[f].basicPlan === 'Monthly' ? 
+                                   ( (store.projectData.floors[f].cashBasicPayment === 0 ? (0) :
+                                   (3 * store.projectData.floors[f].duesPerMonth)) 
+                                       )
+                                           :
+                                    (store.projectData.floors[f].cashBasicPayment === 0 ? (0) : (
+                                       ((store.projectData.floors[f].duesPerQuarter))
+                                      ))
+                                    ),
+                                    'floors',
+                                    f,
+                                    'arrearsBasicIntallmentOnEachPeriod',
+                                  ])
+                                )
+                              
+                               } else if(e.target.value === 'Bi-Annual'){
+                                dispatch(
+                                  updateFloorProperties([
+                                  (store.projectData.floors[f].basicPlan === 'Monthly' ?
+                                    (6 * store.projectData.floors[f].duesPerMonth) 
+                                    : 
+                                    // as there are 2 quarters in a bi-annual
+                                    (2 * store.projectData.floors[f].duesPerQuarter)), 
+                                    'floors',
+                                    f,
+                                    'arrearsBasicIntallmentOnEachPeriod',
+                                  ])
+                                )
+                               }
+                                }}
+                      >
+                        <option>Quarterly</option>
+                        <option>Annually</option>
+                        <option>Bi-Annual</option>
+                      </select>
+                      </div>
+
+                       </Col>
+
+                       <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div className='payment__text'>
+                         {(store.projectData.floors[f].arrearsBasicIntallmentOnEachPeriod)?.toLocaleString()}
+                        </div>
+                       </Col>
+                      
+                    </Row>
+                    <hr style={{ color: '#b3b3b3', backgroundColor: '#b3b3b3', height: 1, width: '60%', marginLeft: '26%', marginRight: 'auto' }} />
+//
 
                      {/* for Minimum Price */}
                     <Row>
@@ -784,7 +954,7 @@ const FloorBasicRepeatingForm = () => {
                         
                       <Col md={1}> 
                        <div className='payment__text' style={{width:100}}>
-                      {store.projectData.floors[f].minPrice}
+                      {(store.projectData.floors[f].minPrice)?.toLocaleString()}
                        </div>
                        </Col> 
                        
@@ -811,9 +981,9 @@ const FloorBasicRepeatingForm = () => {
                       <Col md={2}>
                         <div className='payment__text'>
                            {/* payment in rs */}
-                            <Input
+                            <InputNumberCommas
                         className='form-control payment__input'
-                        type='number'
+                        // type='number'
                         id={`Shop-downPaymentRs-${f}`}
                         placeholder='12'
                         readOnly
@@ -827,9 +997,9 @@ const FloorBasicRepeatingForm = () => {
                       <Col md={2}>
                         <div className='payment__text' >
                             {/* Remainings */}
-                             <Input
+                             <InputNumberCommas
                         className='form-control payment__input'
-                        type='number'
+                        // type='number'
                         id={`Shop-remainingBasicRsForMin-${f}`}
                         placeholder='12'
                         readOnly
@@ -863,6 +1033,7 @@ const FloorBasicRepeatingForm = () => {
                         </div>
                       </Col> 
                 {/* yrs end */}
+
                       <Col md={1} style={{display: 'flex', justifyContent: 'flex-start'}}>
                       <div className='payment__text'>
                       <select
@@ -886,6 +1057,22 @@ const FloorBasicRepeatingForm = () => {
                                       'floors',
                                       f,
                                       'basicPlanForMin'
+                                    ])
+                                  )
+                                  dispatch(
+                                    updateFloorProperties([
+                                       0,
+                                      'floors',
+                                      f,
+                                      'cashBasicPaymentForMin'
+                                    ])
+                                  )
+                                  dispatch(
+                                    updateFloorProperties([
+                                       0,
+                                      'floors',
+                                      f,
+                                      'arrearsBasicIntallmentOnEachPeriodForMin'
                                     ])
                                   )
                                 
@@ -941,15 +1128,177 @@ const FloorBasicRepeatingForm = () => {
                       <div className='payment__text'
                       >
                         
-                     {store.projectData.floors[f].installmentPerDurationForMin}
+                     {(store.projectData.floors[f].installmentPerDurationForMin)?.toLocaleString()}
                      
                       </div>
                        
                       </Col>
                     </Row>
-                  {/* )} */}
-                  
-                  {/* </Repeater> */}
+                    <Row className="mt-2 mb-2">
+                    <Col md={3} className="payment__header"></Col>
+                  <Col md={3} className="payment__header">{store.projectData.floors[f].basicPlanForMin === 'Quarter' ?  'installment Per Quarter' : 'installment Per Month'}</Col>
+                  <Col md={3} className="payment__header">Arrears { store.projectData.floors[f].basicPlanForDuesForMin ==='quarterly' ? 'Per Quarter' : store.projectData.floors[f].basicPlanForDuesForMin === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.floors[f].basicPlanForDuesForMin === 'annually' ? 'Per Annum' : '' }</Col>
+                  <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
+                  </Row>
+                  <Row className='mt-2 mb-2'>
+                      <Col md={3}></Col>
+                    <Col md={3}>
+                        <div className='payment__text' >
+                             <Input
+                        className='form-control payment__input'
+                        type='number'
+                        id={`Shop-cashBasicPayment-${f}`}
+                        placeholder='12'
+                        value={
+                          store.projectData.floors[f]
+                            .cashBasicPaymentForMin
+                        }
+                        onChange={e => {
+                         
+                            dispatch(
+                              updateFloorProperties([
+                                // make a check on cashBasicPayment
+                           
+                             (e.target.value > store.projectData.floors[f].installmentPerDurationForMin ? store.projectData.floors[f].installmentPerDurationForMin : e.target.value) ,
+                              // e.target.value,  
+                              'floors',
+                                f,
+                                'cashBasicPaymentForMin'
+  
+                              ])
+                            )
+  
+                            dispatch(
+                                  updateFloorProperties([
+                                    ( store.projectData.floors[f].installmentPerDurationForMin === 0 ? (0) : (((store.projectData.floors[f].installmentPerDurationForMin)  ) - (e.target.value)) ),
+                                        'floors',
+                                       f,
+                                    (store.projectData.floors[f].basicPlanForMin === 'Quarter' ? 'duesPerQuarterForMin' : 'duesPerMonthForMin' )
+                                  ])
+                                )
+
+
+                          dispatch(
+                            updateFloorProperties([
+                              0,
+                              'floors',
+                              f,
+                              'arrearsBasicIntallmentOnEachPeriodForMin'
+                            ])
+                          )
+                        }
+                      }
+
+                    />
+                        </div>
+                        
+                      </Col>
+                      {/* select Options */}
+                      <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div style={{width: '70%'}} className='payment__text'>
+                      <select
+                      className='form-control payment__select'
+                      style={{
+                        paddingLeft: 8,
+                        borderRadius: 4,
+                        color: '#001',
+                        outline: 'none',
+                        
+                        // marginLeft: -10
+                      }}
+                      id={`Shop-Plan-${f}`}
+                                name='icon-primary'
+                                value={
+                                  store.projectData.floors[f].basicPlanForDuesForMin
+                                }
+                                 //here basicPlanForDuesForMin do nothing, we just show the target value in the select field
+                                onChange={e => {
+                                  dispatch(
+                                    updateFloorProperties([
+                                      e.target.value,
+                                      'floors',
+                                      f,
+                                      'basicPlanForDuesForMin'
+                                      ])
+                                  )
+                                  dispatch(
+                                    updateFloorProperties([
+                                      0,
+                                      'floors',
+                                      f,
+                                      'arrearsBasicIntallmentOnEachPeriodForMin'
+                                    ])
+                                  )
+                              //  if-else on arrears installments
+                                  if (e.target.value === 'annually') { 
+
+                                    dispatch(
+                                      updateFloorProperties([
+                                        
+                                          store.projectData.floors[f].basicPlanForMin === 'Quarter' ? 
+                                         (4 * store.projectData.floors[f].duesPerQuarterForMin ) 
+                                         
+                                              : 
+                                        (
+                                        12 * store.projectData.floors[f].duesPerMonthForMin 
+                                        ),
+                                        'floors',
+                                        f,
+                                        'arrearsBasicIntallmentOnEachPeriodForMin'
+                                      ])
+                                    )
+                                
+                                   } else if (e.target.value === 'quarterly') {
+                                    dispatch(
+                                      updateFloorProperties([
+                                        ( store.projectData.floors[f].basicPlanForMin === 'Monthly' ? 
+                                        (store.projectData.floors[f].cashBasicPaymentForMin === 0 ? (0) :
+                                        (3 * store.projectData.floors[f].duesPerMonthForMin)) 
+                                           :
+                                        (store.projectData.floors[f].cashBasicPaymentForMin === 0 ? (0) : (
+                                          ((store.projectData.floors[f].duesPerQuarterForMin))
+                                          ))
+                                        ),
+                                        'floors',
+                                        f,
+                                        'arrearsBasicIntallmentOnEachPeriodForMin',
+                                      ])
+                                    )
+                                  
+                                   } else if(e.target.value === 'bi-annual'){
+                                    dispatch(
+                                      updateFloorProperties([
+                                       (store.projectData.floors[f].basicPlanForMin === 'Monthly' ?
+                                        (6 * store.projectData.floors[f].duesPerMonthForMin) 
+                                        : 
+                                        // as there are 2 quarters in a bi-annual
+                                        (2 * store.projectData.floors[f].duesPerQuarterForMin)), 
+                                        'floors',
+                                        f,
+                                        'arrearsBasicIntallmentOnEachPeriodForMin',
+                                      ])
+                                    )
+                                   }
+                                  //  
+                                }}
+                      >
+                        <option>quarterly</option>
+                        <option>bi-annual</option>
+                        <option>annually</option>
+                        
+                      </select>
+                      </div>
+
+                       </Col>
+
+                       <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div className='payment__text'>
+                         {(store.projectData.floors[f].arrearsBasicIntallmentOnEachPeriodForMin)?.toLocaleString()}
+                        </div>
+                       </Col>
+                      
+                    </Row>
+                
                   </Row>
           <hr style={{ color: '#000', backgroundColor: '#000', height: 1, width: '90%', marginLeft: 'auto', marginRight: 'auto' }} />
 

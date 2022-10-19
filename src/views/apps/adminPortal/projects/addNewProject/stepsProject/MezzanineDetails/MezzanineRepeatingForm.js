@@ -260,6 +260,7 @@ const RepeatingForm = () => {
                         Shop/sq.ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -277,7 +278,7 @@ const RepeatingForm = () => {
                             updateFloorInnerProperties([
                               // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
                               // ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].width)),
-                              ((store.projectData.mezzanine[i].shops[i].length * store.projectData.mezzanine[i].shops[i].width) * (e.target.value)),
+                              ((store.projectData.mezzanine[i]?.shops[i]?.length * store.projectData.mezzanine[i]?.shops[i]?.width) * (e.target.value)),
                               // (store.projectData.mezzanine[props.i].priceShops * store.projectData.mezzanine[props.i].shops[ii].length * e.target.value),
                               'mezzanine',
                               i,
@@ -294,6 +295,7 @@ const RepeatingForm = () => {
                         Apartment/sq. ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -311,7 +313,7 @@ const RepeatingForm = () => {
                             updateFloorInnerProperties([
                               // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
                               // ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].width)),
-                              ((store.projectData.mezzanine[i].apartments[i].length * store.projectData.mezzanine[i].apartments[i].width) * (e.target.value)),
+                              ((store.projectData.mezzanine[i].apartments[i]?.length * store.projectData.mezzanine[i].apartments[i]?.width) * (e.target.value)),
                               // (store.projectData.mezzanine[props.i].priceapartments * store.projectData.mezzanine[props.i].apartments[ii].length * e.target.value),
                               'mezzanine',
                               i,
@@ -328,6 +330,7 @@ const RepeatingForm = () => {
                         length
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -353,6 +356,7 @@ const RepeatingForm = () => {
                         width
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-quantity-${i}`}
                         placeholder='1'
@@ -380,10 +384,10 @@ const RepeatingForm = () => {
                       {
                         (store.projectData.mezzanine[i].width === '0' || store.projectData.mezzanine[i].width === '') && (store.projectData.mezzanine[i].length === '0' || store.projectData.mezzanine[i].length === '') ? (
                           <Input
+                          className= 'form-control payment__input'
                           type='text'
                           placeholder='Enter Area'
                           id={`animation-price-${i}`}
-                          className='form-control'
                           onChange={e => {
                             dispatch(
                               updateFloorProperties([

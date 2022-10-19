@@ -301,7 +301,7 @@ const noFoodCourts = props => {
                                 placeholder='FoodCourt #'
                                 value={store.projectData.floors[
                                   props.i
-                                ].foodCourts[ii].label.replace(
+                                ].foodCourts[ii].label?.replace(
                                   'FoodCourt-',
                                   ''
                                 )}

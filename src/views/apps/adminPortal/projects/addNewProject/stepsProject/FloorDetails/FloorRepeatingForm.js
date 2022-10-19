@@ -257,8 +257,7 @@ const RepeatingForm = () => {
                     </Col>
 
                     <Col md={2}>
-                      <Label
-                        className='form-label'
+                      <Label className='form-label'
                         for={`animation-price-${i}`}
                       >
                         Return (ROI) %
@@ -288,11 +287,12 @@ const RepeatingForm = () => {
 
                   {/* row */}
                   <Row className='justify-content-between align-items-center'>
-                  <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                  <Col md={2} className='mb-md-0 mb-1 payment_text'>
+                      <Label className='form-label ' for={`animation-cost-${i}`}>
                         Shop/sq. ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -310,7 +310,7 @@ const RepeatingForm = () => {
                             updateFloorInnerProperties([
                               // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
                               // ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].width)),
-                              ((store.projectData.floors[i].shops[i].length * store.projectData.floors[i].shops[i].width) * (e.target.value)),
+                              ((store.projectData.floors[i].shops[i]?.length * store.projectData.floors[i].shops[i]?.width) * (e.target.value)),
                               // (store.projectData.floors[props.i].priceShops * store.projectData.floors[props.i].shops[ii].length * e.target.value),
                               'floors',
                               i,
@@ -323,11 +323,12 @@ const RepeatingForm = () => {
                         }}
                       />
                     </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
+                      <Label className='form-label ' for={`animation-cost-${i}`}>
                         FoodCourts/sq. ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -343,7 +344,7 @@ const RepeatingForm = () => {
                           )
                           dispatch(
                             updateFloorInnerProperties([
-                              ((store.projectData.floors[i].foodCourts[i].length * store.projectData.floors[i].foodCourts[i].width) * (e.target.value)),
+                              ((store.projectData.floors[i].foodCourts[i]?.length * store.projectData.floors[i].foodCourts[i]?.width) * (e.target.value)),
                               'floors',
                               i,
                               'foodCourts',
@@ -354,11 +355,12 @@ const RepeatingForm = () => {
                         }}
                       />
                     </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
+                      <Label className='form-label ' for={`animation-cost-${i}`} >
                         Office/sq. ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -374,7 +376,7 @@ const RepeatingForm = () => {
                           )
                           dispatch(
                             updateFloorInnerProperties([
-                              ((store.projectData.floors[i].corporateOffices[i].length * store.projectData.floors[i].corporateOffices[i].width) * (e.target.value)),
+                              ((store.projectData.floors[i].corporateOffices[i]?.length * store.projectData.floors[i].corporateOffices[i]?.width) * (e.target.value)),
                               'floors',
                               i,
                               'corporateOffices',
@@ -385,11 +387,12 @@ const RepeatingForm = () => {
                         }}
                       />
                     </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
+                      <Label className='form-label ' for={`animation-cost-${i}`}>
                         Apartment/sq. ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -407,7 +410,7 @@ const RepeatingForm = () => {
                             updateFloorInnerProperties([
                               // (store.projectData.floors[props.i].priceApartments * e.target.value),
                               // ((store.projectData.floors[i].priceApartments) * (e.target.value) * (store.projectData.floors[i].apartments[i].width)),
-                              ((store.projectData.floors[i].apartments[i].length * store.projectData.floors[i].apartments[i].width) * (e.target.value)),
+                              ((store.projectData.floors[i].apartments[i]?.length * store.projectData.floors[i].apartments[i]?.width) * (e.target.value)),
                               // (store.projectData.floors[props.i].priceApartments * store.projectData.floors[props.i].apartments[ii].length * e.target.value),
                               'floors',
                               i,
@@ -419,11 +422,12 @@ const RepeatingForm = () => {
                         }}
                       />
                     </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
+                      <Label className='form-label ' for={`animation-cost-${i}`}>
                         Service Apartment/sq. ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'
@@ -441,7 +445,7 @@ const RepeatingForm = () => {
                             updateFloorInnerProperties([
                               // (store.projectData.floors[props.i].priceApartments * e.target.value),
                               // ((store.projectData.floors[i].priceApartments) * (e.target.value) * (store.projectData.floors[i].apartments[i].width)),
-                              ((store.projectData.floors[i].serviceApartments[i].length * store.projectData.floors[i].serviceApartments[i].width) * (e.target.value)),
+                              ((store.projectData.floors[i].serviceApartments[i]?.length * store.projectData.floors[i].serviceApartments[i]?.width) * (e.target.value)),
                               // (store.projectData.floors[props.i].priceserviceApartments * store.projectData.floors[props.i].serviceApartments[ii].length * e.target.value),
                               'floors',
                               i,
@@ -453,11 +457,12 @@ const RepeatingForm = () => {
                         }}
                       />
                     </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
+                      <Label className='form-label ' for={`animation-cost-${i}`}>
                         Hotel Suite/sq. ft
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='0'
@@ -473,7 +478,7 @@ const RepeatingForm = () => {
                           )
                           dispatch(
                             updateFloorInnerProperties([
-                              ((store.projectData.floors[i].hotelSuites[i].length * store.projectData.floors[i].hotelSuites[i].width) * (e.target.value)),
+                              ((store.projectData.floors[i].hotelSuites[i]?.length * store.projectData.floors[i].hotelSuites[i]?.width) * (e.target.value)),
                               'floors',
                               i,
                               'hotelSuites',
@@ -489,11 +494,12 @@ const RepeatingForm = () => {
                   <hr/>
                   {/* row end */}
                   <Row className='justify-content-between align-items-center'>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
+                      <Label className='form-label ' for={`animation-cost-${i}`}>
                         length
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='0'
@@ -510,14 +516,15 @@ const RepeatingForm = () => {
                         }}
                       />
                     </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
                       <Label
-                        className='form-label'
+                        className='form-label '
                         for={`animation-quantity-${i}`}
                       >
                         width
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-quantity-${i}`}
                         placeholder='1'
@@ -535,9 +542,9 @@ const RepeatingForm = () => {
                       />
                     </Col>
                     
-                    <Col md={2} className='mb-md-0 mb-1'>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
                       <Label
-                        className='form-label'
+                        className='form-label '
                         for={`animation-price-${i}`}
                       >
                         Covered Area
@@ -570,7 +577,7 @@ const RepeatingForm = () => {
                       }
                     </Col>
 
-                    <Col md={2} className='mb-md-0 mb-1'>
+                    <Col md={2} className='mb-md-0 mb-1 payment_text'>
                       <Label
                         className='form-label'
                         for={`animation-price-${i}`}
@@ -578,6 +585,7 @@ const RepeatingForm = () => {
                         Corridor width (ft)
                       </Label>
                       <Input
+                      className= 'form-control payment__input'
                         type='number'
                         id={`animation-cost-${i}`}
                         placeholder='32'

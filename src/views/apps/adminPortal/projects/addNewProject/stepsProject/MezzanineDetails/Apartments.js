@@ -99,6 +99,7 @@ const noApartments = props => {
                                     'totalCost'
                                   ])
                                 )
+                                
                               }}
                         />
                       </Col>
@@ -135,6 +136,76 @@ const noApartments = props => {
                               'totalCost'
                             ])
                           )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
                         }}
                         />
                       </Col>
@@ -169,6 +240,76 @@ const noApartments = props => {
                               'apartments',
                               ii,
                               'totalCost'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
                             ])
                           )
                         }}

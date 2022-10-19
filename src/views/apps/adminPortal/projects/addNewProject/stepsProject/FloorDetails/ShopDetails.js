@@ -139,6 +139,76 @@ const noShops = props => {
                               'totalCost'
                             ])
                           )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
                         }}
                         />
                       </Col>
@@ -175,46 +245,83 @@ const noShops = props => {
                               'totalCost'
                             ])
                           )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'shops',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
                         }}
                         />
                       </Col>
-                      {/* <Col md={3} className="text-center">
-                        <Input
-                        type='number'
-                        id={`Shop-area-${ii}`}
-                        placeholder='0'
-                        value={
-                            store.projectData.floors[props.i].shops[ii]
-                            .area
-                        }
-                        onChange={e => {
-                          dispatch(
-                            updateFloorInnerProperties([
-                              e.target.value,
-                              'floors',
-                              props.i,
-                              'shops',
-                              ii,
-                              'area'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              (store.projectData.floors[props.i].priceShops * e.target.value),
-                              'floors',
-                              props.i,
-                              'shops',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                        }}
-                        />
-                      </Col> */}
+                     
                       <Col md={2} className="text-center">
                         {/* {store.projectData.floors[props.i].shops[ii].totalCost} */}
-             {/* {((store.projectData.floors[props.i].priceShops) * (store.projectData.floors[props.i].shops[ii].length * store.projectData.floors[props.i].shops[ii].width)) } */}
-                  {store.projectData.floors[props.i].shops[ii].totalCost}
+                    {store.projectData.floors[props.i].shops[ii].totalCost}
                       </Col>
                     </Row>  
                   )}

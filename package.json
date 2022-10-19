@@ -80,6 +80,7 @@
     "react-i18next": "^11.13.0",
     "react-multi-carousel": "^2.8.2",
     "react-multi-carousel-jsm": "^2.7.0",
+    "react-number-format-with-commas": "^0.0.3",
     "react-paginate": "^7.0.0",
     "react-perfect-scrollbar": "^1.5.5",
     "react-phone-number-input": "^3.2.11",

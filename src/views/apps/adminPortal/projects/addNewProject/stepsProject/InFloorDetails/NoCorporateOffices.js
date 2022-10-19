@@ -303,7 +303,7 @@ const noCorporateOffices = props => {
                                 placeholder='CorporateOffice #'
                                 value={store.projectData.floors[
                                   props.i
-                                ].corporateOffices[ii].label.replace(
+                                ].corporateOffices[ii].label?.replace(
                                   'CorporateOffice-',
                                   ''
                                 )}
