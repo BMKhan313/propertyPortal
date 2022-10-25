@@ -6,7 +6,7 @@
     font-size: 14px;
 }
 .payment__input {
-    width: 70%;
+    width: 90%;
     font-size: 14px;
     height: 30px;
 }
@@ -18,3 +18,25 @@
     height: 33px;
     font-size: 10px;
 }
+ 
+.text-error {
+    color: red;
+    font-Size: 12px;
+}
+
+@media only screen and (max-width: 600px) {
+    h4 {
+      /* background-color: lightblue; */
+      font-size: 12px!important;
+    }
+    label {
+        font-size: 50!important;
+    }
+  }
+  @media only screen and (min-width: 600px) {
+    h4 {
+      /* background-color: lightblue; */
+      font-size: 12px!important;
+    }
+   
+  }

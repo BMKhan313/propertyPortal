@@ -3,6 +3,8 @@ import { Fragment, useState, useContext } from 'react'
 
 // ** Custom Components
 import BreadCrumbs from '@components/breadcrumbs'
+// mui
+import Switch from '@mui/material/Switch';
 
 import Repeater from '@components/repeater'
 import { X, Plus, Minus, Check } from 'react-feather'
@@ -41,7 +43,11 @@ const nohotelSuites = props => {
   const toggleopen = id => {
     open === id ? setOpen() : setOpen(id)
   }
-  
+  const [checked, setChecked] = useState(true);
+  const handleChange = (event) => {
+    setChecked(event.target.checked) 
+  }
+
   return (
     <Row className='justify-content-between align-items-center'>
       {store.projectData.floors[props.i].noHotelSuites > 0 && (
@@ -58,12 +64,43 @@ const nohotelSuites = props => {
                   <h4 className='card-title'>
                   Hotels Suites Details
                   </h4>
+                  <Col className='mb-md-0 mb-1' md='6' sm='12'>
+                   <div className='d-flex align-items-center'>
+                    <div>
+                      <Label
+                       for='icon-primary'
+                     >
+                      <h4 className='payment__text'> Do you have area ? </h4>
+                     </Label>
+                     </div>
+                      <div className='form-switch form-check-primary '>
+                      <Switch
+                   checked={ checked   }
+                   className='mb-50'
+                   onChange={e=>
+                    {
+                      handleChange(e);     
+                    }
+                    }
+                    />
+                      </div>
+                    </div>
+                   
+                  </Col>
                   <Row>
-                    <Col md={3} className="h4 text-center">Hotel Suite#</Col>
-                    <Col md={2} className="h4 text-center">Price Per Sq.Ft</Col>
-                    <Col md={2} className="h4 text-center">length</Col>
-                    <Col md={2} className="h4 text-center">width</Col>
-                    <Col md={2} className="h4 text-center">Total Cost</Col>
+                    <Col md={3} className="h4 text-center payment__text">Hotel Suites #</Col>
+                    <Col md={2} className="h4 text-center payment__text">Price Per Sq.Ft</Col>
+                    { checked ?
+                   <> 
+                    <Col md={3} className="h4 text-center payment__text">Area</Col>
+                   </>
+                     :
+                     <>
+                     <Col md={2} className="h4 text-center payment__text">length</Col>
+                    <Col md={2} className="h4 text-center payment__text">width</Col>
+                     </>
+                     }
+                    <Col md={2} className="h4 text-center payment__text">Total Cost (Rs)</Col>
                   </Row>
                   <Repeater count={store.projectData.floors[props.i].noHotelSuites}>
                   {ii => ( 
@@ -82,15 +119,178 @@ const nohotelSuites = props => {
                               }}
                         />
                       </Col>
-                      <Col md={2} className="text-center">
+                      { checked ? 
+                    (
+                      <>
+                     <Col md={3} className="text-center">
+                         <Input
+                        type='number'
+                        id={`HotelSuite-isArea-${ii}`}
+                        placeholder='0'
+                        value={
+                            store.projectData.floors[props.i].hotelSuites[ii]
+                            .wholeAreaOfHotelSuites
+                        }
+                        onFocus = { e => {
+                          // iterate a number over an array
+                          //make array from number
+                      {  const n =  store.projectData.floors[props.i].noHotelSuites;
+                        [...Array(n)].forEach((data, index)=> {
+                          
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              index,
+                              'length'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              index,
+                              'width'
+                            ])
+                          )
+                        })
+                        }
+                        }}
+                        onChange={e => {
+                          dispatch(
+                            updateFloorInnerProperties([
+                              e.target.value,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'wholeAreaOfHotelSuites'
+                            ])
+                          )
+                          
+                          dispatch(
+                            updateFloorInnerProperties([
+                              // (store.projectData.floors[props.i].priceHotelSuites * e.target.value),
+                         ((store.projectData.floors[props.i].priceHotelSuites) * (e.target.value)) , 
+                              // (store.projectData.floors[props.i].priceHotelSuites * store.projectData.floors[props.i].hotelSuites[ii].width * e.target.value),
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'totalCost'
+                            ])
+                          )
+                           
+                        
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                        }}
+                        />
+                      </Col>
+                      </>
+                      )
+                    : 
+                      ( 
+                    <>  
+                 <Col md={2} className="text-center">
                         <Input
                         type='number'
-                        id={`HotelSuites-length-${ii}`}
+                        id={`HotelSuite-length-${ii}`}
                         placeholder='0'
                         value={
                             store.projectData.floors[props.i].hotelSuites[ii]
                             .length
                         }
+                        onFocus={e => {
+                          {  const n =  store.projectData.floors[props.i].noHotelSuites;
+                            [...Array(n)].forEach((data, index)=> {
+                              
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'floors',
+                                  props.i,
+                                  'hotelSuites',
+                                  index,
+                                  'wholeAreaOfHotelSuites'
+                                ])
+                              )
+                            
+                            })
+                            }
+                        }}
                         onChange={e => {
                           dispatch(
                             updateFloorInnerProperties([
@@ -104,9 +304,8 @@ const nohotelSuites = props => {
                           )
                           dispatch(
                             updateFloorInnerProperties([
-                              // (store.projectData.floors[props.i].priceHotelSuites * e.target.value),
-                              ((store.projectData.floors[props.i].priceHotelSuites) * (e.target.value) * (store.projectData.floors[props.i].hotelSuites[ii].width)),
-                              // ((store.projectData.floors[i].hotelSuites[i].length * store.projectData.floors[i].hotelSuites[i].width) * (e.target.value)),
+                         ((store.projectData.floors[props.i].priceHotelSuites) * (e.target.value) * (store.projectData.floors[props.i].hotelSuites[ii].width)) ,
+                              // ((store.projectData.floors[props.i].hotelSuites[ii].length * store.projectData.floors[props.i].hotelSuites[ii].width) * (e.target.value)),
                               // (store.projectData.floors[props.i].priceHotelSuites * store.projectData.floors[props.i].hotelSuites[ii].length * e.target.value),
                               'floors',
                               props.i,
@@ -122,6 +321,16 @@ const nohotelSuites = props => {
                               props.i,
                               'hotelSuites',
                               ii,
+                              'wholeAreaOfHotelSuites'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
                               'downPaymentPercentage' 
                             ])
                           )
@@ -185,18 +394,37 @@ const nohotelSuites = props => {
                               'arrearsInstallmentPerPeriod'
                             ])
                           )
+                         
                         }}
                         />
                       </Col>
                       <Col md={2} className="text-center">
                         <Input
                         type='number'
-                        id={`hotelSuitest-width-${ii}`}
+                        id={`HotelSuite-width-${ii}`}
                         placeholder='0'
                         value={
                             store.projectData.floors[props.i].hotelSuites[ii]
                             .width
                         }
+                        onFocus={e => {
+                          {  const n =  store.projectData.floors[props.i].noHotelSuites;
+                            [...Array(n)].forEach((data, index)=> {
+                              
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'floors',
+                                  props.i,
+                                  'hotelSuites',
+                                  index,
+                                  'wholeAreaOfHotelSuites'
+                                ])
+                              )
+                            
+                            })
+                            }
+                        }}
                         onChange={e => {
                           dispatch(
                             updateFloorInnerProperties([
@@ -211,7 +439,7 @@ const nohotelSuites = props => {
                           dispatch(
                             updateFloorInnerProperties([
                               // (store.projectData.floors[props.i].priceHotelSuites * e.target.value),
-                              ((store.projectData.floors[props.i].priceHotelSuites) * (e.target.value) * (store.projectData.floors[props.i].hotelSuites[ii].length)),
+                        ((store.projectData.floors[props.i].priceHotelSuites) * (e.target.value) * (store.projectData.floors[props.i].hotelSuites[ii].length)) ,
                               // ((store.projectData.floors[props.i].hotelSuites[ii].length * store.projectData.floors[props.i].hotelSuites[ii].width) * (e.target.value)),
                               // (store.projectData.floors[props.i].priceHotelSuites * store.projectData.floors[props.i].hotelSuites[ii].width * e.target.value),
                               'floors',
@@ -219,6 +447,17 @@ const nohotelSuites = props => {
                               'hotelSuites',
                               ii,
                               'totalCost'
+                            ])
+                          )
+                         
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'wholeAreaOfHotelSuites'
                             ])
                           )
                           dispatch(
@@ -229,26 +468,6 @@ const nohotelSuites = props => {
                               'hotelSuites',
                               ii,
                               'downPaymentPercentage' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'floors',
-                              props.i,
-                              'hotelSuites',
-                              ii,
-                              'downPaymentRs' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'floors',
-                              props.i,
-                              'hotelSuites',
-                              ii,
-                               'remainingRs'
                             ])
                           )
                           dispatch(
@@ -291,9 +510,32 @@ const nohotelSuites = props => {
                               'arrearsInstallmentPerPeriod'
                             ])
                           )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'hotelSuites',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
                         }}
                         />
                       </Col>
+                     </>
+                      )
+                      } 
                     
                       <Col md={2} className="text-center">
                         {/* {store.projectData.floors[props.i].hotelSuites[ii].totalCost} */}

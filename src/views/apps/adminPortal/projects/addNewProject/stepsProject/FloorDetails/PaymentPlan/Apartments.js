@@ -121,7 +121,6 @@ const noShops = props => {
                     <Col md={2} className="payment__header">Remaining(Rs)</Col>
                     <Col md={1} className="payment__header">Years</Col>
                     <Col md={1} className="payment__header">Plan (Months/Quarters)</Col>
-                    {/* <Col md={1} className="payment__header"> Months / Quarters</Col> */}
                     <Col md={1} className="payment__header">Installment</Col>
                   </Row>
                     <Row className='mt-2'>

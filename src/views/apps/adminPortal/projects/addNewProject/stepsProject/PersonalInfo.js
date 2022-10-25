@@ -334,17 +334,6 @@ const PersonalInfo = ({ stepper }) => {
        <h5 className='mb-0'>Project Details</h5>
         <small>Enter Your Project Details.</small>
        </div>
-        <div >
-        <div style={{fontSize: 18, fontStyle: 'italic'}}>
-          Do You Have Detailed Information ? 
-          {/* <Checkbox color="secondary" checked={checkBox} 
-        //  onChange={e => {
-        //   // console.log(e.target.checked)
-        //   setCheckBox(e.target.checked)
-        //  }} 
-         /> */}
-         </div>
-        </div>
       </div>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>

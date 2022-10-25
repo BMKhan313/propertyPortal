@@ -43,6 +43,7 @@
     "draftjs-to-html": "^0.9.1",
     "file-saver": "^2.0.2",
     "flatpickr": "^4.6.3",
+    "formik": "^2.2.9",
     "google-map-react": "^2.1.10",
     "google-maps-react": "^2.0.6",
     "history": "^5.1.0",
@@ -112,7 +113,7 @@
     "wnumb": "^1.2.0",
     "xlsx": "^0.17.3",
     "yarn": "^1.21.1",
-    "yup": "^0.32.8"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "craco start",

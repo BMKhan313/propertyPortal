@@ -4,6 +4,8 @@ import { Fragment, useState, useContext } from 'react'
 
 // ** Custom Components
 import BreadCrumbs from '@components/breadcrumbs'
+// mui
+import Switch from '@mui/material/Switch';
 
 // ** Utils
 import { selectThemeColors } from '@utils'
@@ -40,13 +42,17 @@ import InputNumber from 'rc-input-number'
 const noShops = props => {
   // ** Store Variables
   const dispatch = useDispatch()
+  const [checked, setChecked] = useState(true);
   const store = useSelector(state => state.addNewProject)
   const [open, setOpen] = useState('')
   const toggleopen = id => {
     open === id ? setOpen() : setOpen(id)
   }
 
-
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+    
+  };
   return (
     <Row className='justify-content-between align-items-center'>
       {store.projectData.mezzanine[props.i].noShops > 0 && (
@@ -61,12 +67,41 @@ const noShops = props => {
                   <h4 className='card-title'>
                   Shop Details
                   </h4>
+                  <Col className='mb-md-0 mb-1' md='6' sm='12'>
+                   <div className='d-flex'>
+                    <Label
+                       for='icon-primary'
+                       className='form-check-label mb-50'
+                     >
+                      <h4> Do you have area ? </h4>
+                     </Label>
+                      <div className='form-switch form-check-primary '>
+                      <Switch
+                   checked={ checked   }
+                   onChange={e=>
+                    {
+                      handleChange(e);     
+                    }
+                    }
+                    />
+                      </div>
+                    </div>
+                   
+                  </Col>
                   <Row>
-                    <Col md={3} className="h4 text-center">Shop #</Col>
-                    <Col md={2} className="h4 text-center">Price Per Sq.Ft</Col>
-                    <Col md={2} className="h4 text-center">length</Col>
-                    <Col md={2} className="h4 text-center">width</Col>
-                    <Col md={2} className="h4 text-center">Total Cost (Rs)</Col>
+                    <Col md={3} className=" text-center"> <h4>Shop #</h4></Col>
+                    <Col md={2} className=" text-center"> <h4>Price Per Sq.Ft</h4></Col>
+                    { checked ?
+                   <> 
+                    <Col md={3} className=" text-center"> <h4>Area</h4></Col>
+                   </>
+                     :
+                     <>
+                     <Col md={2} className=" text-center"> <h4>length</h4></Col>
+                    <Col md={2} className=" text-center"> <h4>width</h4></Col>
+                     </>
+                     }
+                    <Col md={2} className=" text-center"> <h4>Total Cost (Rs)</h4></Col>
                   </Row>
                    <Repeater count={store.projectData.mezzanine[props.i].noShops}>
                   {ii => ( 
@@ -105,7 +140,153 @@ const noShops = props => {
                               }}
                         />
                       </Col>
-                      <Col md={2} className="text-center">
+                     
+                      { checked ? 
+                    (
+                      <>
+                     <Col md={3} className="text-center">
+                         <Input
+                        type='number'
+                        id={`Shop-isArea-${ii}`}
+                        placeholder='0'
+                        value={
+                            store.projectData.mezzanine[props.i].shops[ii]
+                            .wholeAreaOfShop
+                        }
+                        onFocus = { e => {
+                          // iterate a number over an array
+                          //make array from number
+                      {  const n =  store.projectData.mezzanine[props.i].noShops;
+                        [...Array(n)].forEach((data, index)=> {
+                          
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              index,
+                              'length'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              index,
+                              'width'
+                            ])
+                          )
+                        })
+                        }
+                        }}
+                        onChange={e => {
+                          dispatch(
+                            updateFloorInnerProperties([
+                              e.target.value,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'wholeAreaOfShop'
+                            ])
+                          )
+                          
+                          dispatch(
+                            updateFloorInnerProperties([
+                              // (store.projectData.mezzanine[props.i].priceShops * e.target.value),
+                         ((store.projectData.mezzanine[props.i].priceShops) * (e.target.value)) , 
+                              // (store.projectData.mezzanine[props.i].priceShops * store.projectData.mezzanine[props.i].shops[ii].width * e.target.value),
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'totalCost'
+                            ])
+                          )
+                           
+                        
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                        }}
+                        />
+                      </Col>
+                      </>
+                      )
+                    : 
+                      ( 
+                    <>  
+                 <Col md={2} className="text-center">
                         <Input
                         type='number'
                         id={`Shop-length-${ii}`}
@@ -114,6 +295,24 @@ const noShops = props => {
                             store.projectData.mezzanine[props.i].shops[ii]
                             .length
                         }
+                        onFocus={e => {
+                          {  const n =  store.projectData.mezzanine[props.i].noShops;
+                            [...Array(n)].forEach((data, index)=> {
+                              
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'mezzanine',
+                                  props.i,
+                                  'shops',
+                                  index,
+                                  'wholeAreaOfShop'
+                                ])
+                              )
+                            
+                            })
+                            }
+                        }}
                         onChange={e => {
                           dispatch(
                             updateFloorInnerProperties([
@@ -127,8 +326,7 @@ const noShops = props => {
                           )
                           dispatch(
                             updateFloorInnerProperties([
-                              // (store.projectData.mezzanine[props.i].priceShops * e.target.value),
-                              ((store.projectData.mezzanine[props.i].priceShops) * (e.target.value) * (store.projectData.mezzanine[props.i].shops[ii].width)),
+                         ((store.projectData.mezzanine[props.i].priceShops) * (e.target.value) * (store.projectData.mezzanine[props.i].shops[ii].width)) ,
                               // ((store.projectData.mezzanine[props.i].shops[ii].length * store.projectData.mezzanine[props.i].shops[ii].width) * (e.target.value)),
                               // (store.projectData.mezzanine[props.i].priceShops * store.projectData.mezzanine[props.i].shops[ii].length * e.target.value),
                               'mezzanine',
@@ -138,7 +336,16 @@ const noShops = props => {
                               'totalCost'
                             ])
                           )
-
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'wholeAreaOfShop'
+                            ])
+                          )
                           dispatch(
                             updateFloorInnerProperties([
                               0,
@@ -209,6 +416,7 @@ const noShops = props => {
                               'arrearsInstallmentPerPeriod'
                             ])
                           )
+                         
                         }}
                         />
                       </Col>
@@ -221,6 +429,24 @@ const noShops = props => {
                             store.projectData.mezzanine[props.i].shops[ii]
                             .width
                         }
+                        onFocus={e => {
+                          {  const n =  store.projectData.mezzanine[props.i].noShops;
+                            [...Array(n)].forEach((data, index)=> {
+                              
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'mezzanine',
+                                  props.i,
+                                  'shops',
+                                  index,
+                                  'wholeAreaOfShop'
+                                ])
+                              )
+                            
+                            })
+                            }
+                        }}
                         onChange={e => {
                           dispatch(
                             updateFloorInnerProperties([
@@ -235,7 +461,7 @@ const noShops = props => {
                           dispatch(
                             updateFloorInnerProperties([
                               // (store.projectData.mezzanine[props.i].priceShops * e.target.value),
-                              ((store.projectData.mezzanine[props.i].priceShops) * (e.target.value) * (store.projectData.mezzanine[props.i].shops[ii].length)),
+                        ((store.projectData.mezzanine[props.i].priceShops) * (e.target.value) * (store.projectData.mezzanine[props.i].shops[ii].length)) ,
                               // ((store.projectData.mezzanine[props.i].shops[ii].length * store.projectData.mezzanine[props.i].shops[ii].width) * (e.target.value)),
                               // (store.projectData.mezzanine[props.i].priceShops * store.projectData.mezzanine[props.i].shops[ii].width * e.target.value),
                               'mezzanine',
@@ -243,6 +469,17 @@ const noShops = props => {
                               'shops',
                               ii,
                               'totalCost'
+                            ])
+                          )
+                         
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'wholeAreaOfShop'
                             ])
                           )
                           dispatch(
@@ -253,26 +490,6 @@ const noShops = props => {
                               'shops',
                               ii,
                               'downPaymentPercentage' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'mezzanine',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentRs' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'mezzanine',
-                              props.i,
-                              'shops',
-                              ii,
-                               'remainingRs'
                             ])
                           )
                           dispatch(
@@ -315,42 +532,32 @@ const noShops = props => {
                               'arrearsInstallmentPerPeriod'
                             ])
                           )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'mezzanine',
+                              props.i,
+                              'shops',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
                         }}
                         />
                       </Col>
-                      {/* <Col md={3} className="text-center">
-                        <Input
-                        type='number'
-                        id={`Shop-area-${ii}`}
-                        placeholder='0'
-                        value={
-                            store.projectData.mezzanine[props.i].shops[ii]
-                            .area
-                        }
-                        onChange={e => {
-                          dispatch(
-                            updateFloorInnerProperties([
-                              e.target.value,
-                              'mezzanine',
-                              props.i,
-                              'shops',
-                              ii,
-                              'area'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              (store.projectData.mezzanine[props.i].priceShops * e.target.value),
-                              'mezzanine',
-                              props.i,
-                              'shops',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                        }}
-                        />
-                      </Col> */}
+                     </>
+                      )
+                      } 
                       <Col md={2} className="text-center">
                         {/* {store.projectData.mezzanine[props.i].shops[ii].totalCost} */}
              {/* {((store.projectData.mezzanine[props.i].priceShops) * (store.projectData.mezzanine[props.i].shops[ii].length * store.projectData.mezzanine[props.i].shops[ii].width)) } */}

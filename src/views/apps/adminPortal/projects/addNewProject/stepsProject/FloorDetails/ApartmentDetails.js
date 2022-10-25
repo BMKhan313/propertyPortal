@@ -3,6 +3,8 @@ import { Fragment, useState, useContext } from 'react'
 
 // ** Custom Components
 import BreadCrumbs from '@components/breadcrumbs'
+// mui
+import Switch from '@mui/material/Switch';
 
 import Repeater from '@components/repeater'
 import { X, Plus, Minus, Check } from 'react-feather'
@@ -36,12 +38,15 @@ const noApartments = props => {
   // ** Store Variables
   const dispatch = useDispatch()
   const store = useSelector(state => state.addNewProject)
-
   const [open, setOpen] = useState('')
   const toggleopen = id => {
     open === id ? setOpen() : setOpen(id)
   }
-  
+  const [checked, setChecked] = useState(true);
+  const handleChange = (event) => {
+    setChecked(event.target.checked) 
+  }
+
   return (
     <Row className='justify-content-between align-items-center'>
       {store.projectData.floors[props.i].noApartments > 0 && (
@@ -58,12 +63,43 @@ const noApartments = props => {
                   <h4 className='card-title'>
                   Apartment Details
                   </h4>
+                  <Col className='mb-md-0 mb-1' md='6' sm='12'>
+                   <div className='d-flex align-items-center'>
+                    <div>
+                      <Label
+                       for='icon-primary'
+                     >
+                      <h4 className='payment__text'> Do you have area ? </h4>
+                     </Label>
+                     </div>
+                      <div className='form-switch form-check-primary '>
+                      <Switch
+                   checked={ checked   }
+                   className='mb-50'
+                   onChange={e=>
+                    {
+                      handleChange(e);     
+                    }
+                    }
+                    />
+                      </div>
+                    </div>
+                   
+                  </Col>
                   <Row>
-                    <Col md={3} className="h4 text-center">Apartments #</Col>
-                    <Col md={2} className="h4 text-center">Price Per Sq.Ft</Col>
-                    <Col md={2} className="h4 text-center">length</Col>
-                    <Col md={2} className="h4 text-center">width</Col>
-                    <Col md={2} className="h4 text-center">Total Cost (Rs)</Col>
+                    <Col md={3} className="h4 text-center payment__text">Apartment #</Col>
+                    <Col md={2} className="h4 text-center payment__text">Price Per Sq.Ft</Col>
+                    { checked ?
+                   <> 
+                    <Col md={3} className="h4 text-center payment__text">Area</Col>
+                   </>
+                     :
+                     <>
+                     <Col md={2} className="h4 text-center payment__text">length</Col>
+                    <Col md={2} className="h4 text-center payment__text">width</Col>
+                     </>
+                     }
+                    <Col md={2} className="h4 text-center payment__text">Total Cost (Rs)</Col>
                   </Row>
                   <Repeater count={store.projectData.floors[props.i].noApartments}>
                   {ii => ( 
@@ -102,15 +138,178 @@ const noApartments = props => {
                               }}
                         />
                       </Col>
-                      <Col md={2} className="text-center">
+                      { checked ? 
+                    (
+                      <>
+                     <Col md={3} className="text-center">
+                         <Input
+                        type='number'
+                        id={`Apartment-isArea-${ii}`}
+                        placeholder='0'
+                        value={
+                            store.projectData.floors[props.i].apartments[ii]
+                            .wholeAreaOfAparment
+                        }
+                        onFocus = { e => {
+                          // iterate a number over an array
+                          //make array from number
+                      {  const n =  store.projectData.floors[props.i].noApartments;
+                        [...Array(n)].forEach((data, index)=> {
+                          
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              index,
+                              'length'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              index,
+                              'width'
+                            ])
+                          )
+                        })
+                        }
+                        }}
+                        onChange={e => {
+                          dispatch(
+                            updateFloorInnerProperties([
+                              e.target.value,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'wholeAreaOfAparment'
+                            ])
+                          )
+                          
+                          dispatch(
+                            updateFloorInnerProperties([
+                              // (store.projectData.floors[props.i].priceApartments * e.target.value),
+                         ((store.projectData.floors[props.i].priceApartments) * (e.target.value)) , 
+                              // (store.projectData.floors[props.i].priceApartments * store.projectData.floors[props.i].apartments[ii].width * e.target.value),
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'totalCost'
+                            ])
+                          )
+                           
+                        
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'downPaymentPercentage' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                               'paymentYears'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'installmentPerDuration'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'cashDownPayment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'arrearsInstallmentPerPeriod'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
+                        }}
+                        />
+                      </Col>
+                      </>
+                      )
+                    : 
+                      ( 
+                    <>  
+                 <Col md={2} className="text-center">
                         <Input
                         type='number'
-                        id={`Shop-length-${ii}`}
+                        id={`Apartment-length-${ii}`}
                         placeholder='0'
                         value={
                             store.projectData.floors[props.i].apartments[ii]
                             .length
                         }
+                        onFocus={e => {
+                          {  const n =  store.projectData.floors[props.i].noApartments;
+                            [...Array(n)].forEach((data, index)=> {
+                              
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'floors',
+                                  props.i,
+                                  'apartments',
+                                  index,
+                                  'wholeAreaOfAparment'
+                                ])
+                              )
+                            
+                            })
+                            }
+                        }}
                         onChange={e => {
                           dispatch(
                             updateFloorInnerProperties([
@@ -124,8 +323,7 @@ const noApartments = props => {
                           )
                           dispatch(
                             updateFloorInnerProperties([
-                              // (store.projectData.floors[props.i].priceApartments * e.target.value),
-                              ((store.projectData.floors[props.i].priceApartments) * (e.target.value) * (store.projectData.floors[props.i].apartments[ii].width)),
+                         ((store.projectData.floors[props.i].priceApartments) * (e.target.value) * (store.projectData.floors[props.i].apartments[ii].width)) ,
                               // ((store.projectData.floors[props.i].apartments[ii].length * store.projectData.floors[props.i].apartments[ii].width) * (e.target.value)),
                               // (store.projectData.floors[props.i].priceApartments * store.projectData.floors[props.i].apartments[ii].length * e.target.value),
                               'floors',
@@ -142,6 +340,16 @@ const noApartments = props => {
                               props.i,
                               'apartments',
                               ii,
+                              'wholeAreaOfAparment'
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
                               'downPaymentPercentage' 
                             ])
                           )
@@ -205,18 +413,37 @@ const noApartments = props => {
                               'arrearsInstallmentPerPeriod'
                             ])
                           )
+                         
                         }}
                         />
                       </Col>
                       <Col md={2} className="text-center">
                         <Input
                         type='number'
-                        id={`Shop-width-${ii}`}
+                        id={`Apartment-width-${ii}`}
                         placeholder='0'
                         value={
                             store.projectData.floors[props.i].apartments[ii]
                             .width
                         }
+                        onFocus={e => {
+                          {  const n =  store.projectData.floors[props.i].noApartments;
+                            [...Array(n)].forEach((data, index)=> {
+                              
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'floors',
+                                  props.i,
+                                  'apartments',
+                                  index,
+                                  'wholeAreaOfAparment'
+                                ])
+                              )
+                            
+                            })
+                            }
+                        }}
                         onChange={e => {
                           dispatch(
                             updateFloorInnerProperties([
@@ -231,7 +458,7 @@ const noApartments = props => {
                           dispatch(
                             updateFloorInnerProperties([
                               // (store.projectData.floors[props.i].priceApartments * e.target.value),
-                              ((store.projectData.floors[props.i].priceApartments) * (e.target.value) * (store.projectData.floors[props.i].apartments[ii].length)),
+                        ((store.projectData.floors[props.i].priceApartments) * (e.target.value) * (store.projectData.floors[props.i].apartments[ii].length)) ,
                               // ((store.projectData.floors[props.i].apartments[ii].length * store.projectData.floors[props.i].apartments[ii].width) * (e.target.value)),
                               // (store.projectData.floors[props.i].priceApartments * store.projectData.floors[props.i].apartments[ii].width * e.target.value),
                               'floors',
@@ -239,6 +466,17 @@ const noApartments = props => {
                               'apartments',
                               ii,
                               'totalCost'
+                            ])
+                          )
+                         
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'wholeAreaOfAparment'
                             ])
                           )
                           dispatch(
@@ -249,26 +487,6 @@ const noApartments = props => {
                               'apartments',
                               ii,
                               'downPaymentPercentage' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'floors',
-                              props.i,
-                              'apartments',
-                              ii,
-                              'downPaymentRs' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'floors',
-                              props.i,
-                              'apartments',
-                              ii,
-                               'remainingRs'
                             ])
                           )
                           dispatch(
@@ -311,42 +529,33 @@ const noApartments = props => {
                               'arrearsInstallmentPerPeriod'
                             ])
                           )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                              'downPaymentRs' 
+                            ])
+                          )
+                          dispatch(
+                            updateFloorInnerProperties([
+                              0,
+                              'floors',
+                              props.i,
+                              'apartments',
+                              ii,
+                               'remainingRs'
+                            ])
+                          )
                         }}
                         />
                       </Col>
-                      {/* <Col md={3} className="text-center">
-                        <Input
-                        type='number'
-                        id={`Shop-area-${ii}`}
-                        placeholder='0'
-                        value={
-                            store.projectData.floors[props.i].apartments[ii]
-                            .area
-                        }
-                        onChange={e => {
-                          dispatch(
-                            updateFloorInnerProperties([
-                              e.target.value,
-                              'floors',
-                              props.i,
-                              'apartments',
-                              ii,
-                              'area'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              (store.projectData.floors[props.i].priceApartments * e.target.value),
-                              'floors',
-                              props.i,
-                              'apartments',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                        }}
-                        />
-                      </Col> */}
+                     </>
+                      )
+                      } 
+                      
                       <Col md={2} className="text-center">
                         {/* {store.projectData.floors[props.i].apartments[ii].totalCost} */}
              {/* {((store.projectData.floors[props.i].priceApartments) * (store.projectData.floors[props.i].apartments[ii].length * store.projectData.floors[props.i].apartments[ii].width)) } */}

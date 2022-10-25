@@ -5,12 +5,25 @@ import { InputNumberCommas } from 'react-number-format-with-commas'
 // ** Custom Components
 import BreadCrumbs from '@components/breadcrumbs'
 
+// formik
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldArray,
+  FastField
+} from 'formik'
+import * as Yup from 'yup'
+import TextError from '../../TextError'
+
 // ** Utils
 import { selectThemeColors } from '@utils'
 import Select from 'react-select'
 import '../../FloorDetails/PaymentPlan/Payment.css'
 import Repeater from '@components/repeater'
 import { X, Plus, Minus, Check } from 'react-feather'
+
 // ** Reactstrap Imports
 import {
   Row,
@@ -20,7 +33,7 @@ import {
   CardTitle,
   CardHeader,
   CardBody,
-  Form,
+  // Form,
   Labeii,
   Input,
   Button,
@@ -30,7 +43,8 @@ import {
   AccordionBody,
   InputGroup,
   InputGroupText,
-  Table
+  Table,
+  Label
 } from 'reactstrap'
 
 // ** Store & Actions
@@ -39,20 +53,26 @@ import { updateFloorInnerProperties,updateFloorProperties } from '../../../../..
 
 import InputNumber from 'rc-input-number'
 
-const CustomLabel = ({ htmlFor }) => {
-  return (
-    <Label className='form-check-label' htmlFor={htmlFor}>
-      <span className='switch-icon-left'>
-        <Check size={14} />
-      </span>
-      <span className='switch-icon-right'>
-        <X size={14} />
-      </span>
-    </Label>
-  )
+const onSubmit = (values, submitProps) => {
+  console.log('Form data', values)
+
 }
+const initialValues = {
+   downPaymentPercentage: '',
+  paymentYear: '',
+  
+}
+const validationSchema = Yup.object({
+  downPaymentPercentage: Yup.number().required('Required'),
+  paymentYear: Yup.number().required('Required '),
+  //   .email('Invalid email format')
+  //   .required('Required'),
+  // channel: Yup.string().required('Required'),
+  // comments: Yup.string().required('Required')
+})
 
 const noShops = props => {
+  
   // ** Store Variables
   const dispatch = useDispatch()
   const store = useSelector(state => state.addNewProject)
@@ -90,21 +110,17 @@ const noShops = props => {
       ])
     )
   }
-
-  // useEffect(() => {
-  //   const rec = ['Ghani', 'hgd']
-  //   setPlanOptions(rec)
-  //   console.log("OPTIONS", planOptions)
-  // }, [])
-
-    // useEffect(() => {
-    //  dispatch(updateFloorInnerProperties());
-    
-    // }, [store.projectData.lowerGrounds[props.i].shops[ii].plan])
-    
-
+  const onSubmit = (values) =>{
+    console.log('Form data',values)
+  }
 
   return (
+    <Formik
+    // initialValues={initialValues}
+    // validationSchema={validationSchema}
+    // onSubmit={onSubmit}
+    >
+    <Form>
     <Row className='justify-content-between align-items-center'>
       {store.projectData.lowerGrounds[props.i].noShops > 0 && (
         
@@ -116,7 +132,7 @@ const noShops = props => {
                   <h4 className='card-title'>
                   Payment Plan
                   </h4>
-                  
+                
                   <Repeater count={store.projectData.lowerGrounds[props.i].noShops}>
                   {ii => ( 
                     <>
@@ -143,9 +159,10 @@ const noShops = props => {
                       </Col>
                       <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
                         <div className='payment__text'>
-                        <Input
+                        <Field
                         className='form-control payment__input'
                         type='number'
+                        name='downPaymentPercentage'
                         id={`Shop-downPaymentPercentage-${ii}`}
                         placeholder='12'
                         value={
@@ -157,9 +174,6 @@ const noShops = props => {
                           handleChangeDownPaymentPercent(e, props.i, ii)                         
                           dispatch(
                             updateFloorInnerProperties([
-                            //    (((store.projectData.lowerGrounds[props.i].shops[ii].totalCost)
-                            // - (e.target.value)) * 
-                            // (store.projectData.lowerGrounds[props.i].shops[ii].totalCost / 100)),
                            ( 
                              ((e.target.value * store.projectData.lowerGrounds[props.i].shops[ii].totalCost) / 100)),
                               'lowerGrounds',
@@ -236,6 +250,7 @@ const noShops = props => {
                           }
                         }
                         />
+                        {/* <ErrorMessage name='downPaymentPercentage' component={TextError}/> */}
                         </div>
                       </Col>
                       <Col md={2} >
@@ -260,17 +275,18 @@ const noShops = props => {
                         <div className='payment__text'
                         style={{marginLeft: -24}}
                         >
-                            <Input
+                            <Field
                               className='form-control payment__input'
                               type='number'
+                              name='paymentYear'
                               id={`Shop-PaymentYears-${ii}`}
                               placeholder='Years'
-                              onFocus={(e) => e.target.select()}
+                              onFocus={(e) => {e.target.select() }}
                               value={
                                 store.projectData.lowerGrounds[props.i].shops[ii]
                                   .paymentYears
                               }
-                              onChange={e => {
+                              onChange = {e => {
                                 dispatch(
                                   updateFloorInnerProperties([
                                     e.target.value,
@@ -281,16 +297,7 @@ const noShops = props => {
                                     'paymentYears'
                                   ])
                                 ) 
-                                dispatch(
-                                  updateFloorInnerProperties([
-                                    0,
-                                    'lowerGrounds',
-                                    props.i,
-                                    'shops',
-                                    ii,
-                                    'installmentPerDuration'
-                                  ])
-                                ) 
+                               
                                 dispatch(
                                   updateFloorInnerProperties([
                                     0,
@@ -314,8 +321,7 @@ const noShops = props => {
                         
                               }}
                             />
-                         
-                        
+                         {/* <ErrorMessage name='paymentYear' component={TextError}/> */}
                         </div>
                       </Col>
                 {/* yrs end */}
@@ -642,6 +648,9 @@ const noShops = props => {
         </Accordion>
       )}
     </Row>
+    <button type="submit" >submit</button>
+    </Form>
+    </Formik>
   )
 }
 export default noShops

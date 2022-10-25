@@ -131,45 +131,15 @@ const RepeatingForm = () => {
             <Form key={i}>
               <AccordionItem>
                 <AccordionHeader targetId={`${i}`}>
-                  {/* {i === 0 && <>Lower Ground {i}</>}
-                  {i === 1 && <> Ground Basement {i}</>}
-                  {i > 1 && <>Basement {i - 1}</>} */}
                   Mezzanine {i + 1}
                 </AccordionHeader>
                 <AccordionBody accordionId={`${i}`}>
                   <Row className='justify-content-between align-items-center'>
-                    {/* <Col md={4} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
-                        Basement No
-                      </Label>
-                      <InputGroup className='mt-2'>
-                        <InputGroupText>Basement-</InputGroupText>
-                        <Input
-                          type='text'
-                          id={`animation-cost-${i}`}
-                          placeholder='32'
-                          value={store.projectData.mezzanine[i].label.replace(
-                            'Basement-',
-                            ''
-                          )}
-                          onChange={e => {
-                            dispatch(
-                              updateFloorProperties([
-                                `Basement-${e.target.value}`,
-                                'mezzanine',
-                                i,
-                                'label',
-                                'Parking'
-                              ])
-                            )
-                          }}
-                        />
-                      </InputGroup>
-                    </Col> */}
+                   
                     <Col md='5' className='mb-1' style={{ zIndex: 3 }}>
-                      <Label className='form-label' for='floorType'>
+                      <h4>
                         Floor Type
-                      </Label>
+                      </h4>
                       <Controller
                         name='floorType'
                         control={control}
@@ -203,12 +173,10 @@ const RepeatingForm = () => {
                       />
                     </Col>
                     <Col md={2} className='mb-md-0 mb-1'>
-                      <Label
-                        className='form-label'
-                        for={`animation-price-${i}`}
+                      <h4
                       >
                         Road width
-                      </Label>
+                      </h4>
                       <Input
                         type='number'
                         id={`animation-cost-${i}`}
@@ -227,12 +195,9 @@ const RepeatingForm = () => {
                       />
                     </Col>
                     <Col md={2}>
-                      <Label
-                        className='form-label'
-                        for={`animation-price-${i}`}
-                      >
+                      <h4>
                         Return (ROI) %
-                      </Label>
+                      </h4>
                       <Input
                         type='number'
                         id={`animation-cost-${i}`}
@@ -254,11 +219,11 @@ const RepeatingForm = () => {
                       <hr />
                     </Col>
                   </Row>
-                  <Row className='justify-content-between align-items-center'>
-                  <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                  <div className='form-row row '>
+                  <div  className='form-group col-md-2 mb-md-0 mb-1'>
+                      <h4>
                         Shop/sq.ft
-                      </Label>
+                      </h4>
                       <Input
                       className= 'form-control payment__input'
                         type='number'
@@ -289,11 +254,11 @@ const RepeatingForm = () => {
                           )
                         }}
                       />
-                    </Col>
-                    <Col md={3} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    </div>
+                    <div className='form-group col-md-2 mb-md-0 mb-1'>
+                      <h4>
                         Apartment/sq. ft
-                      </Label>
+                      </h4>
                       <Input
                       className= 'form-control payment__input'
                         type='number'
@@ -324,11 +289,11 @@ const RepeatingForm = () => {
                           )
                         }}
                       />
-                    </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label className='form-label' for={`animation-cost-${i}`}>
+                    </div>
+                    <div className='form-group col-md-2 mb-md-0 mb-1'>
+                      <h4>
                         length
-                      </Label>
+                      </h4>
                       <Input
                       className= 'form-control payment__input'
                         type='number'
@@ -346,15 +311,12 @@ const RepeatingForm = () => {
                           )
                         }}
                       />
-                    </Col>
+                    </div>
                     
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label
-                        className='form-label'
-                        for={`animation-quantity-${i}`}
-                      >
+                    <div className='form-group col-md-2 mb-md-0 mb-1'>
+                      <h4>
                         width
-                      </Label>
+                      </h4>
                       <Input
                       className= 'form-control payment__input'
                         type='number'
@@ -372,14 +334,11 @@ const RepeatingForm = () => {
                           )
                         }}
                       />
-                    </Col>
-                    <Col md={2} className='mb-md-0 mb-1'>
-                      <Label
-                        className='form-label'
-                        for={`animation-price-${i}`}
-                      >
+                    </div>
+                    <div className='form-group col-md-2 mb-md-0 mb-1'>
+                      <h4>
                         Covered Area
-                      </Label>
+                      </h4>
 
                       {
                         (store.projectData.mezzanine[i].width === '0' || store.projectData.mezzanine[i].width === '') && (store.projectData.mezzanine[i].length === '0' || store.projectData.mezzanine[i].length === '') ? (
@@ -406,8 +365,8 @@ const RepeatingForm = () => {
                           </div>
                         )
                       }
-                    </Col>
-                    <Col md={2}>
+                    </div>
+                    <div>
                       <div>
                         <Label
                           className='form-label'
@@ -438,12 +397,12 @@ const RepeatingForm = () => {
                           readonly='true'
                         />
                       </div>
-                    </Col>
+                     </div>
 
-                    <Col sm={12}>
+                    <div className='form-group'>
                       <hr />
-                    </Col>
-                  </Row>
+                    </div>
+                  </div>
 
                   <Row>
 

@@ -125,7 +125,7 @@ const nofoodCourts = props => {
                     <Col md={1} className="payment__header">Installment</Col>
                   </Row>
                     <Row className='mt-2'>
-                      <Col md={1}><div className='payment__text' style={{fontFamily: 'cursive'}}>Food Court-{ii + 1}  </div></Col>
+                      <Col md={1}><div className='payment__text' style={{fontFamily: 'cursive'}}>Food-Court-{ii + 1}  </div></Col>
                       <Col md={2}>
                         <div className='payment__text'>
                             {/* total cost */} 
