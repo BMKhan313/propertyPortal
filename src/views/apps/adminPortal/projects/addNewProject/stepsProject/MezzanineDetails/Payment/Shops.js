@@ -90,12 +90,6 @@ const noShops = props => {
     )
   }
 
-  // useEffect(() => {
-  //   const rec = ['Ghani', 'hgd']
-  //   setPlanOptions(rec)
-  //   console.log("OPTIONS", planOptions)
-  // }, [])
-
 
   return (
     <>

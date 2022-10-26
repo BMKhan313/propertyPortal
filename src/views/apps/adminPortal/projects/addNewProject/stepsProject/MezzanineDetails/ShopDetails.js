@@ -6,7 +6,7 @@ import { Fragment, useState, useContext } from 'react'
 import BreadCrumbs from '@components/breadcrumbs'
 // mui
 import Switch from '@mui/material/Switch';
-
+import '../../../../../../../index.css'
 // ** Utils
 import { selectThemeColors } from '@utils'
 
@@ -67,16 +67,17 @@ const noShops = props => {
                   <h4 className='card-title'>
                   Shop Details
                   </h4>
-                  <Col className='mb-md-0 mb-1' md='6' sm='12'>
+                  <div className='mb-md-0 mb-1 '  md='6' sm='12'>
                    <div className='d-flex'>
                     <Label
                        for='icon-primary'
                        className='form-check-label mb-50'
                      >
-                      <h4> Do you have area ? </h4>
+                      <h4 className='mt-1'> Do you have area ? </h4>
                      </Label>
-                      <div className='form-switch form-check-primary '>
+                      <div className='form-switch form-check-primary'>
                       <Switch
+                    
                    checked={ checked   }
                    onChange={e=>
                     {
@@ -87,8 +88,8 @@ const noShops = props => {
                       </div>
                     </div>
                    
-                  </Col>
-                  <Row>
+                  </div>
+                  {/* <Row>
                     <Col md={3} className=" text-center"> <h4>Shop #</h4></Col>
                     <Col md={2} className=" text-center"> <h4>Price Per Sq.Ft</h4></Col>
                     { checked ?
@@ -102,15 +103,17 @@ const noShops = props => {
                      </>
                      }
                     <Col md={2} className=" text-center"> <h4>Total Cost (Rs)</h4></Col>
-                  </Row>
+                  </Row> */}
                    <Repeater count={store.projectData.mezzanine[props.i].noShops}>
                   {ii => ( 
-                    <Row className='mt-2'>
+                    <Row className='mt-2 row '>
                      
-                      <Col md={3} className="text-center">Shop {ii + 1}</Col>
-                      <Col md={2} className="text-center">
+                      <div className=" col-md-2  d-flex flex-wrap align-content-start mt-1 mb-1"><h4>Shop {ii + 1}</h4></div>
+                      <div className="form-group text-center col-md-2 col-sm-3 d-flex flex-wrap align-content-start mb-2">
+                      <h4 className='text-red-400'>Price/Sq.ft</h4>
                         <Input 
                         readOnly
+                        // className='payment_text'
                         type='number' 
                         id={`Shop-price-${ii}`}
                               placeholder='0'
@@ -139,13 +142,15 @@ const noShops = props => {
                                 )
                               }}
                         />
-                      </Col>
+                      </div>
                      
                       { checked ? 
                     (
-                      <>
-                     <Col md={3} className="text-center">
+                      <> 
+                     <div className="form-group text-center col-md-3 col-sm-4 d-flex flex-wrap align-content-start mb-1">
+                     <h4>Area</h4>
                          <Input
+                        //  className='bg-gray-600'
                         type='number'
                         id={`Shop-isArea-${ii}`}
                         placeholder='0'
@@ -280,13 +285,15 @@ const noShops = props => {
                           )
                         }}
                         />
-                      </Col>
+                      </div>
                       </>
                       )
                     : 
                       ( 
                     <>  
-                 <Col md={2} className="text-center">
+                   
+                <div className="form-group text-center col-md-2 col-sm-3 d-flex flex-wrap align-content-start mt-1 mb-1">
+                  <h4>length</h4>
                         <Input
                         type='number'
                         id={`Shop-length-${ii}`}
@@ -419,8 +426,10 @@ const noShops = props => {
                          
                         }}
                         />
-                      </Col>
-                      <Col md={2} className="text-center">
+                </div>
+                
+                      <div className="form-group col-md-2 col-sm-3 text-center d-flex flex-wrap align-content-start mt-1 mb-1">
+                      <h4>width</h4>
                         <Input
                         type='number'
                         id={`Shop-width-${ii}`}
@@ -554,15 +563,15 @@ const noShops = props => {
                           )
                         }}
                         />
-                      </Col>
+                      </div>
                      </>
                       )
                       } 
-                      <Col md={2} className="text-center">
-                        {/* {store.projectData.mezzanine[props.i].shops[ii].totalCost} */}
-             {/* {((store.projectData.mezzanine[props.i].priceShops) * (store.projectData.mezzanine[props.i].shops[ii].length * store.projectData.mezzanine[props.i].shops[ii].width)) } */}
-                  {store.projectData.mezzanine[props.i].shops[ii].totalCost}
-                      </Col>
+                     
+                     <div className="form-group text-center col-md-2 col-sm-3 mb-1 col-lg-4">
+                      <h4 className='text-red-400'>total Cost</h4>
+                  <div className='mt-1'>{store.projectData.mezzanine[props.i].shops[ii].totalCost}</div> 
+                      </div>
                     </Row>  
                   )}
                   </Repeater>
