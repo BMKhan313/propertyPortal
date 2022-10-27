@@ -115,20 +115,20 @@ const noShops = props => {
   }
 
   return (
+
     <Formik
     // initialValues={initialValues}
     // validationSchema={validationSchema}
     // onSubmit={onSubmit}
     >
     <Form>
-    <Row className='justify-content-between align-items-center'>
+    <div className='row justify-content-between align-items-center'>
       {store.projectData.lowerGrounds[props.i].noShops > 0 && (
         
         <Accordion className='accordion-border' open={open} toggle={toggleopen}>
           <hr style={{ color: '#000', backgroundColor: '#000', height: 1, width: '90%', marginLeft: 'auto', marginRight: 'auto' }} />
-          <Card>
-            
-            <Row className='mt-1'>
+          <Card> 
+            <div className='mt-1 row'>
                   <h4 className='card-title'>
                   Payment Plan
                   </h4>
@@ -136,33 +136,25 @@ const noShops = props => {
                   <Repeater count={store.projectData.lowerGrounds[props.i].noShops}>
                   {ii => ( 
                     <>
-                  <Row>
-                    <Col md={1} className="payment__header">Shop #</Col>
-                    <Col md={2} className="payment__header">Total Cost</Col>
-                    <Col md={2} className="payment__header">Down Payment (%)</Col>
-                    <Col md={2} className="payment__header">Down Payment (Rs)</Col>
-                    <Col md={2} className="payment__header">Remaining(Rs)</Col>
-                    <Col md={1} className="payment__header">Years</Col>
-                    <Col md={1} className="payment__header">Plan (Months/Quarters)</Col>
-                    {/* <Col md={1} className="payment__header"> Months / Quarters</Col> */}
-                    <Col md={1} className="payment__header">Installment</Col>
-                  </Row>
-                    <Row className='mt-2'>
-                      <Col md={1}><div className='payment__text' style={{fontFamily: 'cursive'}}>Shop-{ii + 1}  </div></Col>
-                      <Col md={2}>
-                        <div className='payment__text'>
+                    
+                    <div className='mt-2 row'>
+                      <div className='row mb-1'><div className='payment__text' style={{fontFamily: 'cursive'}}>Shop-{ii + 1}  </div></div>
+                      <div className='col-md-3 col-sm-3  mb-1'>
+                      <div className=" payment__header mb-1">Total Cost</div>
+                        <div className=' payment__text'>
                             {/* total cost */} 
                            
                           {(store.projectData.lowerGrounds[props.i]?.shops[ii].totalCost)}
                      
                         </div>
-                      </Col>
-                      <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      </div>
+
+                      <div className='col-md-3 col-sm-3  mb-1'>
+                      <div className=" payment__header mb-1">Down Payment (%)</div>
                         <div className='payment__text'>
-                        <Field
+                        <Input
                         className='form-control payment__input'
                         type='number'
-                        name='downPaymentPercentage'
                         id={`Shop-downPaymentPercentage-${ii}`}
                         placeholder='12'
                         value={
@@ -174,6 +166,9 @@ const noShops = props => {
                           handleChangeDownPaymentPercent(e, props.i, ii)                         
                           dispatch(
                             updateFloorInnerProperties([
+                            //    (((store.projectData.lowerGrounds[props.i].shops[ii].totalCost)
+                            // - (e.target.value)) * 
+                            // (store.projectData.lowerGrounds[props.i].shops[ii].totalCost / 100)),
                            ( 
                              ((e.target.value * store.projectData.lowerGrounds[props.i].shops[ii].totalCost) / 100)),
                               'lowerGrounds',
@@ -250,43 +245,43 @@ const noShops = props => {
                           }
                         }
                         />
-                        {/* <ErrorMessage name='downPaymentPercentage' component={TextError}/> */}
                         </div>
-                      </Col>
-                      <Col md={2} >
+                      </div>
+                      <div className='col-md-3 col-sm-3  mb-1' >
+                      <div className=" payment__header mb-1">Down Payment(Rs.)</div>
                         <div className='payment__text'>
                            {/* payment in rs */}
-                            
                         {(store.projectData.lowerGrounds[props.i]?.shops[ii]
                             .downPaymentRs)}
                         
                         </div>
-                      </Col>
-                      <Col md={2}>
+                      </div>
+                      <div className='col-md-3 mb-1  col-sm-3'>
+                      <div className=" payment__header mb-1">Remaining (Rs.)</div>
                         <div className='payment__text' >
                             {/* Remainings */}
-                           
                         {(store.projectData.lowerGrounds[props.i].shops[ii].remainingRs)}
                         </div>
                         
-                      </Col>
+                      </div>
        {/* years */}
-                  <Col md={1}>
+                   <div className='col-md-3 col-sm-3 col-0'></div>
+                  <div className='col-md-3 col-sm-3  mb-1'>
+                  <div className="payment__header mb-1">Years</div>
                         <div className='payment__text'
-                        style={{marginLeft: -24}}
+                        // style={{marginLeft: -24}}
                         >
-                            <Field
+                            <Input
                               className='form-control payment__input'
                               type='number'
-                              name='paymentYear'
                               id={`Shop-PaymentYears-${ii}`}
                               placeholder='Years'
-                              onFocus={(e) => {e.target.select() }}
+                              onFocus={(e) => e.target.select()}
                               value={
                                 store.projectData.lowerGrounds[props.i].shops[ii]
                                   .paymentYears
                               }
-                              onChange = {e => {
+                              onChange={e => {
                                 dispatch(
                                   updateFloorInnerProperties([
                                     e.target.value,
@@ -297,7 +292,16 @@ const noShops = props => {
                                     'paymentYears'
                                   ])
                                 ) 
-                               
+                                dispatch(
+                                  updateFloorInnerProperties([
+                                    0,
+                                    'lowerGrounds',
+                                    props.i,
+                                    'shops',
+                                    ii,
+                                    'installmentPerDuration'
+                                  ])
+                                ) 
                                 dispatch(
                                   updateFloorInnerProperties([
                                     0,
@@ -321,21 +325,23 @@ const noShops = props => {
                         
                               }}
                             />
-                         {/* <ErrorMessage name='paymentYear' component={TextError}/> */}
+                         
+                        
                         </div>
-                      </Col>
+                      </div>
                 {/* yrs end */}
-                      <Col md={1} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div className='col-md-3 col-sm-3  mb-1' >
+                      <div className="payment__header mb-1">Plan</div>
                       <div className='payment__text'>
                       <select
                       className='form-control payment__select'
-                      style={{
-                        padding: 8,
-                        borderRadius: 4,
-                        color: '#001',
-                        outline: 'none',
-                        marginLeft: -20
-                      }}
+                      // style={{
+                      //   padding: 8,
+                      //   borderRadius: 4,
+                      //   color: '#001',
+                      //   outline: 'none',
+                      //   marginLeft: -20
+                      // }}
                       id={`Shop-Plan-${ii}`}
                                 name='icon-primary'
                                 value={
@@ -430,44 +436,28 @@ const noShops = props => {
 
                       </select>
                       </div>
-                       </Col>
+                       </div>
 
-                      <Col md={1}> 
+                      <div className='col-md-3 col-sm-3 mb-1'> 
+                      <div className="payment__header mb-1">installment</div>
                       <div className='payment__text'
-                      >
-                        
+                      > 
                      {(store.projectData.lowerGrounds[props.i].shops[ii].installmentPerDuration)}
-                      {/* {store.projectData.lowerGrounds[props.i].shops[ii].remainingRs / store.projectData.lowerGrounds[props.i].shops[ii].shopInstallment} */}
-                     
-                      {/* <Input
-                              className='form-control installment__output'
-                              type='number'
-                              id={`Shop-installment-${ii}`}
-                              readOnly
-                              value={
-                                store.projectData.lowerGrounds[props.i].shops[ii]
-                                  .installmentPerDuration
-                              }
-                             
-                            /> */}
                       </div>
                        
-                      </Col>
-                    </Row> 
-                    <Row className="mt-2 mb-2">
-                    <Col md={3} className="payment__header"></Col>
-                  <Col md={3} className="payment__header">{store.projectData.lowerGrounds[props.i].shops[ii].plan === 'Quarter' ?  'installment Per Quarter' : 'installment Per Month'}</Col>
-                  <Col md={3} className="payment__header">Arrears { store.projectData.lowerGrounds[props.i].shops[ii].planForDues ==='quarterly' ? 'Per Quarter' : store.projectData.lowerGrounds[props.i].shops[ii].planForDues === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.lowerGrounds[props.i].shops[ii].planForDues === 'annually' ? 'Per Annum' : ''   }</Col>
-                  <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
-                  </Row>
-                  <Row className='mt-2 mb-4'>
-                      <Col md={3}></Col>
-                    <Col md={3}>
+                      </div>
+                  
+
+{/* arrears row */}
+                  {/* <div className='row mt-2 mb-1'> */}
+                     <div className='col-md-3 col-sm-3 col-0'></div>
+                    <div className='col-md-3 col-sm-3 mb-1 '>
+                    <div className="payment__header mb-1">{store.projectData.lowerGrounds[props.i].shops[ii].plan === 'Quarter' ?  'installment/Quarter' : 'installment/Month'}</div>
                         <div className='payment__text' >
                              <Input
                         className='form-control payment__input'
                         type='number'
-                        id={`Shop-cashBasicPayment-${ii}`}
+                        id={`Shop-Payment-${ii}`}
                         placeholder='12'
                         onFocus={(e) => e.target.select()}
                         value={
@@ -518,11 +508,12 @@ const noShops = props => {
 
                     />
                         </div>
-                        
-                      </Col>
+                      </div>
+
                       {/* select Options */}
-                      <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
-                      <div style={{width: '70%'}} className='payment__text'>
+                      <div className='col-md-3 col-sm-3  mb-1' >
+                      <div className='payment__header mb-1'>Arrears plan (m/q/bi) { store.projectData.lowerGrounds[props.i].shops[ii].plan ==='quarterly' ? 'Per Quarter' : store.projectData.lowerGrounds[props.i].shops[ii].plan === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.lowerGrounds[props.i].shops[ii].plan === 'annually' ? 'Per Annum' : ''   }</div>
+                      <div  className='payment__text'>
                       <select
                       className='form-control payment__select'
                       style={{
@@ -627,28 +618,29 @@ const noShops = props => {
                       </select>
                       </div>
 
-                       </Col>
+                       </div>
 
-                       <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                       <div className='col-md-3 col-sm-3  mb-1' >
+                       <div className='payment__header mb-1' >Arrears lump sum { store.projectData.lowerGrounds[props.i].shops[ii].plan ==='quarterly' ? 'Per Quarter' : store.projectData.lowerGrounds[props.i].shops[ii].plan === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.lowerGrounds[props.i].shops[ii].plan === 'annually' ? 'Per Annum' : ''   }</div>
                       <div className='payment__text'>
                          {(store.projectData.lowerGrounds[props.i].shops[ii].arrearsInstallmentPerPeriod)}
                         </div>
-                       </Col>
+                       </div>
                       
-                    </Row>
+                    {/* </div> */}
                     <hr style={{ color: '#b3b3b3', backgroundColor: '#b3b3b3', height: 1, width: '99%',   }} />
-
+                    </div> 
                     </>
                   )}
                   
                   </Repeater>
-                  </Row>
+                  </div>
 
           </Card>
         </Accordion>
       )}
-    </Row>
-    <button type="submit" >submit</button>
+    </div>
+   
     </Form>
     </Formik>
   )

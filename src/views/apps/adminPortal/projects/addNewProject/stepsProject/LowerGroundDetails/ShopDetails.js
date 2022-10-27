@@ -83,546 +83,522 @@ const handleChange = (event) => {
 
   return (
     <Row className='justify-content-between align-items-center'>
-      {store.projectData.lowerGrounds[props.i].noShops > 0 && (
-        <Accordion className='accordion-border' open={open} toggle={toggleopen}>
-          <Card>
-            <CardHeader>
-              <h4 className='card-title'>
-                Total shops: {store.projectData.lowerGrounds[props.i].noShops}:{' '}
-              </h4>
-            </CardHeader>
-            <Row className='mt-1'>
-                  <h4 className='card-title'>
-                  Shop Details
-                  </h4>
-                  <Col className='mb-md-0 mb-1' md='6' sm='12'>
-                   <div className='d-flex'>
-                    <Label
-                       for='icon-primary'
-                       className='form-check-label mb-50'
-                     >
-                      <h4> Do you have area ? </h4>
-                     </Label>
-                      <div className='form-switch form-check-primary '>
-                      <Switch
-                   checked={ checked   }
-                   onChange={e=>
-                    {
-                      handleChange(e);     
+    {store.projectData.lowerGrounds[props.i].noShops > 0 && (
+      <Accordion className='accordion-border' open={open} toggle={toggleopen}>
+        <Card>
+          <CardHeader className='d-flex justify-content-center'>
+            <h4 className='card-title'>
+              Total shops: {store.projectData.lowerGrounds[props.i].noShops}:{' '}
+            </h4>
+          </CardHeader>
+          <div className='mt-1 row'>
+            <h4 className='card-title'>
+              Shop Details
+            </h4>
+            <div className='mb-md-0' md='6' sm='12'>
+              <div className='d-flex'>
+                <Label
+                  for='icon-primary'
+                  className='form-check-label mb-50'
+                >
+                  <h4 className='mt-1'> Do you have area ? </h4>
+                </Label>
+                <div className='form-switch form-check-primary'>
+                  <Switch
+
+                    checked={checked}
+                    onChange={e => {
+                      handleChange(e);
                     }
                     }
+                  />
+                </div>
+              </div>
+
+            </div>
+
+            <Repeater count={store.projectData.lowerGrounds[props.i].noShops}>
+              {ii => (
+                <Row className='mt-2 row d-flex '>
+
+                  <div className=" col-md-1 d-flex flex-wrap align-content-start mt-1 mb-1"><h4>Shop {ii + 1}</h4></div>
+                  <div className="form-group text-center col-md-3 col-sm-3 d-flex flex-wrap align-content-start mb-2">
+                    <h4 className='text-red-400'>Price/Sq.ft</h4>
+                    <Input
+                      readOnly
+                      // className='payment_text'
+                      type='number'
+                      id={`Shop-price-${ii}`}
+                      placeholder='0'
+                      value={store.projectData.lowerGrounds[props.i].priceShops}
+                      onChange={e => {
+                        dispatch(
+                          updateFloorInnerProperties([
+                            e.target.value,
+                            'lowerGrounds',
+                            props.i,
+                            'shops',
+                            ii,
+                            'priceShops'
+                          ])
+                        )
+
+                        dispatch(
+                          updateFloorInnerProperties([
+                            ((store.projectData.lowerGrounds[props.i].priceShops) * (store.projectData.lowerGrounds[props.i].shops[ii].length * store.projectData.lowerGrounds[props.i].shops[ii].width)).toLocaleString(undefined, { maximumFractionDigits: 2 }).toLocaleString(undefined, { maximumFractionDigits: 2 }),
+                            'lowerGrounds',
+                            props.i,
+                            'shops',
+                            ii,
+                            'totalCost'
+                          ])
+                        )
+                      }}
                     />
-                      </div>
-                    </div>
-                   
-                  </Col>
-                  <Row>
-                    <Col md={3} className="h4 text-center">Shop #</Col>
-                    <Col md={2} className="h4 text-center">Price Per Sq.Ft</Col>
-                    {/* {  store.projectData.lowerGrounds[props.i].isArea ? */}
-                    { checked ?
-                   <> 
-                    <Col md={3} className="h4 text-center">Area</Col>
-                   </>
-                     :
-                     <>
-                     <Col md={2} className="h4 text-center">length</Col>
-                    <Col md={2} className="h4 text-center">width</Col>
-                     </>
-                     }
-                    <Col md={2} className="h4 text-center">Total Cost (Rs)</Col>
-                  </Row>
-                
-                  <Repeater count={store.projectData.lowerGrounds[props.i].noShops}>
-                  {ii => (
-            
-                    <Row className='mt-2'>
-                    
-                      <Col md={3} className="text-center">Shop {ii + 1}</Col>
-                      <Col md={2} className="text-center">
-                        <Input 
-                        readOnly
-                        type='number' 
-                        id={`Shop-price-${ii}`}
-                              placeholder='0'
-                              value={store.projectData.lowerGrounds[props.i].priceShops}
-                              onChange={e => {
-                                dispatch(
-                                  updateFloorInnerProperties([
-                                    e.target.value,
-                                    'lowerGrounds',
-                                    props.i,
-                                    'shops',
-                                    ii,
-                                    'priceShops'
-                                  ])
-                                )
-                              }}
-                        />
-                      </Col>
-                    {/* { store.projectData.lowerGrounds[props.i].isArea ? */}
-                    { checked ? 
+                  </div>
+
+                  {checked ?
                     (
                       <>
-                     <Col md={3} className="text-center">
-                         <Input
-                        type='number'
-                        id={`Shop-isArea-${ii}`}
-                        placeholder='0'
-                        value={
-                            store.projectData.lowerGrounds[props.i].shops[ii]
-                            .wholeAreaOfShop
-                        }
-                        onFocus = { e => {
-                          // iterate a number over an array
-                          //make array from number
-                      {  const n =  store.projectData.lowerGrounds[props.i].noShops;
-                        [...Array(n)].forEach((data, index)=> {
-                          
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              index,
-                              'length'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              index,
-                              'width'
-                            ])
-                          )
-                        })
-                        }
-                        }}
-                        onChange={e => {
-                          dispatch(
-                            updateFloorInnerProperties([
-                              e.target.value,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'wholeAreaOfShop'
-                            ])
-                          )
-                          
-                          dispatch(
-                            updateFloorInnerProperties([
-                              // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
-                         ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value)) , 
-                              // (store.projectData.lowerGrounds[props.i].priceShops * store.projectData.lowerGrounds[props.i].shops[ii].width * e.target.value),
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                           
-                          // dispatch(
-                          //   updateFloorInnerProperties([
-                          //     0,
-                          //     'lowerGrounds',
-                          //     props.i,
-                          //     'shops',
-                          //     ii,
-                          //     'length'
-                          //   ])
-                          // )
-                          // dispatch(
-                          //   updateFloorInnerProperties([
-                          //     0,
-                          //     'lowerGrounds',
-                          //     props.i,
-                          //     'shops',
-                          //     ii,
-                          //     'width'
-                          //   ])
-                          // )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentPercentage' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                               'paymentYears'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'installmentPerDuration'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'cashDownPayment'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'arrearsInstallmentPerPeriod'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentRs' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                               'remainingRs'
-                            ])
-                          )
-                        }}
-                        />
-                      </Col>
-                      </>
-                      )
-                    : 
-                      ( 
-                    <>  
-                 <Col md={2} className="text-center">
-                        <Input
-                        type='number'
-                        id={`Shop-length-${ii}`}
-                        placeholder='0'
-                        value={
-                            store.projectData.lowerGrounds[props.i].shops[ii]
-                            .length
-                        }
-                        onFocus={e => {
-                          {  const n =  store.projectData.lowerGrounds[props.i].noShops;
-                            [...Array(n)].forEach((data, index)=> {
-                              
-                              dispatch(
-                                updateFloorInnerProperties([
-                                  0,
-                                  'lowerGrounds',
-                                  props.i,
-                                  'shops',
-                                  index,
-                                  'wholeAreaOfShop'
-                                ])
-                              )
-                            
-                            })
+                        <div className="form-group text-center col-md-3 col-sm-4 d-flex flex-wrap align-content-start mb-1">
+                          <h4>Area</h4>
+                          <Input
+                            //  className='bg-gray-600'
+                            type='number'
+                            className='payment_input'
+                            id={`Shop-isArea-${ii}`}
+                            placeholder='0'
+                            value={
+                              store.projectData.lowerGrounds[props.i].shops[ii]
+                                .wholeAreaOfShop
                             }
-                        }}
-                        onChange={e => {
-                          dispatch(
-                            updateFloorInnerProperties([
-                              e.target.value,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'length'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                         ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].width)) ,
-                              // ((store.projectData.lowerGrounds[props.i].shops[ii].length * store.projectData.lowerGrounds[props.i].shops[ii].width) * (e.target.value)),
-                              // (store.projectData.lowerGrounds[props.i].priceShops * store.projectData.lowerGrounds[props.i].shops[ii].length * e.target.value),
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'wholeAreaOfShop'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentPercentage' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentRs' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                               'remainingRs'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                               'paymentYears'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'installmentPerDuration'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'cashDownPayment'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'arrearsInstallmentPerPeriod'
-                            ])
-                          )
-                         
-                        }}
-                        />
-                      </Col>
-                      <Col md={2} className="text-center">
-                        <Input
-                        type='number'
-                        id={`Shop-width-${ii}`}
-                        placeholder='0'
-                        value={
-                            store.projectData.lowerGrounds[props.i].shops[ii]
-                            .width
-                        }
-                        onFocus={e => {
-                          {  const n =  store.projectData.lowerGrounds[props.i].noShops;
-                            [...Array(n)].forEach((data, index)=> {
-                              
-                              dispatch(
-                                updateFloorInnerProperties([
-                                  0,
-                                  'lowerGrounds',
-                                  props.i,
-                                  'shops',
-                                  index,
-                                  'wholeAreaOfShop'
-                                ])
-                              )
-                            
-                            })
-                            }
-                        }}
-                        onChange={e => {
-                          dispatch(
-                            updateFloorInnerProperties([
-                              e.target.value,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'width'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
-                        ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].length)) ,
-                              // ((store.projectData.lowerGrounds[props.i].shops[ii].length * store.projectData.lowerGrounds[props.i].shops[ii].width) * (e.target.value)),
-                              // (store.projectData.lowerGrounds[props.i].priceShops * store.projectData.lowerGrounds[props.i].shops[ii].width * e.target.value),
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                          // { !checked ? 
-                          //   (dispatch(
-                          //     updateFloorInnerProperties([
-                          //       0,
-                          //       'lowerGrounds',
-                          //       props.i,
-                          //       'shops',
-                          //       ii,
-                          //       'totalCost'
-                          //     ])
-                          //   )) : ('')
-                          // }
-                          //make wholeareaShop 0
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'wholeAreaOfShop'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentPercentage' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                               'paymentYears'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'installmentPerDuration'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'cashDownPayment'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'arrearsInstallmentPerPeriod'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                              'downPaymentRs' 
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              0,
-                              'lowerGrounds',
-                              props.i,
-                              'shops',
-                              ii,
-                               'remainingRs'
-                            ])
-                          )
-                        }}
-                        />
-                      </Col>
-                     </>
-                      )
-                      }
-                    
-                     <Col md={2} className="text-center">
-                   { ( store.projectData.lowerGrounds[props.i].shops[ii].totalCost) }
-                      </Col>
-                    </Row>  
-                 )}
-                  
-                  </Repeater>
-                  </Row>
+                            onFocus={e => {
+                              e.target.select()
+                              // iterate a number over an array
+                              //make array from number
+                              {
+                                const n = store.projectData.lowerGrounds[props.i].noShops;
+                                [...Array(n)].forEach((data, index) => {
 
-          </Card>
-        </Accordion>
-      )}
-    </Row>
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      0,
+                                      'lowerGrounds',
+                                      props.i,
+                                      'shops',
+                                      index,
+                                      'length'
+                                    ])
+                                  )
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      0,
+                                      'lowerGrounds',
+                                      props.i,
+                                      'shops',
+                                      index,
+                                      'width'
+                                    ])
+                                  )
+                                })
+                              }
+                            }}
+                            onChange={e => {
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  e.target.value,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'wholeAreaOfShop'
+                                ])
+                              )
+
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
+                                  ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value)),
+                                  // (store.projectData.lowerGrounds[props.i].priceShops * store.projectData.lowerGrounds[props.i].shops[ii].width * e.target.value),
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'totalCost'
+                                ])
+                              )
+
+
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'downPaymentPercentage'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'paymentYears'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'installmentPerDuration'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'cashDownPayment'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'arrearsInstallmentPerPeriod'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'downPaymentRs'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'remainingRs'
+                                ])
+                              )
+                            }}
+                          />
+                        </div>
+                      </>
+                    )
+                    :
+                    (
+                      <>
+                        {/* length and width */}
+                        <div className="form-group text-center col-md-2 col-sm-3 d-flex flex-wrap align-content-start mb-1">
+                          <h4>length</h4>
+                          <Input
+                            type='number'
+                            id={`Shop-length-${ii}`}
+                            placeholder='0'
+                            value={
+                              store.projectData.lowerGrounds[props.i].shops[ii]
+                                .length
+                            }
+                            onFocus={e => {
+                              e.target.select()
+                              {
+                                const n = store.projectData.lowerGrounds[props.i].noShops;
+                                [...Array(n)].forEach((data, index) => {
+
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      0,
+                                      'lowerGrounds',
+                                      props.i,
+                                      'shops',
+                                      index,
+                                      'wholeAreaOfShop'
+                                    ])
+                                  )
+
+                                })
+                              }
+                            }}
+                            onChange={e => {
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  e.target.value,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'length'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].width)),
+                                  // ((store.projectData.lowerGrounds[props.i].shops[ii].length * store.projectData.lowerGrounds[props.i].shops[ii].width) * (e.target.value)),
+                                  // (store.projectData.lowerGrounds[props.i].priceShops * store.projectData.lowerGrounds[props.i].shops[ii].length * e.target.value),
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'totalCost'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'wholeAreaOfShop'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'downPaymentPercentage'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'downPaymentRs'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'remainingRs'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'paymentYears'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'installmentPerDuration'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'cashDownPayment'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'arrearsInstallmentPerPeriod'
+                                ])
+                              )
+
+                            }}
+                          />
+                        </div>
+
+                        <div className="form-group col-md-2 col-sm-3 text-center d-flex flex-wrap align-content-start mb-1">
+                          <h4>width</h4>
+                          <Input
+                            type='number'
+                            id={`Shop-width-${ii}`}
+                            placeholder='0'
+                            value={
+                              store.projectData.lowerGrounds[props.i].shops[ii]
+                                .width
+                            }
+                            onFocus={e => {
+                              e.target.select()
+                              {
+                                const n = store.projectData.lowerGrounds[props.i].noShops;
+                                [...Array(n)].forEach((data, index) => {
+
+                                  dispatch(
+                                    updateFloorInnerProperties([
+                                      0,
+                                      'lowerGrounds',
+                                      props.i,
+                                      'shops',
+                                      index,
+                                      'wholeAreaOfShop'
+                                    ])
+                                  )
+
+                                })
+                              }
+                            }}
+                            onChange={e => {
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  e.target.value,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'width'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  // (store.projectData.lowerGrounds[props.i].priceShops * e.target.value),
+                                  ((store.projectData.lowerGrounds[props.i].priceShops) * (e.target.value) * (store.projectData.lowerGrounds[props.i].shops[ii].length)),
+                                  // ((store.projectData.lowerGrounds[props.i].shops[ii].length * store.projectData.lowerGrounds[props.i].shops[ii].width) * (e.target.value)),
+                                  // (store.projectData.lowerGrounds[props.i].priceShops * store.projectData.lowerGrounds[props.i].shops[ii].width * e.target.value),
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'totalCost'
+                                ])
+                              )
+
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'wholeAreaOfShop'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'downPaymentPercentage'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'paymentYears'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'installmentPerDuration'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'cashDownPayment'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'arrearsInstallmentPerPeriod'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'downPaymentRs'
+                                ])
+                              )
+                              dispatch(
+                                updateFloorInnerProperties([
+                                  0,
+                                  'lowerGrounds',
+                                  props.i,
+                                  'shops',
+                                  ii,
+                                  'remainingRs'
+                                ])
+                              )
+                            }}
+                          />
+                        </div>
+                      </>
+                    )
+                  }
+                  <div className="form-group text-center col-md-2 col-sm-3 mb-1 col-lg-2">
+                    <h4 className='text-red-400'>total Cost</h4>
+                    <div className='mt-1'>{store.projectData.lowerGrounds[props.i].shops[ii].totalCost}</div>
+                  </div>
+                </Row>
+              )}
+            </Repeater>
+          </div>
+        </Card>
+      </Accordion>
+    )}
+  </Row>
   )
 }
 export default noShops

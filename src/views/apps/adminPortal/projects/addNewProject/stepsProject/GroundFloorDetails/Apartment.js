@@ -64,30 +64,29 @@ const noApartments = props => {
       {store.projectData.groundFloors[props.i].noApartments > 0 && (
         <Accordion className='accordion-border' open={open} toggle={toggleopen}>
           <Card>
-            <CardHeader>
-              <h4 className='card-title'>
-                Total apartments:{' '}
-                {store.projectData.groundFloors[props.i].noApartments}:{' '}
-              </h4>
+            <CardHeader className='d-flex justify-content-center' >
+             <div >
+               <h5>
+                Total apartments: {store.projectData.groundFloors[props.i].noApartments} {' '}
+              </h5>
+              </div>
             </CardHeader>
-            
-            <Row className='mt-1'>
+            <div className='mt-1 row'>
                   <h4 className='card-title'>
                   Apartment Details
                   </h4>
-                  <Col className='mb-md-0 mb-1' md='6' sm='12'>
-                   <div className='d-flex align-items-center'>
-                    <div>
-                      <Label
+                  <div className='mb-md-0'  md='6' sm='12'>
+                   <div className='d-flex'>
+                    <Label
                        for='icon-primary'
+                       className='form-check-label mb-50'
                      >
-                      <h4 className='payment__text'> Do you have area ? </h4>
+                      <h4 className='mt-1'> Do you have area ? </h4>
                      </Label>
-                     </div>
-                      <div className='form-switch form-check-primary '>
+                      <div className='form-switch form-check-primary'>
                       <Switch
+                    
                    checked={ checked   }
-                   className='mb-50'
                    onChange={e=>
                     {
                       handleChange(e);     
@@ -97,33 +96,20 @@ const noApartments = props => {
                       </div>
                     </div>
                    
-                  </Col>
-                  <Row>
-                    <Col md={3} className="h4 text-center payment__text">Apartment #</Col>
-                    <Col md={2} className="h4 text-center payment__text">Price Per Sq.Ft</Col>
-                    { checked ?
-                   <> 
-                    <Col md={3} className="h4 text-center payment__text">Area</Col>
-                   </>
-                     :
-                     <>
-                     <Col md={2} className="h4 text-center payment__text">length</Col>
-                    <Col md={2} className="h4 text-center payment__text">width</Col>
-                     </>
-                     }
-                    <Col md={2} className="h4 text-center payment__text">Total Cost (Rs)</Col>
-                  </Row>
-                  <Repeater count={store.projectData.groundFloors[props.i].noApartments}>
+                  </div>
+                
+                   <Repeater count={store.projectData.groundFloors[props.i].noApartments}>
                   {ii => ( 
-                    <Row className='mt-2'>
+                    <Row className='mt-2 row d-flex '>
                      
-                      <Col md={3} className="text-center">Apartt# {ii + 1}</Col>
-                      <Col md={2} className="text-center">
+                      <div className=" col-md-2 d-flex flex-wrap align-content-start mt-1 mb-1"><h4>Apartment {ii + 1}</h4></div>
+                      <div className="form-group text-center col-md-3 col-sm-3 d-flex flex-wrap align-content-start mb-2">
+                      <h4 className='text-red-400'>Price/Sq.ft</h4>
                         <Input 
                         readOnly
+                        // className='payment_text'
                         type='number' 
-                        name="priceApartments"
-                        id={`apartment-price-${ii}`}
+                        id={`Apartment-price-${ii}`}
                               placeholder='0'
                               value={store.projectData.groundFloors[props.i].priceApartments}
                               onChange={e => {
@@ -150,20 +136,25 @@ const noApartments = props => {
                                 )
                               }}
                         />
-                      </Col>
+                      </div>
+                     
                       { checked ? 
                     (
-                      <>
-                     <Col md={3} className="text-center">
+                      <> 
+                     <div className="form-group text-center col-md-3 col-sm-4 d-flex flex-wrap align-content-start mb-1">
+                     <h4>Area</h4>
                          <Input
+                        //  className='bg-gray-600'
                         type='number'
+                        className='payment_input'
                         id={`Apartment-isArea-${ii}`}
                         placeholder='0'
                         value={
                             store.projectData.groundFloors[props.i].apartments[ii]
-                            .wholeAreaOfAparment
+                            .wholeAreaOfApartments
                         }
                         onFocus = { e => {
+                          e.target.select()
                           // iterate a number over an array
                           //make array from number
                       {  const n =  store.projectData.groundFloors[props.i].noApartments;
@@ -200,7 +191,7 @@ const noApartments = props => {
                               props.i,
                               'apartments',
                               ii,
-                              'wholeAreaOfAparment'
+                              'wholeAreaOfApartments'
                             ])
                           )
                           
@@ -290,13 +281,15 @@ const noApartments = props => {
                           )
                         }}
                         />
-                      </Col>
+                      </div>
                       </>
                       )
                     : 
                       ( 
                     <>  
-                 <Col md={2} className="text-center">
+                   {/* length and width */}
+                <div className="form-group text-center col-md-2 col-sm-3 d-flex flex-wrap align-content-start mb-1">
+                  <h4>length</h4>
                         <Input
                         type='number'
                         id={`Apartment-length-${ii}`}
@@ -306,6 +299,7 @@ const noApartments = props => {
                             .length
                         }
                         onFocus={e => {
+                           e.target.select()
                           {  const n =  store.projectData.groundFloors[props.i].noApartments;
                             [...Array(n)].forEach((data, index)=> {
                               
@@ -316,7 +310,7 @@ const noApartments = props => {
                                   props.i,
                                   'apartments',
                                   index,
-                                  'wholeAreaOfAparment'
+                                  'wholeAreaOfApartments'
                                 ])
                               )
                             
@@ -353,7 +347,7 @@ const noApartments = props => {
                               props.i,
                               'apartments',
                               ii,
-                              'wholeAreaOfAparment'
+                              'wholeAreaOfApartments'
                             ])
                           )
                           dispatch(
@@ -429,8 +423,10 @@ const noApartments = props => {
                          
                         }}
                         />
-                      </Col>
-                      <Col md={2} className="text-center">
+                </div>
+                
+                      <div className="form-group col-md-2 col-sm-3 text-center d-flex flex-wrap align-content-start mb-1">
+                      <h4>width</h4>
                         <Input
                         type='number'
                         id={`Apartment-width-${ii}`}
@@ -440,6 +436,7 @@ const noApartments = props => {
                             .width
                         }
                         onFocus={e => {
+                          e.target.select()
                           {  const n =  store.projectData.groundFloors[props.i].noApartments;
                             [...Array(n)].forEach((data, index)=> {
                               
@@ -450,7 +447,7 @@ const noApartments = props => {
                                   props.i,
                                   'apartments',
                                   index,
-                                  'wholeAreaOfAparment'
+                                  'wholeAreaOfApartments'
                                 ])
                               )
                             
@@ -489,7 +486,7 @@ const noApartments = props => {
                               props.i,
                               'apartments',
                               ii,
-                              'wholeAreaOfAparment'
+                              'wholeAreaOfApartments'
                             ])
                           )
                           dispatch(
@@ -564,53 +561,18 @@ const noApartments = props => {
                           )
                         }}
                         />
-                      </Col>
+                      </div>
                      </>
                       )
                       } 
-                      {/* <Col md={3} className="text-center">
-                        <Input
-                        type='number'
-                        id={`Shop-area-${ii}`}
-                        placeholder='0'
-                        value={
-                            store.projectData.groundFloors[props.i].apartments[ii]
-                            .area
-                        }
-                        onChange={e => {
-                          dispatch(
-                            updateFloorInnerProperties([
-                              e.target.value,
-                              'groundFloors',
-                              props.i,
-                              'apartments',
-                              ii,
-                              'area'
-                            ])
-                          )
-                          dispatch(
-                            updateFloorInnerProperties([
-                              (store.projectData.groundFloors[props.i].priceApartments * e.target.value),
-                              'groundFloors',
-                              props.i,
-                              'apartments',
-                              ii,
-                              'totalCost'
-                            ])
-                          )
-                        }}
-                        />
-                      </Col> */}
-                      <Col md={2} className="text-center">
-                        {/* {store.projectData.groundFloors[props.i].apartments[ii].totalCost} */}
-             {/* {((store.projectData.groundFloors[props.i].priceApartments) * (store.projectData.groundFloors[props.i].apartments[ii].length * store.projectData.groundFloors[props.i].apartments[ii].width)) } */}
-                  {store.projectData.groundFloors[props.i].apartments[ii].totalCost}
-                      </Col>
+                     <div className="form-group text-center col-md-2 col-sm-3 mb-1 col-lg-2">
+                      <h4 className='text-red-400'>total Cost</h4>
+                  <div className='mt-1'>{store.projectData.groundFloors[props.i].apartments[ii].totalCost}</div> 
+                      </div>
                     </Row>  
                   )}
                   </Repeater>
-                  </Row>
-
+              </div>
           </Card>
         </Accordion>
       )}

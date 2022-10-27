@@ -80,7 +80,6 @@ const noShops = props => {
     dispatch(
       updateFloorInnerProperties([
         Math.max(0, Math.min(100, Number(e.target.value))),
-
         'mezzanine',
         i,
         'shops',
@@ -98,8 +97,7 @@ const noShops = props => {
         
         <Accordion className='accordion-border' open={open} toggle={toggleopen}>
           <hr style={{ color: '#000', backgroundColor: '#000', height: 1, width: '90%', marginLeft: 'auto', marginRight: 'auto' }} />
-          <Card>
-            
+          <Card> 
             <div className='mt-1 row'>
                   <h4 className='card-title'>
                   Payment Plan
@@ -612,7 +610,6 @@ const noShops = props => {
         </Accordion>
       )}
     </div>
-   
     </>
   )
 }

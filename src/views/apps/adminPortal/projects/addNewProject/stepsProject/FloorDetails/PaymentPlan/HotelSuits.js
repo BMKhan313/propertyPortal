@@ -52,7 +52,7 @@ const CustomLabel = ({ htmlFor }) => {
   )
 }
 
-const noShops = props => {
+const noHotelSuites = props => {
   // ** Store Variables
   const dispatch = useDispatch()
   const store = useSelector(state => state.addNewProject)
@@ -98,48 +98,41 @@ const noShops = props => {
 
 
   return (
-    <Row className='justify-content-between align-items-center'>
+    <>
+    <div className='row justify-content-between align-items-center'>
       {store.projectData.floors[props.i].noHotelSuites > 0 && (
         
         <Accordion className='accordion-border' open={open} toggle={toggleopen}>
           <hr style={{ color: '#000', backgroundColor: '#000', height: 1, width: '90%', marginLeft: 'auto', marginRight: 'auto' }} />
-          <Card>
-            
-            <Row className='mt-1'>
+          <Card> 
+            <div className='mt-1 row'>
                   <h4 className='card-title'>
                   Payment Plan
                   </h4>
-                 
+                
                   <Repeater count={store.projectData.floors[props.i].noHotelSuites}>
                   {ii => ( 
                     <>
-                  <Row>
-                    <Col md={1} className="payment__header">Hotel Suites #</Col>
-                    <Col md={2} className="payment__header">Total Cost</Col>
-                    <Col md={2} className="payment__header">Down Payment (%)</Col>
-                    <Col md={2} className="payment__header">Down Payment (Rs)</Col>
-                    <Col md={2} className="payment__header">Remaining(Rs)</Col>
-                    <Col md={1} className="payment__header">Years</Col>
-                    <Col md={1} className="payment__header">Plan (Months/Quarters)</Col>
-                    {/* <Col md={1} className="payment__header"> Months / Quarters</Col> */}
-                    <Col md={1} className="payment__header">Installment</Col>
-                  </Row>
-                    <Row className='mt-2'>
-                      <Col md={1}><div className='payment__text' style={{fontFamily: 'cursive'}}>HotelSuite-{ii + 1}  </div></Col>
-                      <Col md={2}>
-                        <div className='payment__text'>
+                    
+                    <div className='mt-2 row'>
+                      <div className='row mb-1'><div className='payment__text' style={{fontFamily: 'cursive'}}>hotelSuite-{ii + 1}  </div></div>
+                      <div className='col-md-3 col-sm-3  mb-1'>
+                      <div className=" payment__header mb-1">Total Cost</div>
+                        <div className=' payment__text'>
                             {/* total cost */} 
                            
                           {(store.projectData.floors[props.i]?.hotelSuites[ii].totalCost)}
                      
                         </div>
-                      </Col>
-                      <Col md={2} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      </div>
+
+                      <div className='col-md-3 col-sm-3  mb-1'>
+                      <div className=" payment__header mb-1">Down Payment (%)</div>
                         <div className='payment__text'>
                         <Input
                         className='form-control payment__input'
                         type='number'
-                        id={`Shop-downPaymentPercentage-${ii}`}
+                        id={`hotelSuite-downPaymentPercentage-${ii}`}
                         placeholder='12'
                         value={
                           store.projectData.floors[props.i].hotelSuites[ii]
@@ -150,6 +143,9 @@ const noShops = props => {
                           handleChangeDownPaymentPercent(e, props.i, ii)                         
                           dispatch(
                             updateFloorInnerProperties([
+                            //    (((store.projectData.floors[props.i].hotelSuites[ii].totalCost)
+                            // - (e.target.value)) * 
+                            // (store.projectData.floors[props.i].hotelSuites[ii].totalCost / 100)),
                            ( 
                              ((e.target.value * store.projectData.floors[props.i].hotelSuites[ii].totalCost) / 100)),
                               'floors',
@@ -227,33 +223,35 @@ const noShops = props => {
                         }
                         />
                         </div>
-                      </Col>
-                      <Col md={2} >
+                      </div>
+                      <div className='col-md-3 col-sm-3  mb-1' >
+                      <div className=" payment__header mb-1">Down Payment(Rs.)</div>
                         <div className='payment__text'>
                            {/* payment in rs */}
-                            
                         {(store.projectData.floors[props.i]?.hotelSuites[ii]
                             .downPaymentRs)}
                         
                         </div>
-                      </Col>
-                      <Col md={2}>
+                      </div>
+                      <div className='col-md-3 mb-1  col-sm-3'>
+                      <div className=" payment__header mb-1">Remaining (Rs.)</div>
                         <div className='payment__text' >
                             {/* Remainings */}
-                           
                         {(store.projectData.floors[props.i].hotelSuites[ii].remainingRs)}
                         </div>
                         
-                      </Col>
+                      </div>
        {/* years */}
-                  <Col md={1}>
+                   <div className='col-md-3 col-sm-3 col-0'></div>
+                  <div className='col-md-3 col-sm-3  mb-1'>
+                  <div className="payment__header mb-1">Years</div>
                         <div className='payment__text'
-                        style={{marginLeft: -24}}
+                        // style={{marginLeft: -24}}
                         >
                             <Input
                               className='form-control payment__input'
                               type='number'
-                              id={`Shop-PaymentYears-${ii}`}
+                              id={`hotelSuite-PaymentYears-${ii}`}
                               placeholder='Years'
                               onFocus={(e) => e.target.select()}
                               value={
@@ -307,20 +305,21 @@ const noShops = props => {
                          
                         
                         </div>
-                      </Col>
+                      </div>
                 {/* yrs end */}
-                      <Col md={1} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                      <div className='col-md-3 col-sm-3  mb-1' >
+                      <div className="payment__header mb-1">Plan</div>
                       <div className='payment__text'>
                       <select
                       className='form-control payment__select'
-                      style={{
-                        padding: 8,
-                        borderRadius: 4,
-                        color: '#001',
-                        outline: 'none',
-                        marginLeft: -20
-                      }}
-                      id={`Shop-Plan-${ii}`}
+                      // style={{
+                      //   padding: 8,
+                      //   borderRadius: 4,
+                      //   color: '#001',
+                      //   outline: 'none',
+                      //   marginLeft: -20
+                      // }}
+                      id={`hotelSuite-Plan-${ii}`}
                                 name='icon-primary'
                                 value={
                                   store.projectData.floors[props.i].hotelSuites[ii]
@@ -367,12 +366,12 @@ const noShops = props => {
                                         props.i,
                                         'hotelSuites',
                                         ii,
-                                        'shopInstallmentDuration'
+                                        'hotelSuiteInstallmentDuration'
                                       ])
                                     )
                                     dispatch(
                                       updateFloorInnerProperties([
-                                        (store.projectData.floors[props.i].hotelSuites[ii].remainingRs / store.projectData.floors[props.i].hotelSuites[ii].shopInstallmentDuration),
+                                        (store.projectData.floors[props.i].hotelSuites[ii].remainingRs / store.projectData.floors[props.i].hotelSuites[ii].hotelSuiteInstallmentDuration),
                                       
                                         'floors',
                                         props.i,
@@ -390,12 +389,12 @@ const noShops = props => {
                                     props.i,
                                     'hotelSuites',
                                     ii,
-                                    'shopInstallmentDuration',
+                                    'hotelSuiteInstallmentDuration',
                                   ])
                                 )
                                 dispatch(
                                   updateFloorInnerProperties([
-                                    (store.projectData.floors[props.i].hotelSuites[ii].remainingRs / store.projectData.floors[props.i].hotelSuites[ii].shopInstallmentDuration),
+                                    (store.projectData.floors[props.i].hotelSuites[ii].remainingRs / store.projectData.floors[props.i].hotelSuites[ii].hotelSuiteInstallmentDuration),
                                    
                                     'floors',
                                     props.i,
@@ -414,33 +413,28 @@ const noShops = props => {
 
                       </select>
                       </div>
-                       </Col>
+                       </div>
 
-                      <Col md={1}> 
+                      <div className='col-md-3 col-sm-3 mb-1'> 
+                      <div className="payment__header mb-1">installment</div>
                       <div className='payment__text'
-                      >
-                        
+                      > 
                      {(store.projectData.floors[props.i].hotelSuites[ii].installmentPerDuration)}
-                      {/* {store.projectData.floors[props.i].hotelSuites[ii].remainingRs / store.projectData.floors[props.i].hotelSuites[ii].shopInstallment} */}
-            
                       </div>
                        
-                      </Col>
-                    </Row> 
-                    <Row className="mt-2 mb-2">
-                    <Col md={3} className="payment__header"></Col>
-                  <Col md={3} className="payment__header">{store.projectData.floors[props.i].hotelSuites[ii].plan === 'Quarter' ?  'installment Per Quarter' : 'installment Per Month'}</Col>
-                  <Col md={3} className="payment__header">Arrears { store.projectData.floors[props.i].hotelSuites[ii].planForDues ==='quarterly' ? 'Per Quarter' : store.projectData.floors[props.i].hotelSuites[ii].planForDues === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.floors[props.i].hotelSuites[ii].planForDues === 'annually' ? 'Per Annum' : ''   }</Col>
-                  <Col md={3} className="payment__header">Arrears Lump Sum</Col> 
-                  </Row>
-                  <Row className='mt-2 mb-4'>
-                      <Col md={3}></Col>
-                    <Col md={3}>
+                      </div>
+                  
+
+{/* arrears row */}
+                  {/* <div className='row mt-2 mb-1'> */}
+                     <div className='col-md-3 col-sm-3 col-0'></div>
+                    <div className='col-md-3 col-sm-3 mb-1 '>
+                    <div className="payment__header mb-1">{store.projectData.floors[props.i].hotelSuites[ii].plan === 'Quarter' ?  'installment/Quarter' : 'installment/Month'}</div>
                         <div className='payment__text' >
                              <Input
                         className='form-control payment__input'
                         type='number'
-                        id={`Shop-cashBasicPayment-${ii}`}
+                        id={`hotelSuite-Payment-${ii}`}
                         placeholder='12'
                         onFocus={(e) => e.target.select()}
                         value={
@@ -491,11 +485,12 @@ const noShops = props => {
 
                     />
                         </div>
-                        
-                      </Col>
+                      </div>
+
                       {/* select Options */}
-                      <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
-                      <div style={{width: '70%'}} className='payment__text'>
+                      <div className='col-md-3 col-sm-3  mb-1' >
+                      <div className='payment__header mb-1'>Arrears plan (m/q/bi) { store.projectData.floors[props.i].hotelSuites[ii].plan ==='quarterly' ? 'Per Quarter' : store.projectData.floors[props.i].hotelSuites[ii].plan === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.floors[props.i].hotelSuites[ii].plan === 'annually' ? 'Per Annum' : ''   }</div>
+                      <div  className='payment__text'>
                       <select
                       className='form-control payment__select'
                       style={{
@@ -506,7 +501,7 @@ const noShops = props => {
                         
                         // marginLeft: -10
                       }}
-                      id={`Shop-Plan-${ii}`}
+                      id={`hotelSuite-Plan-${ii}`}
                                 name='icon-primary'
                                 value={
                                   store.projectData.floors[props.i].hotelSuites[ii].planForDues
@@ -600,27 +595,30 @@ const noShops = props => {
                       </select>
                       </div>
 
-                       </Col>
+                       </div>
 
-                       <Col md={3} style={{display: 'flex', justifyContent: 'flex-start'}}>
+                       <div className='col-md-3 col-sm-3  mb-1' >
+                       <div className='payment__header mb-1' >Arrears lump sum { store.projectData.floors[props.i].hotelSuites[ii].plan ==='quarterly' ? 'Per Quarter' : store.projectData.floors[props.i].hotelSuites[ii].plan === 'bi-annual'  ? 'Per Bi-Annum' : store.projectData.floors[props.i].hotelSuites[ii].plan === 'annually' ? 'Per Annum' : ''   }</div>
                       <div className='payment__text'>
                          {(store.projectData.floors[props.i].hotelSuites[ii].arrearsInstallmentPerPeriod)}
                         </div>
-                       </Col>
+                       </div>
                       
-                    </Row>
+                    {/* </div> */}
                     <hr style={{ color: '#b3b3b3', backgroundColor: '#b3b3b3', height: 1, width: '99%',   }} />
-
+                    </div> 
                     </>
                   )}
                   
                   </Repeater>
-                  </Row>
+                  </div>
 
           </Card>
         </Accordion>
       )}
-    </Row>
+    </div>
+   
+    </>
   )
 }
-export default noShops
+export default noHotelSuites
