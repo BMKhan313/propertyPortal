@@ -42,7 +42,7 @@ import InputNumber from 'rc-input-number'
 const noShops = props => {
   // ** Store Variables
   const dispatch = useDispatch()
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const store = useSelector(state => state.addNewProject)
   const [open, setOpen] = useState('')
   const toggleopen = id => {
@@ -63,11 +63,11 @@ const noShops = props => {
                 Total shops: {store.projectData.mezzanine[props.i].noShops}:{' '}
               </h4>
             </CardHeader>
-            <Row className='mt-1'>
+            <div className='mt-1 row'>
                   <h4 className='card-title'>
                   Shop Details
                   </h4>
-                  <div className='mb-md-0 mb-1 '  md='6' sm='12'>
+                  <div className='mb-md-0'  md='6' sm='12'>
                    <div className='d-flex'>
                     <Label
                        for='icon-primary'
@@ -106,10 +106,10 @@ const noShops = props => {
                   </Row> */}
                    <Repeater count={store.projectData.mezzanine[props.i].noShops}>
                   {ii => ( 
-                    <Row className='mt-2 row '>
+                    <Row className='mt-2 row d-flex '>
                      
-                      <div className=" col-md-2  d-flex flex-wrap align-content-start mt-1 mb-1"><h4>Shop {ii + 1}</h4></div>
-                      <div className="form-group text-center col-md-2 col-sm-3 d-flex flex-wrap align-content-start mb-2">
+                      <div className=" col-md-1 d-flex flex-wrap align-content-start mt-1 mb-1"><h4>Shop {ii + 1}</h4></div>
+                      <div className="form-group text-center col-md-3 col-sm-3 d-flex flex-wrap align-content-start mb-2">
                       <h4 className='text-red-400'>Price/Sq.ft</h4>
                         <Input 
                         readOnly
@@ -152,6 +152,7 @@ const noShops = props => {
                          <Input
                         //  className='bg-gray-600'
                         type='number'
+                        className='payment_input'
                         id={`Shop-isArea-${ii}`}
                         placeholder='0'
                         value={
@@ -159,6 +160,7 @@ const noShops = props => {
                             .wholeAreaOfShop
                         }
                         onFocus = { e => {
+                          e.target.select()
                           // iterate a number over an array
                           //make array from number
                       {  const n =  store.projectData.mezzanine[props.i].noShops;
@@ -291,8 +293,8 @@ const noShops = props => {
                     : 
                       ( 
                     <>  
-                   
-                <div className="form-group text-center col-md-2 col-sm-3 d-flex flex-wrap align-content-start mt-1 mb-1">
+                   {/* length and width */}
+                <div className="form-group text-center col-md-2 col-sm-3 d-flex flex-wrap align-content-start mb-1">
                   <h4>length</h4>
                         <Input
                         type='number'
@@ -303,6 +305,7 @@ const noShops = props => {
                             .length
                         }
                         onFocus={e => {
+                           e.target.select()
                           {  const n =  store.projectData.mezzanine[props.i].noShops;
                             [...Array(n)].forEach((data, index)=> {
                               
@@ -428,7 +431,7 @@ const noShops = props => {
                         />
                 </div>
                 
-                      <div className="form-group col-md-2 col-sm-3 text-center d-flex flex-wrap align-content-start mt-1 mb-1">
+                      <div className="form-group col-md-2 col-sm-3 text-center d-flex flex-wrap align-content-start mb-1">
                       <h4>width</h4>
                         <Input
                         type='number'
@@ -439,6 +442,7 @@ const noShops = props => {
                             .width
                         }
                         onFocus={e => {
+                          e.target.select()
                           {  const n =  store.projectData.mezzanine[props.i].noShops;
                             [...Array(n)].forEach((data, index)=> {
                               
@@ -567,15 +571,14 @@ const noShops = props => {
                      </>
                       )
                       } 
-                     
-                     <div className="form-group text-center col-md-2 col-sm-3 mb-1 col-lg-4">
+                     <div className="form-group text-center col-md-2 col-sm-3 mb-1 col-lg-2">
                       <h4 className='text-red-400'>total Cost</h4>
                   <div className='mt-1'>{store.projectData.mezzanine[props.i].shops[ii].totalCost}</div> 
                       </div>
                     </Row>  
                   )}
                   </Repeater>
-              </Row>
+              </div>
           </Card>
         </Accordion>
       )}
