@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react'
 import { Search, X } from 'react-feather'
 import { Button, Col, Row } from 'reactstrap'
 import '../User.css'
+import { Box, styled, Typography, Divider } from '@mui/material'
 
 const Header = () => {
 
@@ -85,7 +86,7 @@ const Header = () => {
                 </Col>
         </Row>
 
-        <Row className='search__box pt-5'>
+        <div className='row search__box pt-5'>
             <Col md={12} className="d-flex justify-content-center">
             <h2 className="text-white">Find Your Favorite Plots</h2>
             </Col>
@@ -117,32 +118,34 @@ const Header = () => {
                 </Button>
             </Col>
 
-            <Col md={12} className="d-flex justify-content-center mt-4">
-                <Col md={4} className="bg-white p-1" onClick={() => setMenu(true)}>
+            <Box  className="d-flex justify-content-center mt-4 ">
+                <Box  className="bg-white p-1 col-md-4 col-sm-8 "  onClick={() => setMenu(true)}>
                     <div className='text-dark'>Location</div>
 
                     {
                         cities.length === 0 ? <div>City, Area etc</div> : (
-                            <div className='dropdown__cities__wrapper'>
+                            <Box>
+                                <Box className='d-flex dropdown__cities__wrapper' >
                                 {
                                 cities.map((disCity, index) => {
                                     return (
-                                        <div className='dropdown__cities'>
+                                        <Box className='dropdown__cities'>
                                          {disCity}
-                                         <div className='close__icon__wrapper'>
+                                         <Box className='close__icon__wrapper'>
                                          <X size={14} color="#000" className='cross__icon' onClick={() => {
                                             removeCity(disCity)
                                             setMenu(false)
                                             }} />
-                                         </div>
-                                        </div>
+                                         </Box>
+                                        </Box>
                                     )
                                 })
                             }
-                            </div>
+                            </Box>
+                            </Box>
                         )
                     }
-                </Col>
+                </Box>
 
                 <Col md={2} className="d-flex p-1 bg-white border-dark border-left-2 border-top-0 border-bottom-0">
 
@@ -155,8 +158,8 @@ const Header = () => {
                         <Search size={24} color="#fff" />
                     </div>
                 </Col>
-            </Col>
-        </Row>
+            </Box>
+        </div>
 
         {
             !menu ? '' : (

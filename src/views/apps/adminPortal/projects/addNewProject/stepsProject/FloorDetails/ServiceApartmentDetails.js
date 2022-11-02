@@ -115,7 +115,7 @@ const noserviceApartments = props => {
                             
                               dispatch(
                                 updateFloorInnerProperties([
-                                  ((store.projectData.floors[props.i].priceServiceApartments) * (store.projectData.floors[props.i].serviceApartments[props.i].length * store.projectData.floors[props.i].serviceApartments[props.i].width)).toLocaleString(undefined, { maximumFractionDigits: 2 }).toLocaleString(undefined, { maximumFractionDigits: 2 }),
+                                  ((store.projectData.floors[props.i].priceServiceApartments) * (store.projectData.floors[props.i].serviceApartments[ii].length * store.projectData.floors[props.i].serviceApartments[ii].width)).toLocaleString(undefined, { maximumFractionDigits: 2 }).toLocaleString(undefined, { maximumFractionDigits: 2 }),
                                   'floors',
                                   props.i,
                                   'serviceApartments',
@@ -139,7 +139,7 @@ const noserviceApartments = props => {
                       id={`Apartment-isArea-${ii}`}
                       placeholder='0'
                       value={
-                          store.projectData.floors[props.i].serviceApartments[props.i]
+                          store.projectData.floors[props.i].serviceApartments[ii]
                           .wholeAreaOfServiceApartments
                       }
                       onFocus = { e => {
@@ -188,7 +188,7 @@ const noserviceApartments = props => {
                           updateFloorInnerProperties([
                             // (store.projectData.floors[props.i].priceServiceApartments * e.target.value),
                        ((store.projectData.floors[props.i].priceServiceApartments) * (e.target.value)) , 
-                            // (store.projectData.floors[props.i].priceServiceApartments * store.projectData.floors[props.i].serviceApartments[props.i].width * e.target.value),
+                            // (store.projectData.floors[props.i].priceServiceApartments * store.projectData.floors[props.i].serviceApartments[ii].width * e.target.value),
                             'floors',
                             props.i,
                             'serviceApartments',
@@ -284,7 +284,7 @@ const noserviceApartments = props => {
                       id={`Apartment-length-${ii}`}
                       placeholder='0'
                       value={
-                          store.projectData.floors[props.i].serviceApartments[props.i]
+                          store.projectData.floors[props.i].serviceApartments[ii]
                           .length
                       }
                       onFocus={e => {
@@ -319,9 +319,9 @@ const noserviceApartments = props => {
                         )
                         dispatch(
                           updateFloorInnerProperties([
-                       ((store.projectData.floors[props.i].priceServiceApartments) * (e.target.value) * (store.projectData.floors[props.i].serviceApartments[props.i].width)) ,
-                            // ((store.projectData.floors[props.i].serviceApartments[props.i].length * store.projectData.floors[props.i].serviceApartments[props.i].width) * (e.target.value)),
-                            // (store.projectData.floors[props.i].priceServiceApartments * store.projectData.floors[props.i].serviceApartments[props.i].length * e.target.value),
+                       ((store.projectData.floors[props.i].priceServiceApartments) * (e.target.value) * (store.projectData.floors[props.i].serviceApartments[ii].width)) ,
+                            // ((store.projectData.floors[props.i].serviceApartments[ii].length * store.projectData.floors[props.i].serviceApartments[ii].width) * (e.target.value)),
+                            // (store.projectData.floors[props.i].priceServiceApartments * store.projectData.floors[props.i].serviceApartments[ii].length * e.target.value),
                             'floors',
                             props.i,
                             'serviceApartments',
@@ -421,7 +421,7 @@ const noserviceApartments = props => {
                       id={`Apartment-width-${ii}`}
                       placeholder='0'
                       value={
-                          store.projectData.floors[props.i].serviceApartments[props.i]
+                          store.projectData.floors[props.i].serviceApartments[ii]
                           .width
                       }
                       onFocus={e => {
@@ -457,9 +457,9 @@ const noserviceApartments = props => {
                         dispatch(
                           updateFloorInnerProperties([
                             // (store.projectData.floors[props.i].priceServiceApartments * e.target.value),
-                      ((store.projectData.floors[props.i].priceServiceApartments) * (e.target.value) * (store.projectData.floors[props.i].serviceApartments[props.i].length)) ,
-                            // ((store.projectData.floors[props.i].serviceApartments[props.i].length * store.projectData.floors[props.i].serviceApartments[props.i].width) * (e.target.value)),
-                            // (store.projectData.floors[props.i].priceServiceApartments * store.projectData.floors[props.i].serviceApartments[props.i].width * e.target.value),
+                      ((store.projectData.floors[props.i].priceServiceApartments) * (e.target.value) * (store.projectData.floors[props.i].serviceApartments[ii].length)) ,
+                            // ((store.projectData.floors[props.i].serviceApartments[ii].length * store.projectData.floors[props.i].serviceApartments[ii].width) * (e.target.value)),
+                            // (store.projectData.floors[props.i].priceServiceApartments * store.projectData.floors[props.i].serviceApartments[ii].width * e.target.value),
                             'floors',
                             props.i,
                             'serviceApartments',
@@ -556,7 +556,7 @@ const noserviceApartments = props => {
                     } 
                    <div className="form-group text-center col-md-2 col-sm-3 mb-1 col-lg-2">
                     <h4 className='text-red-400'>total Cost</h4>
-                <div className='mt-1'>{store.projectData.floors[props.i].serviceApartments[props.i].totalCost}</div> 
+                <div className='mt-1'>{store.projectData.floors[props.i].serviceApartments[ii].totalCost}</div> 
                     </div>
                   </Row>  
                 )}

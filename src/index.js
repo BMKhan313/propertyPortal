@@ -24,6 +24,8 @@ import './@core/components/ripple-button'
 // ** Fake Database
 import './@fake-db'
 
+
+import App from './App';
 // ** PrismJS
 import 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'

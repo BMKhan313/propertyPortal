@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .user__header {
     background-image: url('./assets/map.jpg');
     background-size: cover;
@@ -20,6 +25,7 @@
 }
 .dropdown__cities__wrapper {
     display: flex;
+    width: '100%';
 }
 .dropdown__cities {
     display: flex;
@@ -172,7 +178,7 @@
     color: #101010;
 }
 .rent__inner__details__body__price__title {
-    color: #0000ff80;   
+    color: #0000ff80;    
     font-weight: 600;
 }
 .inner__side__image {
@@ -199,3 +205,4 @@
     width: 50%;
     padding: 10px;
 }
+

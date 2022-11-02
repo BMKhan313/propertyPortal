@@ -18,6 +18,7 @@ import house15 from '../assets/new/15.jpg'
 export const homes = [
     {
         id: 1,
+        city: 'Islamabad',
         location: 'G-33',
         countRent: 653,
         countSale: 523,
@@ -25,6 +26,7 @@ export const homes = [
     },
     {
         id: 2,
+        city: 'Islamabad',
         location: 'Bani Gala',
         countRent: 63,
         countSale: 5388,
@@ -32,6 +34,7 @@ export const homes = [
     },
     {
         id: 3,
+        city: 'Islamabad',
         location: 'G-31',
         countRent: 3,
         countSale: 33,
@@ -39,13 +42,15 @@ export const homes = [
     },
     {
         id: 4,
+        city: 'Lahore',
         location: 'Mumtaz City',
         countRent: 89,
         countSale: 23,
-        image: house4
+        image: house4 
     },
     {
         id: 5,
+        city: 'Rawalpindi',
         location: 'E-6',
         countRent: 85,
         countSale: 5,
@@ -53,13 +58,15 @@ export const homes = [
     },
     {
         id: 6,
-        location: 'E-88',
+        city: 'Peshawar',
+        location: 'E-8',
         countRent: 63,
         countSale: 23,
         image: house6
     },
     {
         id: 7,
+        city: 'Islamabad',
         location: 'G-77',
         countRent: 3,
         countSale: 52,
@@ -67,6 +74,7 @@ export const homes = [
     },
     {
         id: 8,
+        city: 'Peshawar',
         location: 'G-33',
         countRent: 653,
         countSale: 523,
@@ -74,6 +82,7 @@ export const homes = [
     },
     {
         id: 9,
+        city: 'Lahore',
         location: 'G-33',
         countRent: 653,
         countSale: 523,
@@ -81,6 +90,7 @@ export const homes = [
     },
     {
         id: 10,
+        city: 'Lahore',
         location: 'G-33',
         countRent: 653,
         countSale: 523,

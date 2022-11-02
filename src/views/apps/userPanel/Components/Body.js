@@ -6,6 +6,7 @@ import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu'
 import { useHistory } from 'react-router-dom'
 import InnerBody from './RentDetails/InnerDetails/InnerBody'
 import RentDetails from '../Pages/RentDetails'
+import { Box, styled, Typography, Divider } from '@mui/material'
 
 const getItems = () =>
   Array(20)
@@ -14,10 +15,16 @@ const getItems = () =>
 
 const Body = () => {
 
-    const [city, setCity] = useState('Islamabad')
+    const [city, setCity] = useState(homes)
     const history = useHistory()
     
-
+    const filterResult = (catItem) => {
+      const result = homes.filter((currentData)=> {
+         return currentData.city === catItem
+      })
+      setCity(result)
+    }
+    console.log('filter ....',city)
     function LeftArrow() {
         const { isFirstItemVisible, scrollPrev } =
           React.useContext(VisibilityContext)
@@ -107,73 +114,40 @@ const Body = () => {
   return (
     <div className='user__body'>
         <Row className='mt-5'>
-            <div className='body__section__title'>Top Areas</div>
+            <div className='body__section__title'>Top Cities</div>
         </Row>
 
         <Row>
             <Col className='body__section__buttons'>
-            <Button outline onClick={() => setCity('Islamabad')} 
+            {/* <Button outline onClick={() => setCity(homes)} 
+            style={{backgroundColor: city === 'homes' ? '#0000ff80' : '', 
+            color: city === 'homes' ? '#fff' : '' }}
+            >All Cities</Button> */}
+
+            <Button outline onClick={() => filterResult('Islamabad')} 
             style={{backgroundColor: city === 'Islamabad' ? '#0000ff80' : '', 
             color: city === 'Islamabad' ? '#fff' : ''
         }}
             >Islamabad</Button>
-            <Button outline onClick={() => setCity('Peshawar')}
+            <Button outline onClick={() => filterResult('Peshawar')}
             style={{backgroundColor: city === 'Peshawar' ? '#0000ff80' : '', 
             color: city === 'Peshawar' ? '#fff' : ''
         }}
             >Peshawar</Button>
-            <Button outline onClick={() => setCity('Rawalpindi')}
+            <Button outline onClick={() => filterResult('Rawalpindi')}
             style={{backgroundColor: city === 'Rawalpindi' ? '#0000ff80' : '', 
             color: city === 'Rawalpindi' ? '#fff' : ''
         }}
             >Rawalpindi</Button>
-            <Button outline onClick={() => setCity('Lahore')}
+            <Button outline onClick={() => filterResult('Lahore')}
             style={{backgroundColor: city === 'Lahore' ? '#0000ff80' : '', 
             color: city === 'Lahore' ? '#fff' : ''
         }}
             >Lahore</Button>
             </Col>
         </Row>
-        <RentDetails />
-        {/* <Row className='body__homes__counter'>
-            <Col md={3} className="d-flex align-items-center">
-                <div>
-                <Home size={24} />
-                </div>
-
-                <div className='body__count__homes'>
-                For Rent: <div className='body__count__homesss'>7535</div>
-                </div>
-            </Col>
-            
-            <Col md={3} className="d-flex align-items-center">
-                <div>
-                <Home size={24} />
-                </div>
-                
-                <div className='body__count__homes'>
-                For Sale: <div className='body__count__homesss'>272</div>
-                </div>
-            </Col>
-        </Row> */}
-        {/* <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}
-        scrollContainerClassName="scroller"
-        >
-        {homes.map((home, index) => (
-        <Card
-          itemId={home.id}
-          title={home.location}
-          rent={home.countRent}
-          sale={home.countSale}
-          image={home.image}
-          key={home.id}
-          onClick={handleClick(home.id)}
-          selected={isItemSelected(home.id)}
-          
-        />
-        ))
-        }
-        </ScrollMenu> */}
+        <RentDetails city={city} />
+        
     </div>
   )
 }

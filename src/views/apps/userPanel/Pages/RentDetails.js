@@ -3,12 +3,13 @@ import Body from '../Components/RentDetails/Body'
 import Filter from '../Components/RentDetails/Filter'
 import Header from '../Components/RentDetails/Header'
 
-const RentDetails = () => {
+const RentDetails = ({city}) => {
+  // console.log('city haris',city)
   return (
     <div>
         {/* <Header /> */}
         <Filter />
-        <Body />
+        <Body city={city}/>
     </div>
   )
 }

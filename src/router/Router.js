@@ -1,6 +1,6 @@
 // ** React Imports
 import { Suspense, useContext, lazy, Fragment } from 'react'
-
+import '../index.css'
 // ** Utils
 import { isUserLoggedIn } from '@utils'
 import { useLayout } from '@hooks/useLayout'
