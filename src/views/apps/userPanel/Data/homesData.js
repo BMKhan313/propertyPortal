@@ -22,6 +22,7 @@ export const homes = [
         location: 'G-33',
         countRent: 653,
         countSale: 523,
+        residentialType: 'Shop',
         image: house1
     },
     {
@@ -30,6 +31,7 @@ export const homes = [
         location: 'Bani Gala',
         countRent: 63,
         countSale: 5388,
+        residentialType: 'Shop',
         image: house11
     },
     {
@@ -38,6 +40,7 @@ export const homes = [
         location: 'G-31',
         countRent: 3,
         countSale: 33,
+        residentialType: 'Apartment',
         image: house3
     },
     {
@@ -46,6 +49,7 @@ export const homes = [
         location: 'Mumtaz City',
         countRent: 89,
         countSale: 23,
+        residentialType: 'foodCourt',
         image: house4 
     },
     {
@@ -54,6 +58,7 @@ export const homes = [
         location: 'E-6',
         countRent: 85,
         countSale: 5,
+        residentialType: 'serviceApartment',
         image: house5
     },
     {
@@ -62,6 +67,7 @@ export const homes = [
         location: 'E-8',
         countRent: 63,
         countSale: 23,
+        residentialType: 'hotelSuite',
         image: house6
     },
     {
@@ -70,6 +76,7 @@ export const homes = [
         location: 'G-77',
         countRent: 3,
         countSale: 52,
+        residentialType: 'corporateOffice',
         image: house7
     },
     {
@@ -78,22 +85,25 @@ export const homes = [
         location: 'G-33',
         countRent: 653,
         countSale: 523,
+        residentialType: 'Shop',
         image: house8
     },
     {
         id: 9,
         city: 'Lahore',
-        location: 'G-33',
-        countRent: 653,
+        location: 'G-10',
+        countRent: 253,
         countSale: 523,
+        residentialType: 'Apartment',
         image: house9
     },
     {
         id: 10,
         city: 'Lahore',
         location: 'G-33',
-        countRent: 653,
-        countSale: 523,
+        countRent: 61,
+        countSale: 223,
+        residentialType: 'serviceApartment',
         image: house10
     },
 

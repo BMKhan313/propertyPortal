@@ -7,6 +7,9 @@ import { useHistory } from 'react-router-dom'
 import InnerBody from './RentDetails/InnerDetails/InnerBody'
 import RentDetails from '../Pages/RentDetails'
 import { Box, styled, Typography, Divider } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import store from '../../adminPortal/redux/addNewProject/store'
+import { getValuesFromUserFilter } from '../../adminPortal/redux/addNewProject/store'
 
 const getItems = () =>
   Array(20)
@@ -15,7 +18,11 @@ const getItems = () =>
 
 const Body = () => {
 
+  const store = useSelector(state => state.addNewProject)
+
+    const dispatch = useDispatch()
     const [city, setCity] = useState(homes)
+    const [residentialType, setResidentialType] = useState('')
     const history = useHistory()
     
     const filterResult = (catItem) => {
@@ -24,7 +31,8 @@ const Body = () => {
       })
       setCity(result)
     }
-    console.log('filter ....',city)
+    console.log('filter city ....',city)
+    console.log('filter resi ....',residentialType)
     function LeftArrow() {
         const { isFirstItemVisible, scrollPrev } =
           React.useContext(VisibilityContext)
@@ -109,7 +117,7 @@ const Body = () => {
       }
       )
     }
-      
+    console.log('hariskhan_userpanel',store.userPanel) 
 
   return (
     <div className='user__body'>
@@ -119,34 +127,122 @@ const Body = () => {
 
         <Row>
             <Col className='body__section__buttons'>
-            {/* <Button outline onClick={() => setCity(homes)} 
+            <Button outline onClick={() => setCity(homes)} 
             style={{backgroundColor: city === 'homes' ? '#0000ff80' : '', 
             color: city === 'homes' ? '#fff' : '' }}
-            >All Cities</Button> */}
+            >All Cities</Button>
 
-            <Button outline onClick={() => filterResult('Islamabad')} 
+            <Button outline onClick={
+              (e) => { 
+                filterResult('Islamabad') 
+              dispatch(
+                getValuesFromUserFilter(
+                 { 
+                  cityName: 'Islamabad'
+                }
+                )
+              )
+              
+            } }
             style={{backgroundColor: city === 'Islamabad' ? '#0000ff80' : '', 
-            color: city === 'Islamabad' ? '#fff' : ''
+            color: city === 'Islamabad' ? '#0000ff80' : ''
         }}
             >Islamabad</Button>
-            <Button outline onClick={() => filterResult('Peshawar')}
-            style={{backgroundColor: city === 'Peshawar' ? '#0000ff80' : '', 
-            color: city === 'Peshawar' ? '#fff' : ''
+
+            <Button outline onClick={
+              (e) => { 
+                filterResult('Peshawar') 
+              dispatch(
+                getValuesFromUserFilter(
+                 { 
+                  cityName: 'Peshawar'
+                }
+                )
+              )
+              
+            } }
+            style={{backgroundColor: filterResult === 'Peshawar' ? '#0000ff80' : '', 
+            color: filterResult === 'Peshawar' ? '#0000ff80' : ''
         }}
-            >Peshawar</Button>
-            <Button outline onClick={() => filterResult('Rawalpindi')}
+            >Peshawar{store.userPanel.cityName}</Button>
+            <Button outline onClick={
+              (e) => { 
+                filterResult('Rawalpindi') 
+              dispatch(
+                getValuesFromUserFilter(
+                 { 
+                  cityName: 'Rawalpindi'
+                }
+                )
+              )
+            } }
             style={{backgroundColor: city === 'Rawalpindi' ? '#0000ff80' : '', 
             color: city === 'Rawalpindi' ? '#fff' : ''
         }}
             >Rawalpindi</Button>
-            <Button outline onClick={() => filterResult('Lahore')}
+
+            <Button outline onClick={
+              (e) => { 
+                filterResult('Lahore') 
+              dispatch(
+                getValuesFromUserFilter(
+                 { 
+                  cityName: 'Lahore'
+                }
+                )
+              )
+              
+            } }
             style={{backgroundColor: city === 'Lahore' ? '#0000ff80' : '', 
             color: city === 'Lahore' ? '#fff' : ''
         }}
             >Lahore</Button>
             </Col>
         </Row>
-        <RentDetails city={city} />
+        {/* types */}
+        <Box className='row '>
+        <Box className='body__section__buttons col'>
+            {/* <Button outline onClick={() => setResidentialType(homes)} 
+            style={{backgroundColor: residentialType === 'homes' ? '#0000ff80' : '', 
+            color: residentialType === 'homes' ? '#fff' : '' }}
+            >All Types</Button> */}
+
+            <Button outline onClick={() => setResidentialType('foodCourt')} 
+            style={{backgroundColor: residentialType === 'foodCourt' ? '#0000ff80' : '', 
+            color: residentialType === 'foodCourt' ? '#fff' : ''
+        }}
+            >Food Court</Button>
+            <Button outline onClick={() => setResidentialType('Apartment')}
+            style={{backgroundColor: residentialType === 'Apartment' ? '#0000ff80' : '', 
+            color: residentialType === 'Apartment' ? '#fff' : ''
+        }}
+            >Apartment</Button>
+            <Button outline onClick={() => {
+              setResidentialType('serviceApartment')
+            }}
+            style={{backgroundColor: residentialType === 'serviceApartment' ? '#0000ff80' : '', 
+            color: residentialType === 'serviceApartment' ? '#fff' : ''
+        }}
+            >Service Apartment</Button>
+            <Button outline onClick={() => setResidentialType('Shop')}
+            style={{backgroundColor: residentialType === 'Shop' ? '#0000ff80' : '', 
+            color: residentialType === 'Shop' ? '#fff' : ''
+        }}
+            >Shop</Button>
+
+            <Button outline onClick={() => setResidentialType('hotelSuite')}
+            style={{backgroundColor: residentialType === 'hotelSuite' ? '#0000ff80' : '', 
+            color: residentialType === 'hotelSuite' ? '#fff' : ''
+        }}
+            >Hotel Suites</Button>
+            <Button outline onClick={() => setResidentialType('corporateOffice')}
+            style={{backgroundColor: residentialType === 'corporateOffice' ? '#0000ff80' : '', 
+            color: residentialType === 'corporateOffice' ? '#fff' : ''
+        }}
+            >Carporate Office</Button>
+            </Box>
+        </Box>
+        <RentDetails city={city} residentialType={residentialType}/>
         
     </div>
   )

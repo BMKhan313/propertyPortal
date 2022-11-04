@@ -31,13 +31,17 @@ const dateFormat = (inputDate, format) => {
 export const addProjectSlice = createSlice({
   name: 'addProject',
   initialState: {
+    userPanel: {
+       cityName: ''
+    },
     projectData: {
+      // cityName: 'hariskhan..',
       masterDetails: {
         user_id: 1,
         developerId: 0,
         cityId: 0,
         areaId: 0,
-
+  
         countFloors: 0,
         countBasements: 0,
         countStages: 0,
@@ -366,7 +370,19 @@ export const addProjectSlice = createSlice({
           ]
         }
       }
+    },
+    //
+    getValuesFromUserFilter: (state = initialState, action) => {
+       return {
+        ...state,
+        userPanel:{
+          ...state.userPanel,
+          cityName: action.payload.cityName
+        }
+
+       }
     }
+    
   }
 })
 
@@ -379,6 +395,7 @@ export const {
   updateFloorInnerProperties,
   updateNoOfStages,
   updateProjectDetails,
-  updateStageProperties
+  updateStageProperties,
+  getValuesFromUserFilter
 } = addProjectSlice.actions
 export default addProjectSlice.reducer

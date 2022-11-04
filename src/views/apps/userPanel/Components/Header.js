@@ -129,9 +129,9 @@ const Header = () => {
                                 {
                                 cities.map((disCity, index) => {
                                     return (
-                                        <Box className='dropdown__cities'>
+                                        <Box className='dropdown__cities' key={index}>
                                          {disCity}
-                                         <Box className='close__icon__wrapper'>
+                                         <Box className='close__icon__wrapper' key={index}>
                                          <X size={14} color="#000" className='cross__icon' onClick={() => {
                                             removeCity(disCity)
                                             setMenu(false)

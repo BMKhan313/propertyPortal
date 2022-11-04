@@ -14,6 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { Box, styled, Typography, Button, Divider } from '@mui/material';
+import { identity } from '@fullcalendar/core'
 
 
 const Image = styled('img')({
@@ -31,14 +32,14 @@ const Text = styled(Typography)`
   `
  
 
-const Body = ({city}) => {
+const Body = ({city,residentialType}) => {
  
   const [category, setCategory] = useState('');
   const [newLaunchedRates, setNewLaunchedRates] = useState('');
   const history = useHistory();
   const [selected, setSelected] = React.useState([]);
   const isItemSelected = (id) => !!selected.find((el) => el === id);
-
+  
   const handleClick =
     (id) =>
       ({ getItemById, scrollToItem }) => {
@@ -65,10 +66,11 @@ const Body = ({city}) => {
           style={{
             backgroundColor: '#F0F0F0',
             // width: '92%',
-            height: 70,
+            // height: 70,
             marginLeft: 50,
             marginRight: 15,
             borderRadius: 5,
+            padding: 10,
             display: 'flex',
             alignItems: 'start'
           }}>
@@ -79,7 +81,8 @@ const Body = ({city}) => {
             alignItems: 'center'
           }}>
 
-            <Box style={{ marginTop: 17 }}>
+            <Box>
+            <Box className='' style={{marginBottom: 8, marginLeft: 5}}> {`${city[0]?.city} > ${residentialType}  `} </Box>
               <HomeOutlinedIcon style={{
                 color: 'black',
                 size: "medium",
@@ -87,22 +90,18 @@ const Body = ({city}) => {
               }}
                 sx={{ fontSize: 30, color: 'white' }} />
               <Box component="span" style={{
-                // fontSize: 18,
-                // marginTop:18,
-                padding: 5,
                 fontFamily: 'sans-serif',
                 fontWeight: 'bold'
               }}>Results:</Box>
               <Box component="span" style={{
-                // fontSize: 18,
-                // marginTop:18,
                 marginBottom: 15,
                 padding: 5,
                 fontFamily: 'sans-serif',
                 color: '#fa2549'
-              }}> 2786+</Box>
+              }}>{residentialType?.length}</Box>
+              
             </Box>
-
+             
           </div>
 
         </Box>
@@ -114,6 +113,8 @@ const Body = ({city}) => {
             {city.map((data, id) => (
 
               <Card
+                res_Type={data.residentialType}
+                residentialType={residentialType}
                 itemId={id} // NOTE: itemId is required for track items
                 // title='Property Name will be here...'
                 key={id}
@@ -165,7 +166,7 @@ function RightArrow() {
   );
 }
 
-function Card({ onClick, selected, title, itemId, history, city, location, image, countRent, countSale }) {
+function Card({ onClick, selected, title, itemId, history, city, location, image, countRent, countSale, res_Type , residentialType}) {
   const visibility = React.useContext(VisibilityContext);
    
   return (
@@ -173,8 +174,10 @@ function Card({ onClick, selected, title, itemId, history, city, location, image
       cursor: 'pointer',
       width: 220,
       // height: 400,
-      margin: '15px 10px'
+      margin: '15px 10px',
+      display: residentialType === '' ? '' : (residentialType === res_Type ? '' : 'none')
     }} >
+
       <Image onClick={() => {
         console.log('Clicked')
         history.push({

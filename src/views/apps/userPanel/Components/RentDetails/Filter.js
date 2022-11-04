@@ -2,16 +2,16 @@ import { Button, Col, Input, Label, Row} from 'reactstrap'
 import React, { useState } from 'react'
 import '../../User.css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import Box from '@mui/material/Box'
+import {Box, Typography} from '@mui/material'
 import Modal from '@mui/material/Modal'
 import Slider from '@mui/material/Slider'
 
 const style = {
   position: 'absolute',
-  top: '35%',
-  left: '20%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
+  top: '50%',
+  left: '60%',
+  transform: 'translate(-60%, -40%)',
+  width: 380,
   bgcolor: 'background.paper',
   border: '2px solid #0000ff80',
   boxShadow: 24,
@@ -25,24 +25,24 @@ const marks = [
       label: '0'
     },
     {
-      value: 20000,
-      label: '20,000'
+      value: 200000,
+      label: '2 lac'
     },
     {
-      value: 40000,
-      label: '40,000'
+      value: 400000,
+      label: '4 lac'
     },
     {
-      value: 60000,
-      label: '60,000'
+      value: 600000,
+      label: '6 lac'
     },
     {
-        value: 80000,
-        label: '80,000'
+        value: 800000,
+        label: '8 lac'
     },
     {
-        value: 100000,
-        label: '1,00,000'
+        value: 1000000,
+        label: '10 lac'
     }
   ]
 
@@ -82,6 +82,8 @@ const marks = [
   }
 
 const Filter = () => {
+  const [plotPrice, setPlotPrice] = useState([200000,400000])
+  // const [maxPrice, setMaxPrice] = useState(6000)
 
     const [openArea, setOpenArea] = useState(false)
     const [openPrice, setOpenPrice] = useState(false)
@@ -99,7 +101,11 @@ const Filter = () => {
 
     const handleOpenSizeRange = () => setOpenSizeRange(true)
     const handleCloseSizeRange = () => setOpenSizeRange(false)
-
+    
+   const handlePriceChange = (event, newValue) =>{
+      setPlotPrice(newValue);
+      // setMaxPrice(newValue)
+    }
 
   return (
     <div className='rent__details__filter'>
@@ -156,38 +162,48 @@ const Filter = () => {
       </Modal>
 
       {/* Price Modal */}
+      {/* className="form-group col-md-3" style={{
+  marginTop:-40
+}} */}
 
       <Modal
         open={openPrice}
         onClose={handleClosePrice}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className="col-md-6"
         >
-        <Box sx={style}>
-          <Label>Choose your price Range(PKR)</Label>
+        <Box sx={style} >
+          <Label >Choose your price Range(PKR)</Label>
             <Slider
             aria-label="Always visible"
-            defaultValue={20000}
-            max={100000}
+            // defaultValue={200000}
+            value={plotPrice}
+            // value={maxPrice}
+            max={1000000}
             getAriaValueText={valuetext}
-            step={20000}
+            step={200000}
             marks={marks}
+            onChange={handlePriceChange}
+            
             />
 
             <Row className='d-flex justify-content-around mt-2'>
-            <Col md={4}>
-                <Input type="text" placeholder='From' />
+            <Col md={6}>
+                <Label>From</Label>
+                <Input type="text" placeholder='From' value={plotPrice[0]}/>
             </Col>
 
-            <Col md={4}>
-                <Input type="text" placeholder='To' />
+            <Col md={6}>
+              <Label>To</Label>
+                <Input type="text" placeholder='To' value={plotPrice[1]}/>
             </Col>
             
             </Row>
 
           <Row className="d-flex">
             <Col md={3} className="mt-1">
-                <Button color='primary' onClick={handleClosePrice}>Apply</Button>
+                <Button color='primary' onClick={handleClosePrice} >Apply</Button>
             </Col>
           </Row>
         </Box>
@@ -253,3 +269,6 @@ const Filter = () => {
 }
 
 export default Filter
+
+
+
