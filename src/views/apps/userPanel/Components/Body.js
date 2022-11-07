@@ -8,7 +8,7 @@ import InnerBody from './RentDetails/InnerDetails/InnerBody'
 import RentDetails from '../Pages/RentDetails'
 import { Box, styled, Typography, Divider } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import store from '../../adminPortal/redux/addNewProject/store'
+// import store from '../../adminPortal/redux/addNewProject/store'
 import { getValuesFromUserFilter } from '../../adminPortal/redux/addNewProject/store'
 
 const getItems = () =>
@@ -31,8 +31,8 @@ const Body = () => {
       })
       setCity(result)
     }
-    console.log('filter city ....',city)
-    console.log('filter resi ....',residentialType)
+    // console.log('filter city ....',city)
+    // console.log('filter resi ....',residentialType)
     function LeftArrow() {
         const { isFirstItemVisible, scrollPrev } =
           React.useContext(VisibilityContext)
@@ -117,7 +117,7 @@ const Body = () => {
       }
       )
     }
-    console.log('hariskhan_userpanel',store.userPanel) 
+    // console.log('hariskhan_userpanel',store.userPanel) 
 
   return (
     <div className='user__body'>
@@ -164,7 +164,7 @@ const Body = () => {
             style={{backgroundColor: filterResult === 'Peshawar' ? '#0000ff80' : '', 
             color: filterResult === 'Peshawar' ? '#0000ff80' : ''
         }}
-            >Peshawar{store.userPanel.cityName}</Button>
+            >Peshawar</Button>
             <Button outline onClick={
               (e) => { 
                 filterResult('Rawalpindi') 

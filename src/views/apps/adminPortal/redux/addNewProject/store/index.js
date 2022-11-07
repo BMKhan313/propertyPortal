@@ -32,7 +32,13 @@ export const addProjectSlice = createSlice({
   name: 'addProject',
   initialState: {
     userPanel: {
-       cityName: ''
+       cityName: '',
+       priceRanges:{
+        priceLowRange: 0,
+        priceHighRange: 0
+       },
+       areaRange: 0,
+       downPaymentAmount: 0
     },
     projectData: {
       // cityName: 'hariskhan..',
@@ -377,11 +383,44 @@ export const addProjectSlice = createSlice({
         ...state,
         userPanel:{
           ...state.userPanel,
-          cityName: action.payload.cityName
-        }
-
+          cityName: action.payload.cityName,
+          
+        },
        }
+    },
+   getPriceRangesFromFilter: (state = initialState, action) => {
+        return{
+          ...state,
+          userPanel: {
+            ...state.userPanel,
+            priceRanges: {
+              ...state.userPanel.priceRanges,
+              priceLowRange: action.payload.priceLowRange,
+              priceHighRange: action.payload.priceHighRange
+            }
+          }
+        }
+   } ,
+  getAreaRanges: (state = initialState, action) => {
+    return {
+     ...state,
+     userPanel:{
+       ...state.userPanel,
+       areaRange: action.payload.areaRange
+       
+     },
     }
+ },
+ getDownPaymentAmount: (state = initialState, action) => {
+  return {
+   ...state,
+   userPanel:{
+     ...state.userPanel,
+     downPaymentAmount: action.payload.downPaymentAmount
+     
+   },
+  }
+}
     
   }
 })
@@ -396,6 +435,9 @@ export const {
   updateNoOfStages,
   updateProjectDetails,
   updateStageProperties,
-  getValuesFromUserFilter
+  getValuesFromUserFilter,
+  getPriceRangesFromFilter,
+  getAreaRanges,
+  getDownPaymentAmount
 } = addProjectSlice.actions
 export default addProjectSlice.reducer

@@ -5,6 +5,9 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {Box, Typography} from '@mui/material'
 import Modal from '@mui/material/Modal'
 import Slider from '@mui/material/Slider'
+import store, { getAreaRanges, getDownPaymentAmount } from '../../../adminPortal/redux/addNewProject/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPriceRangesFromFilter,getValuesFromUserFilter } from '../../../adminPortal/redux/addNewProject/store'
 
 const style = {
   position: 'absolute',
@@ -46,79 +49,134 @@ const marks = [
     }
   ]
 
-  const smarks = [
+  const areaMarks = [
     {
       value: 0,
       label: '0'
     },
     {
-      value: 200,
-      label: '200'
-    },
-    {
-      value: 400,
-      label: '400'
+      value: 300,
+      label: '300'
     },
     {
       value: 600,
       label: '600'
     },
     {
-        value: 800,
-        label: '800'
+      value: 900,
+      label: '900'
     },
     {
-        value: 1000,
-        label: '1000'
-    }
+        value: 1200,
+        label: '1200'
+    },
+    {
+        value: 1500,
+        label: '1500'
+    },{
+      value: 1800,
+      label: '1800'
+  },{
+    value: 2100,
+    label: '2100'
+},{
+  value: 2400,
+  label: '2400'
+},{
+  value: 2700,
+  label: '2700'
+},{
+  value: 3000,
+  label: '3000'
+},{
+  value: 3300,
+  label: '3300'
+}
   ]
 
   function valuetext(value) {
     return `${value}`
   }
 
-  function valueStext(value) {
+  function valueAreaText(value) {
     return `${value}`
   }
 
 const Filter = () => {
-  const [plotPrice, setPlotPrice] = useState([200000,400000])
+
+  const store = useSelector(state => state.addNewProject)
+  const dispatch = useDispatch()
+
+  const [plotPrice, setPlotPrice] = useState([0,1000000])
+  const [areaRange, setAreaRange] = useState(3300)
+  const [downPaymentAmount, setDownPaymentAmount] = useState(0)
   // const [maxPrice, setMaxPrice] = useState(6000)
 
     const [openArea, setOpenArea] = useState(false)
     const [openPrice, setOpenPrice] = useState(false)
-    const [openBedroom, setOpenBedroom] = useState(false)
+    const [openDownPayment, setOpenDownPayment] = useState(false)
     const [openSizeRange, setOpenSizeRange] = useState(false)
-
+   
     const handleOpenArea = () => setOpenArea(true)
     const handleCloseArea = () => setOpenArea(false)
 
     const handleOpenPrice = () => setOpenPrice(true)
     const handleClosePrice = () => setOpenPrice(false)
 
-    const handleOpenBedroom = () => setOpenBedroom(true)
-    const handleCloseBedroom = () => setOpenBedroom(false)
+    const handleOpenDownPaymentAmount = () => setOpenDownPayment(true)
+    const handleCloseDownPaymentAmount = () => setOpenDownPayment(false)
 
     const handleOpenSizeRange = () => setOpenSizeRange(true)
     const handleCloseSizeRange = () => setOpenSizeRange(false)
-    
+    // console.log('my plot price',plotPrice)
+    // console.log('value text',valuetext)
+
    const handlePriceChange = (event, newValue) =>{
-      setPlotPrice(newValue);
-      // setMaxPrice(newValue)
+    //  console.log(newValue)
+     setPlotPrice(newValue);
+      dispatch(
+         getPriceRangesFromFilter({
+            priceLowRange: newValue[0],
+            priceHighRange: newValue[1]
+           })
+      )
+
+      // console.log('pricerange...bmk',store.userPanel.priceRanges.priceHighRange)
     }
+  // area change handling
+   const handleAreaChange = (event,newValue) => {
+          setAreaRange(newValue);
+
+          dispatch(
+            getAreaRanges({
+              areaRange: newValue
+            }),
+            // console.log(areaRange)
+          )
+   }
+   const handleDownPaymentChange = (e) => {
+        setDownPaymentAmount(e.target.value);
+        // console.log('hello...',downPaymentAmount)
+        dispatch(
+          getDownPaymentAmount({
+            downPaymentAmount: e.target.value
+          }),
+          // console.log(areaRange)
+        )
+   }
 
   return (
     <div className='rent__details__filter'>
         {/* <div className='rent__details__title'>Properties for Rent in Islamabad</div> */}
 
-        <Col md={8} className="mt-1 mb-1">
-            <Button outline style={{height: 'max-content', padding: 6, paddingLeft: 9, paddingRight: 9}}
+        <Box  className="mt-1 mb-1 col-md-6">
+            {/* <Button outline style={{height: 'max-content', padding: 6, paddingLeft: 9, paddingRight: 9}}
             onClick={handleOpenArea}
             >
                 Area
                 <ArrowDropDownIcon />
             
-            </Button>
+            </Button> */}
 
             <Button outline style={{height: 'max-content', padding: 6, paddingLeft: 9, paddingRight: 9}} className="mx-1"
             onClick={handleOpenPrice}
@@ -135,12 +193,12 @@ const Filter = () => {
             </Button>
 
             <Button outline style={{height: 'max-content', padding: 6, paddingLeft: 9, paddingRight: 9}} className="mx-1"
-            onClick={handleOpenBedroom}
+            onClick={handleOpenDownPaymentAmount}
             >
-                Bedrooms
+                Down Payment Amount
                 <ArrowDropDownIcon />
             </Button>
-        </Col>
+        </Box>
 
         {/* Area Modal */}
         <Modal
@@ -177,15 +235,14 @@ const Filter = () => {
           <Label >Choose your price Range(PKR)</Label>
             <Slider
             aria-label="Always visible"
-            // defaultValue={200000}
+            defaultValue={1000000}
             value={plotPrice}
             // value={maxPrice}
             max={1000000}
             getAriaValueText={valuetext}
             step={200000}
             marks={marks}
-            onChange={handlePriceChange}
-            
+            onChange={ handlePriceChange }            
             />
 
             <Row className='d-flex justify-content-around mt-2'>
@@ -201,37 +258,17 @@ const Filter = () => {
             
             </Row>
 
-          <Row className="d-flex">
+          {/* <Row className="d-flex">
             <Col md={3} className="mt-1">
                 <Button color='primary' onClick={handleClosePrice} >Apply</Button>
             </Col>
-          </Row>
+          </Row> */}
         </Box>
       </Modal>
-
-      {/* Bedrooms Modal */}
-      <Modal
-        open={openBedroom}
-        onClose={handleCloseBedroom}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        >
-        <Box sx={style}>
-          <Label>Enter Number of Bedrooms</Label>
-          <Input type="text" />
-
-          <Row className="d-flex">
-            <Col md={3} className="mt-1">
-                <Button color='primary' onClick={handleCloseBedroom}>Submit</Button>
-            </Col>
-          </Row>
-        </Box>
-      </Modal>
-
       {/* Size Range Modal */}
       <Modal
         open={openSizeRange}
-        onClose={handleOpenSizeRange}
+        onClose={handleCloseSizeRange}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         >
@@ -239,31 +276,49 @@ const Filter = () => {
           <Label>Choose Size Range(Sq.Ft)</Label>
             <Slider
             aria-label="Always visible"
-            defaultValue={200}
-            max={1000}
-            getAriaValueText={valueStext}
-            step={200}
-            marks={smarks}
+            defaultValue={0}
+            value={areaRange}
+            max={3300}
+            getAriaValueText={valueAreaText}
+            step={300}
+            marks={areaMarks}
+            onChange={handleAreaChange}
             />
 
             <Row className='d-flex justify-content-around mt-2'>
             <Col md={4}>
-                <Input type="text" placeholder='From' />
+                <Input type="text" placeholder='From' value={0}/>
             </Col>
 
             <Col md={4}>
-                <Input type="text" placeholder='To' />
+                <Input type="text" placeholder='To' value={areaRange}/>
             </Col>
             
             </Row>
 
+        </Box>
+      </Modal>
+
+      {/* downpayment Modal */}
+      <Modal
+        open={openDownPayment}
+        onClose={handleCloseDownPaymentAmount}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        >
+        <Box sx={style}>
+          <Label>Enter DownPayment Amount</Label>
+          <Input type="number" onChange={handleDownPaymentChange} />
+
           <Row className="d-flex">
             <Col md={3} className="mt-1">
-                <Button color='primary' onClick={handleCloseSizeRange}>Apply</Button>
+                <Button color='primary' onClick={handleCloseDownPaymentAmount}>Apply Filter</Button>
             </Col>
           </Row>
         </Box>
       </Modal>
+
+      
     </div>
   )
 }

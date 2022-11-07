@@ -7,6 +7,7 @@ import BedIcon from '@mui/icons-material/Bed'
 import BathtubIcon from '@mui/icons-material/Bathtub'
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { ArrowBack, ArrowCircleLeft, ArrowCircleRight } from "@mui/icons-material";
@@ -14,7 +15,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { Box, styled, Typography, Button, Divider } from '@mui/material';
-import { identity } from '@fullcalendar/core'
+import { identity } from '@fullcalendar/core';
+// import store from '../../../adminPortal/redux/addNewProject/store'
 
 
 const Image = styled('img')({
@@ -33,7 +35,8 @@ const Text = styled(Typography)`
  
 
 const Body = ({city,residentialType}) => {
- 
+   
+
   const [category, setCategory] = useState('');
   const [newLaunchedRates, setNewLaunchedRates] = useState('');
   const history = useHistory();
@@ -44,7 +47,6 @@ const Body = ({city,residentialType}) => {
     (id) =>
       ({ getItemById, scrollToItem }) => {
         const itemSelected = isItemSelected(id);
-
         setSelected((currentSelected) =>
           itemSelected
             ? currentSelected.filter((el) => el !== id)
@@ -119,10 +121,14 @@ const Body = ({city,residentialType}) => {
                 // title='Property Name will be here...'
                 key={id}
                 image={data.image}
-                countRent={data.countRent}
-                countSale={data.countSale}
+                // countRent={data.countRent}
+                // countSale={data.countSale}
                 city={data.city}
                 location={data.location}
+                priceLowRange={data.priceLowRange}
+                priceHighRange={data.priceHighRange}
+                area={data.area}
+                downPaymentAmount={data.downPaymentAmount}
                 onClick={handleClick(id)}
                 selected={isItemSelected(id)}
                 history={history}
@@ -166,18 +172,21 @@ function RightArrow() {
   );
 }
 
-function Card({ onClick, selected, title, itemId, history, city, location, image, countRent, countSale, res_Type , residentialType}) {
+function Card({ onClick, selected, title, itemId, history,downPaymentAmount, city,area, location, image, res_Type , residentialType, priceLowRange, priceHighRange}) {
+  const store = useSelector(state => state.addNewProject)
+  const dispatch = useDispatch()
   const visibility = React.useContext(VisibilityContext);
-   
+  //  console.log('priceLowrange, priceHighrange', priceLowRange,priceHighRange)
+  //  console.log('store wala: priceLowrange, priceHighrange', store.userPanel)
+  console.log('downpayment from store',store.userPanel.downPaymentAmount)
   return (
     <div className="card col-md-4 col-sm-8" style={{
       cursor: 'pointer',
       width: 220,
       // height: 400,
       margin: '15px 10px',
-      display: residentialType === '' ? '' : (residentialType === res_Type ? '' : 'none')
-    }} >
-
+      display: residentialType === '' ? '' : ((residentialType === res_Type && priceLowRange >= store.userPanel?.priceRanges.priceLowRange && priceHighRange <= store.userPanel?.priceRanges.priceHighRange && area >= 0 && area <= store.userPanel.areaRange && downPaymentAmount >=0 && downPaymentAmount <= store.userPanel.downPaymentAmount) ? '' : 'none')
+    }}>
       <Image onClick={() => {
         console.log('Clicked')
         history.push({
@@ -213,9 +222,10 @@ function Card({ onClick, selected, title, itemId, history, city, location, image
                 <p>{location}</p> */}
                 <p style={{margin: 0}}>{city}</p>
                 <p style={{margin: 0}}>{location}</p>
-                <ul style={{listStyleType: 'none', display: 'flex',flexDirection:'column', justifyContent: 'start'}}>
-                  <li>OnRent {countRent}</li>
-                  <li>OnSale {countSale}</li>
+                <ul style={{listStyleType: 'none',fontFamily: 'cursive',fontSize:11, display: 'flex',flexDirection:'column', justifyContent: 'start'}}>
+                  <li>Area: {area}sq.Ft</li>
+                  <li>MinPrice: {priceLowRange}(PKR)</li>
+                  <li>MaxPrice: {priceHighRange}(PKR)</li>
                 </ul>
               </span>
            
