@@ -9,7 +9,7 @@ import RentDetails from '../Pages/RentDetails'
 import { Box, styled, Typography, Divider } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 // import store from '../../adminPortal/redux/addNewProject/store'
-import { getValuesFromUserFilter } from '../../adminPortal/redux/addNewProject/store'
+import { getAllCities, getValuesFromUserFilter } from '../../adminPortal/redux/addNewProject/store'
 
 const getItems = () =>
   Array(20)
@@ -19,7 +19,6 @@ const getItems = () =>
 const Body = () => {
 
   const store = useSelector(state => state.addNewProject)
-
     const dispatch = useDispatch()
     const [city, setCity] = useState(homes)
     const [residentialType, setResidentialType] = useState('')
@@ -122,19 +121,21 @@ const Body = () => {
   return (
     <div className='user__body'>
         <Row className='mt-5'>
-            <div className='body__section__title'>Top Cities</div>
+            <div className='body__section__title'>Filters</div>
         </Row>
 
         <Row>
             <Col className='body__section__buttons'>
-            <Button outline onClick={() => setCity(homes)} 
-            style={{backgroundColor: city === 'homes' ? '#0000ff80' : '', 
-            color: city === 'homes' ? '#fff' : '' }}
+            <Button outline onClick={() => 
+              setCity(homes)
+            } 
+            style={{backgroundColor: city === true ? '#0000ff80' : '', 
+            color: city === true ? 'white' : '' }}
             >All Cities</Button>
 
             <Button outline onClick={
               (e) => { 
-                filterResult('Islamabad') 
+                filterResult('Islamabad')
               dispatch(
                 getValuesFromUserFilter(
                  { 
@@ -144,8 +145,8 @@ const Body = () => {
               )
               
             } }
-            style={{backgroundColor: city === 'Islamabad' ? '#0000ff80' : '', 
-            color: city === 'Islamabad' ? '#0000ff80' : ''
+            style={{backgroundColor: store.userPanel.cityName === 'Islamabad' ? '#0000ff80' : '', 
+            color: store.userPanel.cityName === 'Islamabad' ? 'white' : ''
         }}
             >Islamabad</Button>
 
@@ -161,13 +162,13 @@ const Body = () => {
               )
               
             } }
-            style={{backgroundColor: filterResult === 'Peshawar' ? '#0000ff80' : '', 
-            color: filterResult === 'Peshawar' ? '#0000ff80' : ''
+            style={{backgroundColor: store.userPanel.cityName === 'Peshawar' ? '#0000ff80' : '', 
+            color: store.userPanel.cityName === 'Peshawar' ? 'white' : ''
         }}
             >Peshawar</Button>
             <Button outline onClick={
               (e) => { 
-                filterResult('Rawalpindi') 
+                filterResult('Rawalpindi')
               dispatch(
                 getValuesFromUserFilter(
                  { 
@@ -176,25 +177,26 @@ const Body = () => {
                 )
               )
             } }
-            style={{backgroundColor: city === 'Rawalpindi' ? '#0000ff80' : '', 
-            color: city === 'Rawalpindi' ? '#fff' : ''
+            style={{backgroundColor: store.userPanel.cityName === 'Rawalpindi' ? '#0000ff80' : '', 
+            color: store.userPanel.cityName === 'Rawalpindi' ? 'white' : ''
         }}
             >Rawalpindi</Button>
 
             <Button outline onClick={
               (e) => { 
-                filterResult('Lahore') 
+                filterResult('Lahore'),
               dispatch(
                 getValuesFromUserFilter(
                  { 
                   cityName: 'Lahore'
                 }
-                )
+                ),
+                
               )
               
             } }
-            style={{backgroundColor: city === 'Lahore' ? '#0000ff80' : '', 
-            color: city === 'Lahore' ? '#fff' : ''
+            style={{backgroundColor: store.userPanel.cityName === 'Lahore' ? '#0000ff80' : '', 
+            color: store.userPanel.cityName === 'Lahore' ? 'white' : ''
         }}
             >Lahore</Button>
             </Col>
@@ -202,10 +204,10 @@ const Body = () => {
         {/* types */}
         <Box className='row '>
         <Box className='body__section__buttons col'>
-            {/* <Button outline onClick={() => setResidentialType(homes)} 
+            <Button outline onClick={() => setResidentialType('AllResidentialTypes')} 
             style={{backgroundColor: residentialType === 'homes' ? '#0000ff80' : '', 
             color: residentialType === 'homes' ? '#fff' : '' }}
-            >All Types</Button> */}
+            >All Types</Button>
 
             <Button outline onClick={() => setResidentialType('foodCourt')} 
             style={{backgroundColor: residentialType === 'foodCourt' ? '#0000ff80' : '', 

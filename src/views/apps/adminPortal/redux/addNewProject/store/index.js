@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as actions from './ActionTypes'
 import moment from 'moment'
+import { boolean } from 'yup/lib/locale'
 //a simple date formatting function
 const dateFormat = (inputDate, format) => {
   //parse the input date
@@ -38,7 +39,10 @@ export const addProjectSlice = createSlice({
         priceHighRange: 0
        },
        areaRange: 0,
-       downPaymentAmount: 0
+       downPaymentAmount: 0,
+       approvalStatus: boolean,
+       installmentPerMonth: 0,
+       projectDuration: 0,
     },
     projectData: {
       // cityName: 'hariskhan..',
@@ -420,6 +424,36 @@ export const addProjectSlice = createSlice({
      
    },
   }
+},
+ getStatus: (state = initialState, action) => {
+  return {
+   ...state,
+   userPanel:{
+     ...state.userPanel,
+     approvalStatus: action.payload.approvalStatus
+     
+   },
+  }
+},
+ getInstallmentPerMonth:  (state = initialState, action) => {
+  return {
+   ...state,
+   userPanel:{
+     ...state.userPanel,
+     installmentPerMonth: action.payload.installmentPerMonth
+     
+   },
+  }
+},
+  getProjectDuration:(state = initialState, action) => {
+  return {
+   ...state,
+   userPanel:{
+     ...state.userPanel,
+     projectDuration: action.payload.projectDuration
+     
+   },
+  }
 }
     
   }
@@ -438,6 +472,9 @@ export const {
   getValuesFromUserFilter,
   getPriceRangesFromFilter,
   getAreaRanges,
-  getDownPaymentAmount
+  getDownPaymentAmount,
+  getStatus,
+  getInstallmentPerMonth,
+  getProjectDuration
 } = addProjectSlice.actions
 export default addProjectSlice.reducer

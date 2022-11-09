@@ -84,7 +84,7 @@ const Body = ({city,residentialType}) => {
           }}>
 
             <Box>
-            <Box className='' style={{marginBottom: 8, marginLeft: 5}}> {`${city[0]?.city} > ${residentialType}  `} </Box>
+            <Box className='' style={{marginBottom: 8, marginLeft: 5}}> {`${ city[0]?.city} > ${residentialType}  `} </Box>
               <HomeOutlinedIcon style={{
                 color: 'black',
                 size: "medium",
@@ -129,6 +129,9 @@ const Body = ({city,residentialType}) => {
                 priceHighRange={data.priceHighRange}
                 area={data.area}
                 downPaymentAmount={data.downPaymentAmount}
+                approvalStatus={data.approvalStatus}
+                installmentPerMonth={data.installmentPerMonth}
+                projectDuration = {data.projectDuration}
                 onClick={handleClick(id)}
                 selected={isItemSelected(id)}
                 history={history}
@@ -172,20 +175,37 @@ function RightArrow() {
   );
 }
 
-function Card({ onClick, selected, title, itemId, history,downPaymentAmount, city,area, location, image, res_Type , residentialType, priceLowRange, priceHighRange}) {
+function Card({ onClick, selected, title, itemId, history,downPaymentAmount
+  ,installmentPerMonth,approvalStatus, city,area, location, image, res_Type , 
+  residentialType, priceLowRange, priceHighRange, projectDuration }) {
   const store = useSelector(state => state.addNewProject)
   const dispatch = useDispatch()
   const visibility = React.useContext(VisibilityContext);
   //  console.log('priceLowrange, priceHighrange', priceLowRange,priceHighRange)
   //  console.log('store wala: priceLowrange, priceHighrange', store.userPanel)
-  console.log('downpayment from store',store.userPanel.downPaymentAmount)
+  // console.log('pricehighrange from store',store.userPanel.priceRanges.priceHighRange)
   return (
     <div className="card col-md-4 col-sm-8" style={{
       cursor: 'pointer',
       width: 220,
       // height: 400,
       margin: '15px 10px',
-      display: residentialType === '' ? '' : ((residentialType === res_Type && priceLowRange >= store.userPanel?.priceRanges.priceLowRange && priceHighRange <= store.userPanel?.priceRanges.priceHighRange && area >= 0 && area <= store.userPanel.areaRange && downPaymentAmount >=0 && downPaymentAmount <= store.userPanel.downPaymentAmount) ? '' : 'none')
+      display: residentialType === '' ? 
+      (((residentialType === res_Type || residentialType === '' ) && 
+     (priceLowRange >= store.userPanel?.priceRanges.priceLowRange && priceHighRange <= store.userPanel?.priceRanges.priceHighRange) &&
+      (area >= 0 && area <= store.userPanel.areaRange) && 
+      (downPaymentAmount >= 0 && downPaymentAmount <= store.userPanel.downPaymentAmount) &&
+      (approvalStatus === store.userPanel.approvalStatus) && 
+      (installmentPerMonth >= 0 && installmentPerMonth <= store.userPanel.installmentPerMonth) && 
+       (projectDuration >= 1  && projectDuration <= store.userPanel.projectDuration )) ? '' : 'none')
+      : 
+     (((residentialType === res_Type || residentialType === 'AllResidentialTypes') && 
+     (priceLowRange >= store.userPanel?.priceRanges.priceLowRange && priceHighRange <= store.userPanel?.priceRanges.priceHighRange) &&
+      (area >= 0 && area <= store.userPanel.areaRange) && 
+      (downPaymentAmount >= 0 && downPaymentAmount <= store.userPanel.downPaymentAmount) &&
+      (approvalStatus === store.userPanel.approvalStatus) && 
+      (installmentPerMonth >= 0 && installmentPerMonth <= store.userPanel.installmentPerMonth) && 
+       (projectDuration >= 1  && projectDuration <= store.userPanel.projectDuration ) ) ? '' : 'none')
     }}>
       <Image onClick={() => {
         console.log('Clicked')
