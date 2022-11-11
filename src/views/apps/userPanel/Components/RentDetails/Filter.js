@@ -343,11 +343,11 @@ const Filter = () => {
 }
 
   return (
-    <div className='rent__details__filter'>
+    <div className='rent__details__filter '>
         {/* <div className='rent__details__title'>Properties for Rent in Islamabad</div> */}
-        <Box className=' row'>
-        <Box  className=' ' style={{margin: 4}}>
-            {/* <Button outline style={{height: 'max-content', padding: 12, margin: 4, paddingLeft: 9, paddingRight: 9}}
+        <Box className='' >
+        <Box  className='row ' style={{}}>
+            {/* <Button outline style={{height: 'max-content', padding: 8,color:'white', margin: 4, paddingLeft: 9, paddingRight: 9}}
             onClick={handleOpenArea}
             >
                 Area
@@ -355,43 +355,42 @@ const Filter = () => {
             
             </Button> */}
 
-            <Button  outline style={{borderStyle: 'none' ,height: 'max-content', padding: 12, margin: 4, paddingLeft: 9, paddingRight: 9}} 
+            <Button className=' col-md-3 col-sm-5 col-lg-2 col-10'  outline style={{borderStyle: 'none' ,height: 'max-content',fontSize: 12, padding: 8, margin: 4, }} 
             onClick={handleOpenPrice}
             >
                 Price Range
                 {/* <ArrowDropDownIcon /> */}
             </Button>
 
-            <Button   outline style={{height: 'max-content', padding: 12, margin: 4, paddingLeft: 9, paddingRight: 9}}
+            <Button className=' col-md-3 col-sm-5 col-lg-2 col-10 '   outline style={{height: 'max-content',fontSize: 12, padding: 8, margin: 4, }}
             onClick={handleOpenSizeRange}
             >
                 Area Range
-                {/* <ArrowDropDownIcon /> */}
             </Button>
 
-            <Button   outline style={{height: 'max-content', padding: 12, margin: 4, paddingLeft: 9, paddingRight: 9}}
+            <Button className=' col-md-3 col-sm-5 col-lg-2 col-10'   outline style={{height: 'max-content',fontSize: 12, padding: 8, margin: 4, }}
             onClick={handleOpenDownPaymentAmount}
             >Down Payment Amount
             </Button>
-            <Button   outline style={{height: 'max-content', padding: 12, margin: 4, paddingLeft: 9, paddingRight: 9}}
+            <Button className=' col-md-3 col-sm-5 col-lg-2 col-10'   outline style={{height: 'max-content',fontSize: 12, padding: 8, margin: 4, }}
             onClick={handleOpenInstallmentPerMonth}
             >
                 installment Per Month
             </Button>
 
              {/* project duration */}
-             <Button   outline style={{height: 'max-content', padding: 12, margin: 4, paddingLeft: 9, paddingRight: 9}}
+             <Button className=' col-md-3 col-sm-5 col-lg-2 col-10'   outline style={{height: 'max-content',fontSize: 12, padding: 8, margin: 4, }}
             onClick={handleOpenProjectDuration}
             > Project Duration
             </Button>
 
             {/* approval status */}
-            <Button outline style={{   margin: 4, border: 'none'}} className=' ' >
-                    <Box className='d-flex '>
+            <Button outline style={{ height: 'max-content', fontSize: 12,  margin: 4, }} className=' col-md-3 col-sm-5 col-lg-2 col-10' >
+                    <Box className='' style={{}}>
                         <Typography className='' style={{marginRight: 10}}>Approved</Typography> 
-                      <Box className='form-switch form-check-primary' >
+                      <Box className='form-switch form-check-primary'>
                         <Input
-                        
+                          style={{cursor: 'pointer', }}
                           type='switch'
                           id='icon-primary2'
                           name='icon-primary2'
@@ -400,10 +399,10 @@ const Filter = () => {
                           }
                           onChange={handleApprovalStatus}
                         />
-                        <CustomLabel htmlFor='icon-primary2' />
+                        {/* <CustomLabel htmlFor='icon-primary2' /> */}
                       </Box>
                     </Box>
-                  </Button>
+            </Button>
                  
           </Box>
         </Box>

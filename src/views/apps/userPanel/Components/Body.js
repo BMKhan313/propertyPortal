@@ -124,16 +124,23 @@ const Body = () => {
             <div className='body__section__title'>Filters</div>
         </Row>
 
-        <Row>
-            <Col className='body__section__buttons'>
-            <Button outline onClick={() => 
+        <Box className=''>
+            <Box className='row body__section__buttons'>
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={() => 
               setCity(homes)
             } 
             style={{backgroundColor: city === true ? '#0000ff80' : '', 
-            color: city === true ? 'white' : '' }}
+            color: city === true ? 'white' : '',
+            fontSize: 12, 
+            padding: 8
+          }}
             >All Cities</Button>
 
-            <Button outline onClick={
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+             outline onClick={
               (e) => { 
                 filterResult('Islamabad')
               dispatch(
@@ -146,11 +153,15 @@ const Body = () => {
               
             } }
             style={{backgroundColor: store.userPanel.cityName === 'Islamabad' ? '#0000ff80' : '', 
-            color: store.userPanel.cityName === 'Islamabad' ? 'white' : ''
+            color: store.userPanel.cityName === 'Islamabad' ? 'white' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Islamabad</Button>
 
-            <Button outline onClick={
+            <Button
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={
               (e) => { 
                 filterResult('Peshawar') 
               dispatch(
@@ -163,10 +174,14 @@ const Body = () => {
               
             } }
             style={{backgroundColor: store.userPanel.cityName === 'Peshawar' ? '#0000ff80' : '', 
-            color: store.userPanel.cityName === 'Peshawar' ? 'white' : ''
+            color: store.userPanel.cityName === 'Peshawar' ? 'white' : '',
+            fontSize: 12, 
+            padding: 8
         }}
             >Peshawar</Button>
-            <Button outline onClick={
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={
               (e) => { 
                 filterResult('Rawalpindi')
               dispatch(
@@ -178,11 +193,15 @@ const Body = () => {
               )
             } }
             style={{backgroundColor: store.userPanel.cityName === 'Rawalpindi' ? '#0000ff80' : '', 
-            color: store.userPanel.cityName === 'Rawalpindi' ? 'white' : ''
+            color: store.userPanel.cityName === 'Rawalpindi' ? 'white' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Rawalpindi</Button>
 
-            <Button outline onClick={
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={
               (e) => { 
                 filterResult('Lahore'),
               dispatch(
@@ -196,50 +215,101 @@ const Body = () => {
               
             } }
             style={{backgroundColor: store.userPanel.cityName === 'Lahore' ? '#0000ff80' : '', 
-            color: store.userPanel.cityName === 'Lahore' ? 'white' : ''
+            color: store.userPanel.cityName === 'Lahore' ? 'white' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Lahore</Button>
-            </Col>
-        </Row>
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={
+              (e) => { 
+                filterResult('Karachi'),
+              dispatch(
+                getValuesFromUserFilter(
+                 { 
+                  cityName: 'Karachi'
+                }
+                ),
+                
+              )
+              
+            } } 
+            style={{backgroundColor: store.userPanel.cityName === 'Karachi' ? '#0000ff80' : '', 
+            color: store.userPanel.cityName === 'Karachi' ? 'white' : '',
+            fontSize: 12,
+            padding: 8
+        }}
+            >Karachi</Button>
+            </Box>
+        </Box>
         {/* types */}
-        <Box className='row '>
-        <Box className='body__section__buttons col'>
-            <Button outline onClick={() => setResidentialType('AllResidentialTypes')} 
+        <Box className=''>
+        <Box className='body__section__buttons row'>
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={() => setResidentialType('AllResidentialTypes')} 
             style={{backgroundColor: residentialType === 'homes' ? '#0000ff80' : '', 
-            color: residentialType === 'homes' ? '#fff' : '' }}
+            color: residentialType === 'homes' ? '#fff' : '',
+            fontSize: 12,
+            padding: 8 }}
             >All Types</Button>
 
-            <Button outline onClick={() => setResidentialType('foodCourt')} 
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={() => setResidentialType('foodCourt')} 
             style={{backgroundColor: residentialType === 'foodCourt' ? '#0000ff80' : '', 
-            color: residentialType === 'foodCourt' ? '#fff' : ''
+            color: residentialType === 'foodCourt' ? '#fff' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Food Court</Button>
-            <Button outline onClick={() => setResidentialType('Apartment')}
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={() => setResidentialType('Apartment')}
             style={{backgroundColor: residentialType === 'Apartment' ? '#0000ff80' : '', 
-            color: residentialType === 'Apartment' ? '#fff' : ''
+            color: residentialType === 'Apartment' ? '#fff' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Apartment</Button>
-            <Button outline onClick={() => {
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-2'
+            outline onClick={() => {
               setResidentialType('serviceApartment')
             }}
             style={{backgroundColor: residentialType === 'serviceApartment' ? '#0000ff80' : '', 
-            color: residentialType === 'serviceApartment' ? '#fff' : ''
+            color: residentialType === 'serviceApartment' ? '#fff' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Service Apartment</Button>
-            <Button outline onClick={() => setResidentialType('Shop')}
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-1'
+            outline onClick={() => setResidentialType('Shop')}
             style={{backgroundColor: residentialType === 'Shop' ? '#0000ff80' : '', 
-            color: residentialType === 'Shop' ? '#fff' : ''
+            color: residentialType === 'Shop' ? '#fff' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Shop</Button>
 
-            <Button outline onClick={() => setResidentialType('hotelSuite')}
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-2'
+            outline onClick={() => setResidentialType('hotelSuite')}
             style={{backgroundColor: residentialType === 'hotelSuite' ? '#0000ff80' : '', 
-            color: residentialType === 'hotelSuite' ? '#fff' : ''
+            color: residentialType === 'hotelSuite' ? '#fff' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Hotel Suites</Button>
-            <Button outline onClick={() => setResidentialType('corporateOffice')}
+            <Button 
+            className='col-5 col-md-3 col-sm-4 col-lg-2'
+            outline onClick={() => setResidentialType('corporateOffice')}
             style={{backgroundColor: residentialType === 'corporateOffice' ? '#0000ff80' : '', 
-            color: residentialType === 'corporateOffice' ? '#fff' : ''
+            color: residentialType === 'corporateOffice' ? '#fff' : '',
+            fontSize: 12,
+            padding: 8
         }}
             >Carporate Office</Button>
             </Box>

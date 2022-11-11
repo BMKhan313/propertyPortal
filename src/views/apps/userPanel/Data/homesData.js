@@ -255,6 +255,24 @@ export const homes = [
         downPaymentAmount: 600000,
         area: 700
     },
+    {
+        id: 99,
+        city: 'Karachi',
+        location: 'Gulshan Iqbal',
+        // countRent: 61,
+        // countSale: 223,
+        residentialType: 'foodCourt',
+        image: house11,
+        priceLowRange: 300000,
+        priceHighRange: 600000,
+        a: 0,
+        projectDuration: 8,
+        AllCities: true,
+        installmentPerMonth: 400000,
+        approvalStatus: true,
+        downPaymentAmount: 700000,
+        area: 800
+    }
 
 
 ]
